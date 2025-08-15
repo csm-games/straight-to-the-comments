@@ -579,7 +579,7 @@
             
             <h3>🎮 How to Play:</h3>
             <ul>
-                <li>Choose your comment style (Hypebeast, Jokester, Roaster, Critic, or Hater)</li>
+                <li>Choose your comment style (Hypebeast, Supporter, Jokester, Roaster, Critic, or Hater)</li>
                 <li>Pick from 3 specific comment options</li>
                 <li>Play 5 rounds per post (15 total rounds)</li>
                 <li>Your likes accumulate across all posts</li>
@@ -660,6 +660,7 @@
         <div class="choice-title">Choose your comment style:</div>
         <div class="choices">
             <button class="choice-btn" data-type="hypebeast" onclick="game.selectCommentType('hypebeast')">🧢 <strong>Hypebeast</strong> - Over-the-top positive</button>
+            <button class="choice-btn" data-type="supporter" onclick="game.selectCommentType('supporter')">💙 <strong>Supporter</strong> - Just a nice comment</button>
             <button class="choice-btn" data-type="jokester" onclick="game.selectCommentType('jokester')">😄 <strong>Jokester</strong> - Playful, risky humor</button>
             <button class="choice-btn" data-type="roaster" onclick="game.selectCommentType('roaster')">🔥 <strong>Roaster</strong> - Harsh sarcasm</button>
             <button class="choice-btn" data-type="critic" onclick="game.selectCommentType('critic')">🧐 <strong>Critic</strong> - Constructive feedback</button>
@@ -752,6 +753,7 @@
 
                 this.responses = {
                     hypebeast: {
+                        // Post 1: Art
                         0: { // Round 1 - Art
                             options: [
                                 { text: "OMG YASSS QUEEN!!! This artwork is EVERYTHING! 🔥🔥🔥 You're literally perfect!", likes: 15, score: 2 },
@@ -785,6 +787,188 @@
                                 { text: "The creativity is UNSTOPPABLE! You're absolutely INCREDIBLE! 🔥💖", likes: 55, score: 2 },
                                 { text: "This is pure MAGIC! You're the definition of talent! ✨👑", likes: 105, score: 2 },
                                 { text: "LEGENDARY! ICONIC! You're absolutely PERFECT! 🐐🌟", likes: 200, score: 2 }
+                            ]
+                        },
+                        // Post 2: Graduation
+                        5: { // Round 1 - Graduation
+                            options: [
+                                { text: "OMG CONGRATULATIONS!!! 🎓✨ You absolutely deserve this! So proud of you!", likes: 45, score: 2 },
+                                { text: "YASSS QUEEN! Your hard work paid off! This is just the beginning! 🚀💖", likes: 85, score: 2 },
+                                { text: "ICONIC! LEGENDARY! You're going to do amazing things! 🏆👑", likes: 120, score: 2 }
+                            ]
+                        },
+                        6: { // Round 2 - Graduation
+                            options: [
+                                { text: "STOP IT RIGHT NOW! This achievement is giving me LIFE! 💀✨ You're absolutely SLAYING!", likes: 55, score: 2 },
+                                { text: "I'm literally SCREAMING! This is the success I signed up for! 🔥👏", likes: 95, score: 2 },
+                                { text: "QUEEN BEHAVIOR! This is why you're the moment! Period! 💅👑", likes: 140, score: 2 }
+                            ]
+                        },
+                        7: { // Round 3 - Graduation
+                            options: [
+                                { text: "I CANNOT EVEN! This success is pure PERFECTION! 😭🔥 You're literally everything!", likes: 65, score: 2 },
+                                { text: "This is the definition of EXCELLENCE! You're absolutely INCREDIBLE! 🌟💖", likes: 105, score: 2 },
+                                { text: "LEGENDARY! ICONIC! SHOW-STOPPING! You're the blueprint! 🐐✨", likes: 160, score: 2 }
+                            ]
+                        },
+                        8: { // Round 4 - Graduation
+                            options: [
+                                { text: "The success is UNMATCHED! You're absolutely INCREDIBLE! 🔥👑", likes: 75, score: 2 },
+                                { text: "This is pure PERFECTION! You're the definition of excellence! ✨💖", likes: 115, score: 2 },
+                                { text: "ICONIC! LEGENDARY! You're absolutely EVERYTHING! 🐐🌟", likes: 180, score: 2 }
+                            ]
+                        },
+                        9: { // Round 5 - Graduation
+                            options: [
+                                { text: "The achievement is UNSTOPPABLE! You're absolutely INCREDIBLE! 🔥💖", likes: 85, score: 2 },
+                                { text: "This is pure MAGIC! You're the definition of success! ✨👑", likes: 125, score: 2 },
+                                { text: "LEGENDARY! ICONIC! You're absolutely PERFECT! 🐐🌟", likes: 200, score: 2 }
+                            ]
+                        },
+                        // Post 3: Family
+                        10: { // Round 1 - Family
+                            options: [
+                                { text: "OMG THIS IS THE SWEETEST THING EVER!!! 👨‍👩‍👧‍👦✨ Your family is beautiful!", likes: 35, score: 2 },
+                                { text: "YASSS! Family goals! This made my heart so happy! Love this energy! ❤️✨", likes: 65, score: 2 },
+                                { text: "ICONIC! LEGENDARY! The love in this photo is everything! 🏆👑", likes: 95, score: 2 }
+                            ]
+                        },
+                        11: { // Round 2 - Family
+                            options: [
+                                { text: "STOP IT RIGHT NOW! This family is giving me LIFE! 💀✨ You're absolutely blessed!", likes: 45, score: 2 },
+                                { text: "I'm literally SCREAMING! This is the love I signed up for! 🔥👏", likes: 75, score: 2 },
+                                { text: "QUEEN BEHAVIOR! This is why you're the moment! Period! 💅👑", likes: 105, score: 2 }
+                            ]
+                        },
+                        12: { // Round 3 - Family
+                            options: [
+                                { text: "I CANNOT EVEN! This family is pure PERFECTION! 😭🔥 You're literally everything!", likes: 55, score: 2 },
+                                { text: "This is the definition of LOVE! You're absolutely INCREDIBLE! 🌟💖", likes: 85, score: 2 },
+                                { text: "LEGENDARY! ICONIC! SHOW-STOPPING! You're the blueprint! 🐐✨", likes: 115, score: 2 }
+                            ]
+                        },
+                        13: { // Round 4 - Family
+                            options: [
+                                { text: "The family is UNMATCHED! You're absolutely INCREDIBLE! 🔥👑", likes: 65, score: 2 },
+                                { text: "This is pure PERFECTION! You're the definition of love! ✨💖", likes: 95, score: 2 },
+                                { text: "ICONIC! LEGENDARY! You're absolutely EVERYTHING! 🐐🌟", likes: 125, score: 2 }
+                            ]
+                        },
+                        14: { // Round 5 - Family
+                            options: [
+                                { text: "The love is UNSTOPPABLE! You're absolutely INCREDIBLE! 🔥💖", likes: 75, score: 2 },
+                                { text: "This is pure MAGIC! You're the definition of family! ✨👑", likes: 105, score: 2 },
+                                { text: "LEGENDARY! ICONIC! You're absolutely PERFECT! 🐐🌟", likes: 135, score: 2 }
+                            ]
+                        }
+                    },
+                    supporter: {
+                        // Post 1: Art
+                        0: { // Round 1 - Art
+                            options: [
+                                { text: "This is really beautiful! Love the colors and composition 😊", likes: 12, score: 1 },
+                                { text: "Great work! You have such a unique style", likes: 18, score: 1 },
+                                { text: "This is lovely! Keep creating! ✨", likes: 22, score: 1 }
+                            ]
+                        },
+                        1: { // Round 2 - Art
+                            options: [
+                                { text: "Your art always brightens my day! Thank you for sharing 🌟", likes: 15, score: 1 },
+                                { text: "This is wonderful! I can see the effort you put into it", likes: 20, score: 1 },
+                                { text: "Beautiful piece! You're really talented", likes: 25, score: 1 }
+                            ]
+                        },
+                        2: { // Round 3 - Art
+                            options: [
+                                { text: "I love seeing your creative process! This is amazing", likes: 18, score: 1 },
+                                { text: "Your artwork is so inspiring! Keep it up! 💫", likes: 23, score: 1 },
+                                { text: "This is gorgeous! You have a real gift", likes: 28, score: 1 }
+                            ]
+                        },
+                        3: { // Round 4 - Art
+                            options: [
+                                { text: "Your art brings so much joy! Thank you for sharing your talent", likes: 20, score: 1 },
+                                { text: "This is stunning! I'm always excited to see your new pieces", likes: 25, score: 1 },
+                                { text: "Beautiful work! You're making the world more beautiful", likes: 30, score: 1 }
+                            ]
+                        },
+                        4: { // Round 5 - Art
+                            options: [
+                                { text: "Your creativity is a gift to us all! Thank you for sharing", likes: 22, score: 1 },
+                                { text: "This is absolutely lovely! You're so talented", likes: 27, score: 1 },
+                                { text: "Your art makes me smile! Keep creating beautiful things", likes: 32, score: 1 }
+                            ]
+                        },
+                        // Post 2: Graduation
+                        5: { // Round 1 - Graduation
+                            options: [
+                                { text: "Congratulations! This is such a huge achievement 🎓", likes: 35, score: 1 },
+                                { text: "You worked so hard for this! Well done!", likes: 42, score: 1 },
+                                { text: "This is amazing! You should be so proud of yourself", likes: 38, score: 1 }
+                            ]
+                        },
+                        6: { // Round 2 - Graduation
+                            options: [
+                                { text: "Your dedication really paid off! Congratulations!", likes: 40, score: 1 },
+                                { text: "This is wonderful news! You deserve this success", likes: 45, score: 1 },
+                                { text: "So happy for you! This is just the beginning", likes: 48, score: 1 }
+                            ]
+                        },
+                        7: { // Round 3 - Graduation
+                            options: [
+                                { text: "You've accomplished something incredible! Well done", likes: 43, score: 1 },
+                                { text: "This is such a proud moment! Congratulations!", likes: 47, score: 1 },
+                                { text: "Your future is so bright! You've earned this", likes: 50, score: 1 }
+                            ]
+                        },
+                        8: { // Round 4 - Graduation
+                            options: [
+                                { text: "You've made everyone proud! This is fantastic", likes: 45, score: 1 },
+                                { text: "Your hard work and determination are inspiring!", likes: 49, score: 1 },
+                                { text: "This is a huge milestone! Congratulations!", likes: 52, score: 1 }
+                            ]
+                        },
+                        9: { // Round 5 - Graduation
+                            options: [
+                                { text: "You've achieved something amazing! Well done!", likes: 47, score: 1 },
+                                { text: "This is the result of your dedication! Congratulations", likes: 51, score: 1 },
+                                { text: "You're going to do great things! So proud of you", likes: 54, score: 1 }
+                            ]
+                        },
+                        // Post 3: Family
+                        10: { // Round 1 - Family
+                            options: [
+                                { text: "This is such a beautiful family moment! ❤️", likes: 25, score: 1 },
+                                { text: "Your family looks so happy together", likes: 30, score: 1 },
+                                { text: "This is lovely! Family time is so precious", likes: 28, score: 1 }
+                            ]
+                        },
+                        11: { // Round 2 - Family
+                            options: [
+                                { text: "What a beautiful family you have! 💕", likes: 28, score: 1 },
+                                { text: "This is heartwarming! Thank you for sharing", likes: 32, score: 1 },
+                                { text: "Your family is adorable! Such sweet moments", likes: 35, score: 1 }
+                            ]
+                        },
+                        12: { // Round 3 - Family
+                            options: [
+                                { text: "This is so sweet! Family is everything", likes: 30, score: 1 },
+                                { text: "Your family looks so loving and happy", likes: 34, score: 1 },
+                                { text: "This is beautiful! Cherish these moments", likes: 37, score: 1 }
+                            ]
+                        },
+                        13: { // Round 4 - Family
+                            options: [
+                                { text: "Your family is absolutely precious! 💖", likes: 32, score: 1 },
+                                { text: "This is such a heartwarming photo", likes: 36, score: 1 },
+                                { text: "Your family looks so full of love", likes: 39, score: 1 }
+                            ]
+                        },
+                        14: { // Round 5 - Family
+                            options: [
+                                { text: "This is the sweetest family photo! 💕", likes: 34, score: 1 },
+                                { text: "Your family is beautiful inside and out", likes: 38, score: 1 },
+                                { text: "This is pure love! Thank you for sharing", likes: 41, score: 1 }
                             ]
                         }
                     },
@@ -1026,14 +1210,14 @@
             showCommentOptions(type) {
                 const choicePanel = document.getElementById('choice-panel');
                 const responses = this.responses[type];
-                const currentRound = this.round; // 0, 1, or 2
-                const roundData = responses[currentRound];
+                const globalRound = this.currentPost * this.maxRoundsPerPost + this.round; // Calculate global round number
+                const roundData = responses[globalRound];
                 
                 choicePanel.innerHTML = `
                     <div class="choice-title">Choose your specific comment:</div>
                     <div class="choices">
                         ${roundData.options.map((option, index) => `
-                            <button class="choice-btn" data-index="${index}" onclick="game.makeComment('${type}', ${currentRound}, ${index})">
+                            <button class="choice-btn" data-index="${index}" onclick="game.makeComment('${type}', ${globalRound}, ${index})">
                                 <div style="flex: 1;">
                                     <div>${option.text}</div>
                                 </div>
@@ -1087,7 +1271,7 @@
                 this.updateLikeCounter();
 
                 // Track comment sentiment
-                if (type === 'hypebeast' || type === 'jokester') {
+                if (type === 'hypebeast' || type === 'supporter' || type === 'jokester') {
                     this.supportiveCount++;
                 } else if (type === 'roaster' || type === 'critic' || type === 'hater') {
                     this.meanCount++;
@@ -1172,6 +1356,30 @@
                     return;
                 }
 
+                // Show post completion message
+                this.showPostCompletionMessage();
+            }
+
+            showPostCompletionMessage() {
+                const choicePanel = document.getElementById('choice-panel');
+                const postNames = ["viral creator's artwork", "classmate's graduation", "family photo"];
+                const currentPostName = postNames[this.currentPost];
+                
+                choicePanel.innerHTML = `
+                    <div class="choice-title">🎉 Post Completed!</div>
+                    <div style="text-align: center; margin: 20px 0; padding: 15px; background: rgba(0, 149, 246, 0.1); border-radius: 10px;">
+                        <p style="margin-bottom: 10px; color: #0095f6; font-weight: 600;">You continue to scroll and see this post:</p>
+                        <p style="font-size: 16px; font-weight: 600;">${currentPostName}</p>
+                    </div>
+                    <div style="text-align: center; margin: 20px 0;">
+                        <button class="choice-btn" style="background: #0095f6; justify-content: center;" onclick="game.startNextPost()">
+                            Continue to Next Post
+                        </button>
+                    </div>
+                `;
+            }
+
+            startNextPost() {
                 // Move to next post
                 this.round = 0; // Reset round for new post
                 this.updatePostForRound();
@@ -1246,6 +1454,7 @@
                     <div class="choice-title">Choose your comment style:</div>
                     <div class="choices">
                         <button class="choice-btn" data-type="hypebeast" onclick="game.selectCommentType('hypebeast')">🧢 <strong>Hypebeast</strong> - Over-the-top positive</button>
+                        <button class="choice-btn" data-type="supporter" onclick="game.selectCommentType('supporter')">💙 <strong>Supporter</strong> - Just a nice comment</button>
                         <button class="choice-btn" data-type="jokester" onclick="game.selectCommentType('jokester')">😄 <strong>Jokester</strong> - Playful, risky humor</button>
                         <button class="choice-btn" data-type="roaster" onclick="game.selectCommentType('roaster')">🔥 <strong>Roaster</strong> - Harsh sarcasm</button>
                         <button class="choice-btn" data-type="critic" onclick="game.selectCommentType('critic')">🧐 <strong>Critic</strong> - Constructive feedback</button>
