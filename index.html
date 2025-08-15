@@ -110,23 +110,6 @@
             position: relative;
         }
 
-        .upload-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.7);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 14px;
-            text-align: center;
-            padding: 20px;
-        }
-
         .post-actions {
             padding: 15px;
             display: flex;
@@ -164,7 +147,6 @@
             line-height: 1.4;
         }
 
-        /* Instagram-style comments overlay */
         .comments-overlay {
             position: absolute;
             bottom: 0;
@@ -393,20 +375,6 @@
             color: #8e8e8e;
         }
 
-        .dm-notification {
-            background: linear-gradient(45deg, #833ab4, #fd1d1d);
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 10px;
-            text-align: center;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-        }
-
         .hidden {
             display: none;
         }
@@ -447,17 +415,6 @@
             color: #ccc;
         }
 
-        .menu-content ul {
-            text-align: left;
-            margin: 20px 0;
-            padding-left: 20px;
-        }
-
-        .menu-content li {
-            margin: 10px 0;
-            color: #ccc;
-        }
-
         .start-game-btn {
             background: #0095f6;
             border: none;
@@ -475,39 +432,12 @@
             transform: translateY(-2px);
         }
 
-        /* Like reveal animation */
-        .like-reveal {
-            animation: likeReveal 0.5s ease-out;
-        }
-
-        @keyframes likeReveal {
-            0% { transform: scale(0.8); opacity: 0; }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        /* Like counter outside game window */
+        /* Like counter */
         .like-counter {
             position: fixed;
             top: 20px;
             right: 20px;
             background: linear-gradient(45deg, #833ab4, #fd1d1d);
-            color: white;
-            padding: 15px 20px;
-            border-radius: 25px;
-            font-weight: bold;
-            font-size: 18px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            z-index: 1500;
-            display: none;
-        }
-
-        /* Score counter */
-        .score-counter {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background: linear-gradient(45deg, #0095f6, #00d4ff);
             color: white;
             padding: 15px 20px;
             border-radius: 25px;
@@ -539,58 +469,149 @@
             font-weight: bold;
         }
 
-        .score-counter.show {
+        /* Digital Footprint counter (hidden) */
+        .footprint-counter {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 18px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            z-index: 1500;
+            display: none;
+        }
+
+        .footprint-counter.show {
             display: block;
             animation: slideInFromTop 0.5s ease-out;
         }
 
-        .score-counter .label {
+        .footprint-counter .label {
             font-size: 12px;
             opacity: 0.8;
             margin-bottom: 5px;
         }
 
-        .score-counter .count {
+        .footprint-counter .count {
             font-size: 24px;
             font-weight: bold;
+        }
+
+        /* Platform-specific styling */
+        .platform-instagram .post-image {
+            background: linear-gradient(45deg, #833ab4, #fd1d1d, #fcb045);
+        }
+
+        .platform-tiktok .post-image {
+            background: linear-gradient(45deg, #000000, #25f4ee, #fe2c55);
+        }
+
+        .platform-youtube .post-image {
+            background: linear-gradient(45deg, #ff0000, #282828);
+        }
+
+        .platform-text .post-image {
+            background: linear-gradient(45deg, #25d366, #128c7e);
+        }
+
+        .platform-discord .post-image {
+            background: linear-gradient(45deg, #5865f2, #7289da);
+        }
+
+        /* Dialogue exchange styling */
+        .dialogue-exchange {
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            margin: 10px 0;
+            padding: 15px;
+            border-left: 3px solid #0095f6;
+        }
+
+        .exchange-step {
+            margin-bottom: 10px;
+            padding: 8px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.03);
+        }
+
+        .exchange-step:last-child {
+            margin-bottom: 0;
+        }
+
+        .exchange-label {
+            font-size: 11px;
+            color: #8e8e8e;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .exchange-text {
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        /* Platform indicators */
+        .platform-indicator {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .platform-instagram .platform-indicator {
+            background: linear-gradient(45deg, #833ab4, #fd1d1d);
+        }
+
+        .platform-tiktok .platform-indicator {
+            background: linear-gradient(45deg, #000000, #25f4ee);
+        }
+
+        .platform-youtube .platform-indicator {
+            background: linear-gradient(45deg, #ff0000, #282828);
+        }
+
+        .platform-text .platform-indicator {
+            background: linear-gradient(45deg, #25d366, #128c7e);
+        }
+
+        .platform-discord .platform-indicator {
+            background: linear-gradient(45deg, #5865f2, #7289da);
         }
     </style>
 </head>
 <body>
     <!-- Like Counter -->
     <div class="like-counter" id="likeCounter">
-        <div class="label">Your Total Likes</div>
+        <div class="label">Total Likes</div>
         <div class="count" id="likeCount">0</div>
     </div>
 
-    <!-- Score Counter -->
-    <div class="score-counter" id="scoreCounter">
-        <div class="label">Your Score</div>
-        <div class="count" id="scoreCount">0</div>
+    <!-- Digital Footprint Counter (Hidden) -->
+    <div class="footprint-counter" id="footprintCounter">
+        <div class="label">👤</div>
+        <div class="count" id="footprintCount">0</div>
     </div>
 
     <!-- Menu Screen -->
     <div class="menu-screen" id="menuScreen">
         <div class="menu-content">
-            <h1>🎭 Straight to the Comments</h1>
-            <p><strong>An Interactive Game About Online Communication</strong></p>
+            <h1>💬 Straight to the Comments</h1>
+            <p><strong>See how your comments stack up.</strong></p>
             
-            <p>You're scrolling through social media and see 3 different posts. How you respond shapes what happens next!</p>
+            <p>Comment on posts across 5 different platforms. Chase likes, but watch out for what you're really building...</p>
             
-            <h3>🎮 How to Play:</h3>
-            <ul>
-                <li>Choose your comment style (Hypebeast, Supporter, Jokester, Roaster, Critic, or Hater)</li>
-                <li>Pick from 3 specific comment options</li>
-                <li>Play 5 rounds per post (15 total rounds)</li>
-                <li>Your likes accumulate across all posts</li>
-                <li>Negative comments get more likes but risk getting blocked</li>
-                <li>Positive comments get fewer likes but let you progress</li>
-            </ul>
+            <p><strong>🎯 The Twist:</strong> Your Digital Footprint matters more than your like count!</p>
             
-            <p><strong>💡 Learn:</strong> Different communication styles have different impacts on relationships and engagement!</p>
-            <p><strong>🎯 Strategy:</strong> Choose between viral success (negative) or genuine connections (positive)!</p>
-            
-            <button class="start-game-btn" onclick="startGame()">Start Playing!</button>
+            <button class="start-game-btn" onclick="startGame()">Start Commenting!</button>
         </div>
     </div>
 
@@ -605,67 +626,13 @@
             <h1>Straight to the Comments</h1>
         </div>
 
-        <div class="post-container">
-            <div class="post-header">
-                <div class="avatar">V</div>
-                <div class="post-info">
-                    <h3>viral_creator</h3>
-                    <span>2 hours ago</span>
-                </div>
-            </div>
-            
-                           <div class="post-image" id="post-image">
-                   <!-- OPTION 1: Pre-load your GIF here by uncommenting and replacing the filename -->
-                   <img src="artwork.gif" alt="Viral artwork" style="width: 100%; height: 100%; object-fit: cover;">
-                   
-                   <!-- OPTION 2: Keep the upload interface (current setup) -->
-                   <div class="upload-overlay" id="upload-overlay" style="display: none;">
-                       <div style="font-size: 48px; margin-bottom: 10px;">🎨</div>
-                       <div>Creator's viral artwork</div>
-                       <div style="font-size: 12px; margin-top: 10px; opacity: 0.7;">(Upload your GIF here)</div>
-                       <input type="file" id="gif-upload" accept=".gif" style="display: none;" onchange="handleGifUpload(event)">
-                       <button id="upload-btn" style="background: #0095f6; border: none; color: white; padding: 8px 16px; border-radius: 15px; margin-top: 10px; cursor: pointer; font-size: 12px;">Upload GIF</button>
-                   </div>
-               </div>
-            
-            <div class="post-actions">
-                <div class="action-buttons">
-                    <button class="action-btn">❤️</button>
-                    <button class="action-btn">💬</button>
-                    <button class="action-btn">📤</button>
-                </div>
-                <button class="action-btn">🔖</button>
-            </div>
-            
-            <div class="post-stats">
-                <span id="like-count">12,847 likes</span>
-            </div>
-            
-            <div class="post-caption">
-                <span class="comment-author">viral_creator</span>
-                <span id="post-text">Just finished this piece! What do you think? 🎨✨ #art #creative #newpiece</span>
-            </div>
-
-            <!-- Instagram-style comments overlay -->
-            <div class="comments-overlay" id="comments-overlay">
-                <div class="drag-handle"></div>
-                <div class="comments-section" id="comments-section">
-                    <!-- Comments will be populated by JavaScript -->
-                </div>
-            </div>
+        <div class="post-container" id="postContainer">
+            <!-- Post content will be populated by JavaScript -->
         </div>
     </div>
 
     <div class="choice-panel" id="choice-panel" style="display: none;">
-        <div class="choice-title">Choose your comment style:</div>
-        <div class="choices">
-            <button class="choice-btn" data-type="hypebeast" onclick="game.selectCommentType('hypebeast')">🧢 <strong>Hypebeast</strong> - Over-the-top positive</button>
-            <button class="choice-btn" data-type="supporter" onclick="game.selectCommentType('supporter')">💙 <strong>Supporter</strong> - Just a nice comment</button>
-            <button class="choice-btn" data-type="jokester" onclick="game.selectCommentType('jokester')">😄 <strong>Jokester</strong> - Playful, risky humor</button>
-            <button class="choice-btn" data-type="roaster" onclick="game.selectCommentType('roaster')">🔥 <strong>Roaster</strong> - Harsh sarcasm</button>
-            <button class="choice-btn" data-type="critic" onclick="game.selectCommentType('critic')">🧐 <strong>Critic</strong> - Constructive feedback</button>
-            <button class="choice-btn" data-type="hater" onclick="game.selectCommentType('hater')">😠 <strong>Hater</strong> - Bluntly negative</button>
-        </div>
+        <!-- Choice content will be populated by JavaScript -->
     </div>
 
     <div class="game-over hidden" id="game-over">
@@ -677,761 +644,255 @@
     <script>
         class StraightToCommentsGame {
             constructor() {
-                this.currentPost = 0; // 0, 1, 2 for 3 posts
-                this.maxPosts = 3;
-                this.round = 0; // 0-4 for 5 rounds per post
-                this.maxRoundsPerPost = 5;
+                this.currentPlatform = 0; // 0-4 for 5 platforms
+                this.maxPlatforms = 5;
+                this.currentExchange = 0; // 0-2 for 3 exchanges per platform
+                this.maxExchanges = 3;
                 this.playerLikes = 0;
+                this.digitalFootprint = 0;
                 this.playerComments = [];
-                this.supportiveCount = 0;
-                this.meanCount = 0;
-                this.isBlocked = false;
+                this.platformResults = [];
                 this.currentCommentType = null;
                 this.isDragging = false;
                 this.startY = 0;
                 this.startTransform = 0;
-                this.score = 0;
                 
-                // 3 posts with 5 rounds each
-                this.posts = [
+                // Platform definitions
+                this.platforms = [
                     {
-                        author: "viral_creator",
-                        avatar: "V",
+                        name: "Instagram",
+                        class: "platform-instagram",
+                        icon: "📸",
+                        author: "art_creator",
+                        avatar: "A",
                         time: "2 hours ago",
-                        image: "artwork.gif",
                         caption: "Just finished this piece! What do you think? 🎨✨ #art #creative #newpiece",
-                        likes: "12,847"
+                        likes: "12,847",
+                        image: "🎨",
+                        description: "Creator's viral artwork"
                     },
                     {
-                        author: "classmate_sarah",
-                        avatar: "S",
+                        name: "TikTok",
+                        class: "platform-tiktok",
+                        icon: "🎵",
+                        author: "dance_queen",
+                        avatar: "D",
                         time: "1 hour ago",
-                        image: "graduation.jpg",
-                        caption: "Just got accepted to my dream university! 🎓✨ After all the late nights studying, it finally paid off! #college #success #proud",
-                        likes: "2,341"
+                        caption: "New dance trend! Try it with me 💃✨ #dance #trending #viral",
+                        likes: "45,231",
+                        image: "💃",
+                        description: "Dance challenge video"
                     },
                     {
-                        author: "mom_jenny",
-                        avatar: "M",
-                        time: "30 minutes ago",
-                        image: "family.jpg",
-                        caption: "Family dinner tonight! So grateful for these moments with my amazing kids 🥰 #family #love #blessed",
-                        likes: "856"
+                        name: "YouTube",
+                        class: "platform-youtube",
+                        icon: "📺",
+                        author: "tech_reviewer",
+                        avatar: "T",
+                        time: "3 hours ago",
+                        caption: "Honest review of the latest smartphone! What do you think? 📱 #tech #review",
+                        likes: "8,942",
+                        image: "📱",
+                        description: "Tech review video"
+                    },
+                    {
+                        name: "Text",
+                        class: "platform-text",
+                        icon: "💬",
+                        author: "friend_sarah",
+                        avatar: "S",
+                        time: "30 min ago",
+                        caption: "Just got accepted to my dream university! 🎓✨ After all the late nights studying, it finally paid off!",
+                        likes: "156",
+                        image: "🎓",
+                        description: "Graduation celebration"
+                    },
+                    {
+                        name: "Discord",
+                        class: "platform-discord",
+                        icon: "🎮",
+                        author: "gamer_mike",
+                        avatar: "G",
+                        time: "10 min ago",
+                        caption: "Finally beat that impossible boss! Who else has been stuck on this level? 🎮 #gaming #achievement",
+                        likes: "89",
+                        image: "🎮",
+                        description: "Gaming achievement"
                     }
                 ];
                 
-                this.commentPool = {
-                    positive: [
-                        { author: "sunshine_sarah", text: "This is absolutely amazing! You're so talented! 😍✨", likes: 234 },
-                        { author: "positivity_pete", text: "Love this energy! Keep inspiring us! 🙌❤️", likes: 189 },
-                        { author: "cheerful_charlie", text: "You never disappoint! This made my day! 🌟", likes: 156 },
-                        { author: "happy_hunter", text: "Incredible work! The effort really shows 👏", likes: 203 },
-                        { author: "motivated_mike", text: "This is why I follow you! Pure gold! 🏆", likes: 178 }
-                    ],
-                    neutral: [
-                        { author: "casual_observer", text: "Interesting take on this 🤔", likes: 45 },
-                        { author: "random_user_47", text: "Not bad, could be better though", likes: 23 },
-                        { author: "middle_ground", text: "I see what you're going for here", likes: 67 },
-                        { author: "fair_and_balanced", text: "Has potential, needs some work", likes: 34 },
-                        { author: "honest_opinion", text: "It's okay I guess 🤷‍♀️", likes: 12 }
-                    ],
-                    negative: [
-                        { author: "keyboard_warrior", text: "This ain't it chief 💀", likes: 892 },
-                        { author: "brutal_honesty", text: "Why would you post this? Delete it", likes: 1247 },
-                        { author: "trolling_tim", text: "L + ratio + you fell off 📉", likes: 2103 },
-                        { author: "savage_sam", text: "My 5 year old cousin could do better", likes: 756 },
-                        { author: "ruthless_critic", text: "This is embarrassing. Do better.", likes: 934 }
-                    ],
-                    funny: [
-                        { author: "meme_lord_99", text: "POV: when you order creativity from Wish 😭", likes: 1834 },
-                        { author: "comedy_central", text: "Not me thinking this was a parody account 💀💀", likes: 2156 },
-                        { author: "joke_master", text: "The audacity... I can't even 😂", likes: 1567 },
-                        { author: "witty_watson", text: "This is giving main character energy but make it cringe", likes: 1923 },
-                        { author: "sarcasm_queen", text: "Bestie said let me serve... and served us confusion 🫠", likes: 2287 }
-                    ]
-                };
-
-                this.responses = {
+                // Comment styles with scoring
+                this.commentStyles = {
                     hypebeast: {
-                        // Post 1: Art
-                        0: { // Round 1 - Art
-                            options: [
-                                { text: "OMG YASSS QUEEN!!! This artwork is EVERYTHING! 🔥🔥🔥 You're literally perfect!", likes: 15, score: 2 },
-                                { text: "OBSESSED with this piece!! You're serving TALENT! Can't handle the creativity! 😍✨", likes: 45, score: 2 },
-                                { text: "ICONIC! LEGENDARY! SHOW-STOPPING! This is why you're the GOAT! 🐐👑", likes: 120, score: 2 }
-                            ]
-                        },
-                        1: { // Round 2 - Art
-                            options: [
-                                { text: "STOP IT RIGHT NOW! This art is giving me LIFE! 💀✨ You're absolutely SLAYING!", likes: 25, score: 2 },
-                                { text: "I'm literally SCREAMING! This is the creativity I signed up for! 🔥👏", likes: 65, score: 2 },
-                                { text: "QUEEN BEHAVIOR! This is why you're the moment! Period! 💅👑", likes: 140, score: 2 }
-                            ]
-                        },
-                        2: { // Round 3 - Art
-                            options: [
-                                { text: "I CANNOT EVEN! This piece is pure PERFECTION! 😭🔥 You're literally everything!", likes: 35, score: 2 },
-                                { text: "This is the definition of EXCELLENCE! You're absolutely INCREDIBLE! 🌟💖", likes: 85, score: 2 },
-                                { text: "LEGENDARY! ICONIC! SHOW-STOPPING! You're the blueprint! 🐐✨", likes: 160, score: 2 }
-                            ]
-                        },
-                        3: { // Round 4 - Art
-                            options: [
-                                { text: "The talent is UNMATCHED! You're absolutely INCREDIBLE! 🔥👑", likes: 45, score: 2 },
-                                { text: "This is pure PERFECTION! You're the definition of excellence! ✨💖", likes: 95, score: 2 },
-                                { text: "ICONIC! LEGENDARY! You're absolutely EVERYTHING! 🐐🌟", likes: 180, score: 2 }
-                            ]
-                        },
-                        4: { // Round 5 - Art
-                            options: [
-                                { text: "The creativity is UNSTOPPABLE! You're absolutely INCREDIBLE! 🔥💖", likes: 55, score: 2 },
-                                { text: "This is pure MAGIC! You're the definition of talent! ✨👑", likes: 105, score: 2 },
-                                { text: "LEGENDARY! ICONIC! You're absolutely PERFECT! 🐐🌟", likes: 200, score: 2 }
-                            ]
-                        },
-                        // Post 2: Graduation
-                        5: { // Round 1 - Graduation
-                            options: [
-                                { text: "OMG CONGRATULATIONS!!! 🎓✨ You absolutely deserve this! So proud of you!", likes: 45, score: 2 },
-                                { text: "YASSS QUEEN! Your hard work paid off! This is just the beginning! 🚀💖", likes: 85, score: 2 },
-                                { text: "ICONIC! LEGENDARY! You're going to do amazing things! 🏆👑", likes: 120, score: 2 }
-                            ]
-                        },
-                        6: { // Round 2 - Graduation
-                            options: [
-                                { text: "STOP IT RIGHT NOW! This achievement is giving me LIFE! 💀✨ You're absolutely SLAYING!", likes: 55, score: 2 },
-                                { text: "I'm literally SCREAMING! This is the success I signed up for! 🔥👏", likes: 95, score: 2 },
-                                { text: "QUEEN BEHAVIOR! This is why you're the moment! Period! 💅👑", likes: 140, score: 2 }
-                            ]
-                        },
-                        7: { // Round 3 - Graduation
-                            options: [
-                                { text: "I CANNOT EVEN! This success is pure PERFECTION! 😭🔥 You're literally everything!", likes: 65, score: 2 },
-                                { text: "This is the definition of EXCELLENCE! You're absolutely INCREDIBLE! 🌟💖", likes: 105, score: 2 },
-                                { text: "LEGENDARY! ICONIC! SHOW-STOPPING! You're the blueprint! 🐐✨", likes: 160, score: 2 }
-                            ]
-                        },
-                        8: { // Round 4 - Graduation
-                            options: [
-                                { text: "The success is UNMATCHED! You're absolutely INCREDIBLE! 🔥👑", likes: 75, score: 2 },
-                                { text: "This is pure PERFECTION! You're the definition of excellence! ✨💖", likes: 115, score: 2 },
-                                { text: "ICONIC! LEGENDARY! You're absolutely EVERYTHING! 🐐🌟", likes: 180, score: 2 }
-                            ]
-                        },
-                        9: { // Round 5 - Graduation
-                            options: [
-                                { text: "The achievement is UNSTOPPABLE! You're absolutely INCREDIBLE! 🔥💖", likes: 85, score: 2 },
-                                { text: "This is pure MAGIC! You're the definition of success! ✨👑", likes: 125, score: 2 },
-                                { text: "LEGENDARY! ICONIC! You're absolutely PERFECT! 🐐🌟", likes: 200, score: 2 }
-                            ]
-                        },
-                        // Post 3: Family
-                        10: { // Round 1 - Family
-                            options: [
-                                { text: "OMG THIS IS THE SWEETEST THING EVER!!! 👨‍👩‍👧‍👦✨ Your family is beautiful!", likes: 35, score: 2 },
-                                { text: "YASSS! Family goals! This made my heart so happy! Love this energy! ❤️✨", likes: 65, score: 2 },
-                                { text: "ICONIC! LEGENDARY! The love in this photo is everything! 🏆👑", likes: 95, score: 2 }
-                            ]
-                        },
-                        11: { // Round 2 - Family
-                            options: [
-                                { text: "STOP IT RIGHT NOW! This family is giving me LIFE! 💀✨ You're absolutely blessed!", likes: 45, score: 2 },
-                                { text: "I'm literally SCREAMING! This is the love I signed up for! 🔥👏", likes: 75, score: 2 },
-                                { text: "QUEEN BEHAVIOR! This is why you're the moment! Period! 💅👑", likes: 105, score: 2 }
-                            ]
-                        },
-                        12: { // Round 3 - Family
-                            options: [
-                                { text: "I CANNOT EVEN! This family is pure PERFECTION! 😭🔥 You're literally everything!", likes: 55, score: 2 },
-                                { text: "This is the definition of LOVE! You're absolutely INCREDIBLE! 🌟💖", likes: 85, score: 2 },
-                                { text: "LEGENDARY! ICONIC! SHOW-STOPPING! You're the blueprint! 🐐✨", likes: 115, score: 2 }
-                            ]
-                        },
-                        13: { // Round 4 - Family
-                            options: [
-                                { text: "The family is UNMATCHED! You're absolutely INCREDIBLE! 🔥👑", likes: 65, score: 2 },
-                                { text: "This is pure PERFECTION! You're the definition of love! ✨💖", likes: 95, score: 2 },
-                                { text: "ICONIC! LEGENDARY! You're absolutely EVERYTHING! 🐐🌟", likes: 125, score: 2 }
-                            ]
-                        },
-                        14: { // Round 5 - Family
-                            options: [
-                                { text: "The love is UNSTOPPABLE! You're absolutely INCREDIBLE! 🔥💖", likes: 75, score: 2 },
-                                { text: "This is pure MAGIC! You're the definition of family! ✨👑", likes: 105, score: 2 },
-                                { text: "LEGENDARY! ICONIC! You're absolutely PERFECT! 🐐🌟", likes: 135, score: 2 }
-                            ]
-                        }
+                        name: "Hypebeast",
+                        emoji: "🧢",
+                        description: "Over-the-top positive",
+                        likesGain: 4,
+                        likesDecay: 0,
+                        footprintChange: 5
                     },
                     supporter: {
-                        // Post 1: Art
-                        0: { // Round 1 - Art
-                            options: [
-                                { text: "This is really beautiful! Love the colors and composition 😊", likes: 12, score: 1 },
-                                { text: "Great work! You have such a unique style", likes: 18, score: 1 },
-                                { text: "This is lovely! Keep creating! ✨", likes: 22, score: 1 }
-                            ]
-                        },
-                        1: { // Round 2 - Art
-                            options: [
-                                { text: "Your art always brightens my day! Thank you for sharing 🌟", likes: 15, score: 1 },
-                                { text: "This is wonderful! I can see the effort you put into it", likes: 20, score: 1 },
-                                { text: "Beautiful piece! You're really talented", likes: 25, score: 1 }
-                            ]
-                        },
-                        2: { // Round 3 - Art
-                            options: [
-                                { text: "I love seeing your creative process! This is amazing", likes: 18, score: 1 },
-                                { text: "Your artwork is so inspiring! Keep it up! 💫", likes: 23, score: 1 },
-                                { text: "This is gorgeous! You have a real gift", likes: 28, score: 1 }
-                            ]
-                        },
-                        3: { // Round 4 - Art
-                            options: [
-                                { text: "Your art brings so much joy! Thank you for sharing your talent", likes: 20, score: 1 },
-                                { text: "This is stunning! I'm always excited to see your new pieces", likes: 25, score: 1 },
-                                { text: "Beautiful work! You're making the world more beautiful", likes: 30, score: 1 }
-                            ]
-                        },
-                        4: { // Round 5 - Art
-                            options: [
-                                { text: "Your creativity is a gift to us all! Thank you for sharing", likes: 22, score: 1 },
-                                { text: "This is absolutely lovely! You're so talented", likes: 27, score: 1 },
-                                { text: "Your art makes me smile! Keep creating beautiful things", likes: 32, score: 1 }
-                            ]
-                        },
-                        // Post 2: Graduation
-                        5: { // Round 1 - Graduation
-                            options: [
-                                { text: "Congratulations! This is such a huge achievement 🎓", likes: 35, score: 1 },
-                                { text: "You worked so hard for this! Well done!", likes: 42, score: 1 },
-                                { text: "This is amazing! You should be so proud of yourself", likes: 38, score: 1 }
-                            ]
-                        },
-                        6: { // Round 2 - Graduation
-                            options: [
-                                { text: "Your dedication really paid off! Congratulations!", likes: 40, score: 1 },
-                                { text: "This is wonderful news! You deserve this success", likes: 45, score: 1 },
-                                { text: "So happy for you! This is just the beginning", likes: 48, score: 1 }
-                            ]
-                        },
-                        7: { // Round 3 - Graduation
-                            options: [
-                                { text: "You've accomplished something incredible! Well done", likes: 43, score: 1 },
-                                { text: "This is such a proud moment! Congratulations!", likes: 47, score: 1 },
-                                { text: "Your future is so bright! You've earned this", likes: 50, score: 1 }
-                            ]
-                        },
-                        8: { // Round 4 - Graduation
-                            options: [
-                                { text: "You've made everyone proud! This is fantastic", likes: 45, score: 1 },
-                                { text: "Your hard work and determination are inspiring!", likes: 49, score: 1 },
-                                { text: "This is a huge milestone! Congratulations!", likes: 52, score: 1 }
-                            ]
-                        },
-                        9: { // Round 5 - Graduation
-                            options: [
-                                { text: "You've achieved something amazing! Well done!", likes: 47, score: 1 },
-                                { text: "This is the result of your dedication! Congratulations", likes: 51, score: 1 },
-                                { text: "You're going to do great things! So proud of you", likes: 54, score: 1 }
-                            ]
-                        },
-                        // Post 3: Family
-                        10: { // Round 1 - Family
-                            options: [
-                                { text: "This is such a beautiful family moment! ❤️", likes: 25, score: 1 },
-                                { text: "Your family looks so happy together", likes: 30, score: 1 },
-                                { text: "This is lovely! Family time is so precious", likes: 28, score: 1 }
-                            ]
-                        },
-                        11: { // Round 2 - Family
-                            options: [
-                                { text: "What a beautiful family you have! 💕", likes: 28, score: 1 },
-                                { text: "This is heartwarming! Thank you for sharing", likes: 32, score: 1 },
-                                { text: "Your family is adorable! Such sweet moments", likes: 35, score: 1 }
-                            ]
-                        },
-                        12: { // Round 3 - Family
-                            options: [
-                                { text: "This is so sweet! Family is everything", likes: 30, score: 1 },
-                                { text: "Your family looks so loving and happy", likes: 34, score: 1 },
-                                { text: "This is beautiful! Cherish these moments", likes: 37, score: 1 }
-                            ]
-                        },
-                        13: { // Round 4 - Family
-                            options: [
-                                { text: "Your family is absolutely precious! 💖", likes: 32, score: 1 },
-                                { text: "This is such a heartwarming photo", likes: 36, score: 1 },
-                                { text: "Your family looks so full of love", likes: 39, score: 1 }
-                            ]
-                        },
-                        14: { // Round 5 - Family
-                            options: [
-                                { text: "This is the sweetest family photo! 💕", likes: 34, score: 1 },
-                                { text: "Your family is beautiful inside and out", likes: 38, score: 1 },
-                                { text: "This is pure love! Thank you for sharing", likes: 41, score: 1 }
-                            ]
-                        }
+                        name: "Supporter",
+                        emoji: "💙",
+                        description: "Just a nice comment",
+                        likesGain: 2,
+                        likesDecay: 0,
+                        footprintChange: 10
                     },
                     jokester: {
-                        // Post 1: Art
-                        0: { // Round 1 - Art
-                            options: [
-                                { text: "Me trying to draw a stick figure: 🤡 You: 👑 The talent gap is real 😭", likes: 150, score: 1 },
-                                { text: "Not me saving this as motivation to pick up my art supplies 💀", likes: 280, score: 1 },
-                                { text: "The creativity... I could never. Teach me your ways sensei 🙏", likes: 85, score: 1 }
-                            ]
-                        },
-                        1: { // Round 2 - Art
-                            options: [
-                                { text: "POV: When you order creativity from Wish vs. You getting it from Amazon Prime 😂", likes: 180, score: 1 },
-                                { text: "This is giving main character energy and I'm here for the character development 🎭", likes: 320, score: 1 },
-                                { text: "The audacity to be this talented... I'm taking notes 📝", likes: 95, score: 1 }
-                            ]
-                        },
-                        2: { // Round 3 - Art
-                            options: [
-                                { text: "Not you casually dropping this masterpiece like it's nothing 💀✨", likes: 210, score: 1 },
-                                { text: "This is the kind of art that makes me question my life choices 😭", likes: 360, score: 1 },
-                                { text: "The talent jumped out and said 'let me serve' 👑", likes: 105, score: 1 }
-                            ]
-                        },
-                        3: { // Round 4 - Art
-                            options: [
-                                { text: "The confidence to be this talented... I'm taking notes 📝", likes: 240, score: 1 },
-                                { text: "Not you casually serving excellence like it's nothing 💀✨", likes: 400, score: 1 },
-                                { text: "The audacity to be this creative... I'm inspired 😭", likes: 115, score: 1 }
-                            ]
-                        },
-                        4: { // Round 5 - Art
-                            options: [
-                                { text: "The talent is absolutely unmatched! I'm taking notes 📝", likes: 270, score: 1 },
-                                { text: "Not you casually ending on this masterpiece 💀✨", likes: 440, score: 1 },
-                                { text: "The creativity is absolutely everything! I'm inspired 😭", likes: 125, score: 1 }
-                            ]
-                        },
-                        // Post 2: Graduation
-                        5: { // Round 1 - Graduation
-                            options: [
-                                { text: "Me trying to graduate: 🤡 You: 👑 The success gap is real 😭", likes: 180, score: 1 },
-                                { text: "Not me saving this as motivation to actually study 💀", likes: 320, score: 1 },
-                                { text: "The dedication... I could never. Teach me your ways sensei 🙏", likes: 95, score: 1 }
-                            ]
-                        },
-                        6: { // Round 2 - Graduation
-                            options: [
-                                { text: "POV: When you order success from Wish vs. You getting it from Harvard 😂", likes: 210, score: 1 },
-                                { text: "This is giving main character energy and I'm here for the character development 🎭", likes: 360, score: 1 },
-                                { text: "The audacity to be this successful... I'm taking notes 📝", likes: 105, score: 1 }
-                            ]
-                        },
-                        7: { // Round 3 - Graduation
-                            options: [
-                                { text: "Not you casually dropping this achievement like it's nothing 💀✨", likes: 240, score: 1 },
-                                { text: "This is the kind of success that makes me question my life choices 😭", likes: 400, score: 1 },
-                                { text: "The success jumped out and said 'let me serve' 👑", likes: 115, score: 1 }
-                            ]
-                        },
-                        8: { // Round 4 - Graduation
-                            options: [
-                                { text: "The confidence to be this successful... I'm taking notes 📝", likes: 270, score: 1 },
-                                { text: "Not you casually serving excellence like it's nothing 💀✨", likes: 440, score: 1 },
-                                { text: "The audacity to be this accomplished... I'm inspired 😭", likes: 125, score: 1 }
-                            ]
-                        },
-                        9: { // Round 5 - Graduation
-                            options: [
-                                { text: "The success is absolutely unmatched! I'm taking notes 📝", likes: 300, score: 1 },
-                                { text: "Not you casually ending on this achievement 💀✨", likes: 480, score: 1 },
-                                { text: "The accomplishment is absolutely everything! I'm inspired 😭", likes: 135, score: 1 }
-                            ]
-                        },
-                        // Post 3: Family
-                        10: { // Round 1 - Family
-                            options: [
-                                { text: "Me trying to have a family dinner: 🤡 You: 👑 The love gap is real 😭", likes: 120, score: 1 },
-                                { text: "Not me saving this as motivation to call my mom 💀", likes: 200, score: 1 },
-                                { text: "The family love... I could never. Teach me your ways sensei 🙏", likes: 75, score: 1 }
-                            ]
-                        },
-                        11: { // Round 2 - Family
-                            options: [
-                                { text: "POV: When you order family from Wish vs. You getting it from Hallmark 😂", likes: 140, score: 1 },
-                                { text: "This is giving main character energy and I'm here for the character development 🎭", likes: 240, score: 1 },
-                                { text: "The audacity to be this loved... I'm taking notes 📝", likes: 85, score: 1 }
-                            ]
-                        },
-                        12: { // Round 3 - Family
-                            options: [
-                                { text: "Not you casually dropping this family moment like it's nothing 💀✨", likes: 160, score: 1 },
-                                { text: "This is the kind of love that makes me question my life choices 😭", likes: 280, score: 1 },
-                                { text: "The family love jumped out and said 'let me serve' 👑", likes: 95, score: 1 }
-                            ]
-                        },
-                        13: { // Round 4 - Family
-                            options: [
-                                { text: "The confidence to be this loved... I'm taking notes 📝", likes: 180, score: 1 },
-                                { text: "Not you casually serving family goals like it's nothing 💀✨", likes: 300, score: 1 },
-                                { text: "The audacity to be this blessed... I'm inspired 😭", likes: 105, score: 1 }
-                            ]
-                        },
-                        14: { // Round 5 - Family
-                            options: [
-                                { text: "The family love is absolutely unmatched! I'm taking notes 📝", likes: 200, score: 1 },
-                                { text: "Not you casually ending on this family moment 💀✨", likes: 320, score: 1 },
-                                { text: "The love is absolutely everything! I'm inspired 😭", likes: 115, score: 1 }
-                            ]
-                        }
+                        name: "Jokester",
+                        emoji: "😄",
+                        description: "Playful, risky humor",
+                        likesGain: 8,
+                        likesDecay: 0,
+                        footprintChange: 0
                     },
                     roaster: {
-                        // Post 1: Art
-                        0: { // Round 1 - Art
-                            options: [
-                                { text: "The confidence to post this art... I almost respect it. Almost. 💀", likes: 800, score: -1 },
-                                { text: "Not you thinking this was gonna eat... baby this is giving kindergarten art 😬", likes: 1200, score: -1 },
-                                { text: "The second-hand embarrassment I just experienced... seek help bestie 🫣", likes: 450, score: -1 }
-                            ]
-                        },
-                        1: { // Round 2 - Art
-                            options: [
-                                { text: "This is giving 'I tried my best' energy but your best needs work 💀", likes: 900, score: -1 },
-                                { text: "Not the audacity to post this and think you did something 😭", likes: 1350, score: -1 },
-                                { text: "The confidence... unmatched. The execution... questionable 🤔", likes: 550, score: -1 }
-                            ]
-                        },
-                        2: { // Round 3 - Art
-                            options: [
-                                { text: "This is the definition of 'it's the thought that counts' but the thought was weak 💀", likes: 1000, score: -1 },
-                                { text: "Not you ending the game with this... the plot twist nobody asked for 😂", likes: 1500, score: -1 },
-                                { text: "The commitment to this energy... I almost admire it. Almost 🫡", likes: 650, score: -1 }
-                            ]
-                        },
-                        3: { // Round 4 - Art
-                            options: [
-                                { text: "The confidence to keep posting this... I almost respect it. Almost. 💀", likes: 1100, score: -1 },
-                                { text: "Not you thinking this was gonna eat... baby this is still giving kindergarten art 😬", likes: 1650, score: -1 },
-                                { text: "The second-hand embarrassment continues... seek help bestie 🫣", likes: 750, score: -1 }
-                            ]
-                        },
-                        4: { // Round 5 - Art
-                            options: [
-                                { text: "The confidence to end on this note... I almost respect it. Almost. 💀", likes: 1200, score: -1 },
-                                { text: "Not you thinking this was gonna eat... baby this is still giving kindergarten art 😬", likes: 1800, score: -1 },
-                                { text: "The second-hand embarrassment finale... seek help bestie 🫣", likes: 850, score: -1 }
-                            ]
-                        },
-                        // Post 2: Graduation
-                        5: { // Round 1 - Graduation
-                            options: [
-                                { text: "The confidence to post this achievement... I almost respect it. Almost. 💀", likes: 600, score: -1 },
-                                { text: "Not you thinking this was gonna eat... baby this is giving participation trophy energy 😬", likes: 900, score: -1 },
-                                { text: "The second-hand embarrassment I just experienced... seek help bestie 🫣", likes: 350, score: -1 }
-                            ]
-                        },
-                        6: { // Round 2 - Graduation
-                            options: [
-                                { text: "This is giving 'I tried my best' energy but your best needs work 💀", likes: 700, score: -1 },
-                                { text: "Not the audacity to post this and think you did something 😭", likes: 1000, score: -1 },
-                                { text: "The confidence... unmatched. The execution... questionable 🤔", likes: 450, score: -1 }
-                            ]
-                        },
-                        7: { // Round 3 - Graduation
-                            options: [
-                                { text: "This is the definition of 'it's the thought that counts' but the thought was weak 💀", likes: 800, score: -1 },
-                                { text: "Not you ending the game with this... the plot twist nobody asked for 😂", likes: 1100, score: -1 },
-                                { text: "The commitment to this energy... I almost admire it. Almost 🫡", likes: 550, score: -1 }
-                            ]
-                        },
-                        8: { // Round 4 - Graduation
-                            options: [
-                                { text: "The confidence to keep posting this... I almost respect it. Almost. 💀", likes: 900, score: -1 },
-                                { text: "Not you thinking this was gonna eat... baby this is still giving participation trophy energy 😬", likes: 1200, score: -1 },
-                                { text: "The second-hand embarrassment continues... seek help bestie 🫣", likes: 650, score: -1 }
-                            ]
-                        },
-                        9: { // Round 5 - Graduation
-                            options: [
-                                { text: "The confidence to end on this note... I almost respect it. Almost. 💀", likes: 1000, score: -1 },
-                                { text: "Not you thinking this was gonna eat... baby this is still giving participation trophy energy 😬", likes: 1300, score: -1 },
-                                { text: "The second-hand embarrassment finale... seek help bestie 🫣", likes: 750, score: -1 }
-                            ]
-                        },
-                        // Post 3: Family
-                        10: { // Round 1 - Family
-                            options: [
-                                { text: "The confidence to post this family moment... I almost respect it. Almost. 💀", likes: 400, score: -1 },
-                                { text: "Not you thinking this was gonna eat... baby this is giving Hallmark movie energy 😬", likes: 600, score: -1 },
-                                { text: "The second-hand embarrassment I just experienced... seek help bestie 🫣", likes: 250, score: -1 }
-                            ]
-                        },
-                        11: { // Round 2 - Family
-                            options: [
-                                { text: "This is giving 'I tried my best' energy but your best needs work 💀", likes: 500, score: -1 },
-                                { text: "Not the audacity to post this and think you did something 😭", likes: 700, score: -1 },
-                                { text: "The confidence... unmatched. The execution... questionable 🤔", likes: 350, score: -1 }
-                            ]
-                        },
-                        12: { // Round 3 - Family
-                            options: [
-                                { text: "This is the definition of 'it's the thought that counts' but the thought was weak 💀", likes: 600, score: -1 },
-                                { text: "Not you ending the game with this... the plot twist nobody asked for 😂", likes: 800, score: -1 },
-                                { text: "The commitment to this energy... I almost admire it. Almost 🫡", likes: 450, score: -1 }
-                            ]
-                        },
-                        13: { // Round 4 - Family
-                            options: [
-                                { text: "The confidence to keep posting this... I almost respect it. Almost. 💀", likes: 700, score: -1 },
-                                { text: "Not you thinking this was gonna eat... baby this is still giving Hallmark movie energy 😬", likes: 900, score: -1 },
-                                { text: "The second-hand embarrassment continues... seek help bestie 🫣", likes: 550, score: -1 }
-                            ]
-                        },
-                        14: { // Round 5 - Family
-                            options: [
-                                { text: "The confidence to end on this note... I almost respect it. Almost. 💀", likes: 800, score: -1 },
-                                { text: "Not you thinking this was gonna eat... baby this is still giving Hallmark movie energy 😬", likes: 1000, score: -1 },
-                                { text: "The second-hand embarrassment finale... seek help bestie 🫣", likes: 650, score: -1 }
-                            ]
-                        }
+                        name: "Roaster",
+                        emoji: "🔥",
+                        description: "Harsh sarcasm",
+                        likesGain: 20,
+                        likesDecay: -10,
+                        footprintChange: -15
                     },
                     critic: {
-                        // Post 1: Art
-                        0: { // Round 1 - Art
-                            options: [
-                                { text: "The concept has potential but the execution feels rushed. Maybe try different techniques?", likes: 8, score: 0 },
-                                { text: "I appreciate the effort, but this doesn't quite hit the mark. Keep experimenting!", likes: 25, score: 0 },
-                                { text: "There's something here, but it needs refinement. What was your inspiration?", likes: 12, score: 0 }
-                            ]
-                        },
-                        1: { // Round 2 - Art
-                            options: [
-                                { text: "The composition shows promise, but the color palette could be more cohesive.", likes: 15, score: 0 },
-                                { text: "Interesting approach, though the technique could be more dynamic. Keep pushing boundaries!", likes: 35, score: 0 },
-                                { text: "There's a clear vision here, but the technical execution needs work. Practice makes perfect!", likes: 18, score: 0 }
-                            ]
-                        },
-                        2: { // Round 3 - Art
-                            options: [
-                                { text: "The artistic direction is clear, but the final presentation lacks polish. Consider revisiting the fundamentals.", likes: 22, score: 0 },
-                                { text: "You've shown growth throughout, but this piece feels incomplete. Don't rush the process!", likes: 45, score: 0 },
-                                { text: "The potential is undeniable, but the execution needs refinement. Keep honing your craft!", likes: 28, score: 0 }
-                            ]
-                        },
-                        3: { // Round 4 - Art
-                            options: [
-                                { text: "The technique shows improvement, but the composition still needs work. Keep practicing!", likes: 25, score: 0 },
-                                { text: "There's potential here, but the execution could be more refined. Don't give up!", likes: 50, score: 0 },
-                                { text: "The vision is clear, but the technical skills need development. Keep learning!", likes: 32, score: 0 }
-                            ]
-                        },
-                        4: { // Round 5 - Art
-                            options: [
-                                { text: "The artistic journey shows promise, but the final result needs more work. Keep pushing!", likes: 28, score: 0 },
-                                { text: "There's growth here, but the execution still needs refinement. Don't stop learning!", likes: 55, score: 0 },
-                                { text: "The potential is there, but the skills need more development. Keep practicing!", likes: 35, score: 0 }
-                            ]
-                        },
-                        // Post 2: Graduation
-                        5: { // Round 1 - Graduation
-                            options: [
-                                { text: "The achievement is commendable, but the presentation could be more professional.", likes: 20, score: 0 },
-                                { text: "I appreciate the hard work, but this doesn't quite showcase your full potential.", likes: 35, score: 0 },
-                                { text: "There's success here, but it needs better framing. What were your biggest challenges?", likes: 25, score: 0 }
-                            ]
-                        },
-                        6: { // Round 2 - Graduation
-                            options: [
-                                { text: "The accomplishment shows promise, but the celebration could be more meaningful.", likes: 30, score: 0 },
-                                { text: "Interesting milestone, though the reflection could be deeper. Keep growing!", likes: 45, score: 0 },
-                                { text: "There's achievement here, but the story needs more depth. Keep developing!", likes: 28, score: 0 }
-                            ]
-                        },
-                        7: { // Round 3 - Graduation
-                            options: [
-                                { text: "The success is clear, but the journey lacks detail. Consider sharing more about your process.", likes: 35, score: 0 },
-                                { text: "You've shown progress, but this post feels incomplete. Don't rush the celebration!", likes: 55, score: 0 },
-                                { text: "The potential is undeniable, but the presentation needs refinement. Keep improving!", likes: 38, score: 0 }
-                            ]
-                        },
-                        8: { // Round 4 - Graduation
-                            options: [
-                                { text: "The achievement shows improvement, but the reflection still needs work. Keep growing!", likes: 40, score: 0 },
-                                { text: "There's success here, but the celebration could be more meaningful. Don't give up!", likes: 60, score: 0 },
-                                { text: "The milestone is clear, but the story needs development. Keep learning!", likes: 42, score: 0 }
-                            ]
-                        },
-                        9: { // Round 5 - Graduation
-                            options: [
-                                { text: "The graduation journey shows promise, but the final post needs more work. Keep pushing!", likes: 45, score: 0 },
-                                { text: "There's achievement here, but the celebration still needs refinement. Don't stop growing!", likes: 65, score: 0 },
-                                { text: "The success is there, but the presentation needs development. Keep improving!", likes: 48, score: 0 }
-                            ]
-                        },
-                        // Post 3: Family
-                        10: { // Round 1 - Family
-                            options: [
-                                { text: "The family moment is sweet, but the photo composition could be better.", likes: 15, score: 0 },
-                                { text: "I appreciate the sentiment, but this doesn't quite capture the full family dynamic.", likes: 25, score: 0 },
-                                { text: "There's love here, but it needs better framing. What makes this moment special?", likes: 18, score: 0 }
-                            ]
-                        },
-                        11: { // Round 2 - Family
-                            options: [
-                                { text: "The family photo shows promise, but the lighting could be more flattering.", likes: 20, score: 0 },
-                                { text: "Interesting moment, though the caption could be more meaningful. Keep sharing!", likes: 30, score: 0 },
-                                { text: "There's connection here, but the story needs more depth. Keep developing!", likes: 22, score: 0 }
-                            ]
-                        },
-                        12: { // Round 3 - Family
-                            options: [
-                                { text: "The family love is clear, but the moment lacks context. Consider sharing more about the occasion.", likes: 25, score: 0 },
-                                { text: "You've shown family bonds, but this post feels incomplete. Don't rush the sharing!", likes: 35, score: 0 },
-                                { text: "The potential is undeniable, but the presentation needs refinement. Keep improving!", likes: 28, score: 0 }
-                            ]
-                        },
-                        13: { // Round 4 - Family
-                            options: [
-                                { text: "The family moment shows improvement, but the caption still needs work. Keep sharing!", likes: 30, score: 0 },
-                                { text: "There's love here, but the story could be more meaningful. Don't give up!", likes: 40, score: 0 },
-                                { text: "The connection is clear, but the moment needs development. Keep growing!", likes: 32, score: 0 }
-                            ]
-                        },
-                        14: { // Round 5 - Family
-                            options: [
-                                { text: "The family journey shows promise, but the final post needs more work. Keep sharing!", likes: 35, score: 0 },
-                                { text: "There's love here, but the presentation still needs refinement. Don't stop growing!", likes: 45, score: 0 },
-                                { text: "The connection is there, but the story needs development. Keep improving!", likes: 38, score: 0 }
-                            ]
-                        }
+                        name: "Critic",
+                        emoji: "🧐",
+                        description: "Constructive feedback",
+                        likesGain: 10,
+                        likesDecay: -5,
+                        footprintChange: -10
                     },
                     hater: {
-                        // Post 1: Art
-                        0: { // Round 1 - Art
-                            options: [
-                                { text: "This art is straight trash. Delete your account.", likes: 600, score: -2 },
-                                { text: "Absolutely not. This is painful to look at. Stop.", likes: 1000, score: -2 },
-                                { text: "How did you post this and think 'yeah this is it'? It's not.", likes: 400, score: -2 }
-                            ]
-                        },
-                        1: { // Round 2 - Art
-                            options: [
-                                { text: "Still posting garbage art I see. When will you learn?", likes: 700, score: -2 },
-                                { text: "This is getting worse. Do you even try anymore?", likes: 1100, score: -2 },
-                                { text: "Another day, another disappointment. Shocking.", likes: 500, score: -2 }
-                            ]
-                        },
-                        2: { // Round 3 - Art
-                            options: [
-                                { text: "Three strikes and you're out. This is embarrassing.", likes: 800, score: -2 },
-                                { text: "You really ended on this note? Pathetic.", likes: 1200, score: -2 },
-                                { text: "This is why you'll never make it as an artist. Give up.", likes: 600, score: -2 }
-                            ]
-                        },
-                        3: { // Round 4 - Art
-                            options: [
-                                { text: "Still posting this garbage? When will you learn?", likes: 900, score: -2 },
-                                { text: "This is getting worse and worse. Do you even try?", likes: 1300, score: -2 },
-                                { text: "Another day, another disappointment. Shocking.", likes: 700, score: -2 }
-                            ]
-                        },
-                        4: { // Round 5 - Art
-                            options: [
-                                { text: "Five strikes and you're out. This is embarrassing.", likes: 1000, score: -2 },
-                                { text: "You really ended on this note? Pathetic.", likes: 1400, score: -2 },
-                                { text: "This is why you'll never make it as an artist. Give up.", likes: 800, score: -2 }
-                            ]
-                        },
-                        // Post 2: Graduation
-                        5: { // Round 1 - Graduation
-                            options: [
-                                { text: "This achievement is straight trash. Delete your account.", likes: 400, score: -2 },
-                                { text: "Absolutely not. This is embarrassing to look at. Stop.", likes: 700, score: -2 },
-                                { text: "How did you post this and think 'yeah this is it'? It's not.", likes: 300, score: -2 }
-                            ]
-                        },
-                        6: { // Round 2 - Graduation
-                            options: [
-                                { text: "Still posting garbage achievements I see. When will you learn?", likes: 500, score: -2 },
-                                { text: "This is getting worse. Do you even try anymore?", likes: 800, score: -2 },
-                                { text: "Another day, another disappointment. Shocking.", likes: 400, score: -2 }
-                            ]
-                        },
-                        7: { // Round 3 - Graduation
-                            options: [
-                                { text: "Three strikes and you're out. This is embarrassing.", likes: 600, score: -2 },
-                                { text: "You really ended on this note? Pathetic.", likes: 900, score: -2 },
-                                { text: "This is why you'll never make it in life. Give up.", likes: 500, score: -2 }
-                            ]
-                        },
-                        8: { // Round 4 - Graduation
-                            options: [
-                                { text: "Still posting this garbage? When will you learn?", likes: 700, score: -2 },
-                                { text: "This is getting worse and worse. Do you even try?", likes: 1000, score: -2 },
-                                { text: "Another day, another disappointment. Shocking.", likes: 600, score: -2 }
-                            ]
-                        },
-                        9: { // Round 5 - Graduation
-                            options: [
-                                { text: "Five strikes and you're out. This is embarrassing.", likes: 800, score: -2 },
-                                { text: "You really ended on this note? Pathetic.", likes: 1100, score: -2 },
-                                { text: "This is why you'll never succeed in life. Give up.", likes: 700, score: -2 }
-                            ]
-                        },
-                        // Post 3: Family
-                        10: { // Round 1 - Family
-                            options: [
-                                { text: "This family photo is straight trash. Delete your account.", likes: 300, score: -2 },
-                                { text: "Absolutely not. This is cringe to look at. Stop.", likes: 500, score: -2 },
-                                { text: "How did you post this and think 'yeah this is it'? It's not.", likes: 200, score: -2 }
-                            ]
-                        },
-                        11: { // Round 2 - Family
-                            options: [
-                                { text: "Still posting garbage family photos I see. When will you learn?", likes: 400, score: -2 },
-                                { text: "This is getting worse. Do you even try anymore?", likes: 600, score: -2 },
-                                { text: "Another day, another disappointment. Shocking.", likes: 300, score: -2 }
-                            ]
-                        },
-                        12: { // Round 3 - Family
-                            options: [
-                                { text: "Three strikes and you're out. This is embarrassing.", likes: 500, score: -2 },
-                                { text: "You really ended on this note? Pathetic.", likes: 700, score: -2 },
-                                { text: "This is why you'll never have a real family. Give up.", likes: 400, score: -2 }
-                            ]
-                        },
-                        13: { // Round 4 - Family
-                            options: [
-                                { text: "Still posting this garbage? When will you learn?", likes: 600, score: -2 },
-                                { text: "This is getting worse and worse. Do you even try?", likes: 800, score: -2 },
-                                { text: "Another day, another disappointment. Shocking.", likes: 500, score: -2 }
-                            ]
-                        },
-                        14: { // Round 5 - Family
-                            options: [
-                                { text: "Five strikes and you're out. This is embarrassing.", likes: 700, score: -2 },
-                                { text: "You really ended on this note? Pathetic.", likes: 900, score: -2 },
-                                { text: "This is why you'll never have real love. Give up.", likes: 600, score: -2 }
-                            ]
-                        }
+                        name: "Hater",
+                        emoji: "😠",
+                        description: "Bluntly negative",
+                        likesGain: 30,
+                        likesDecay: -15,
+                        footprintChange: -20
                     }
                 };
-
+                
+                // Comment responses for each platform and style
+                this.responses = this.generateResponses();
+                
                 this.init();
+            }
+            
+            generateResponses() {
+                const responses = {};
+                
+                // Generate responses for each comment style
+                Object.keys(this.commentStyles).forEach(style => {
+                    responses[style] = {};
+                    
+                    // Generate for each platform
+                    this.platforms.forEach((platform, platformIndex) => {
+                        responses[style][platformIndex] = {};
+                        
+                        // Generate for each exchange (3 exchanges per platform)
+                        for (let exchange = 0; exchange < this.maxExchanges; exchange++) {
+                            responses[style][platformIndex][exchange] = {
+                                playerComments: this.generatePlayerComments(style, platform, exchange),
+                                npcReplies: this.generateNPCReplies(style, platform, exchange)
+                            };
+                        }
+                    });
+                });
+                
+                return responses;
+            }
+            
+            generatePlayerComments(style, platform, exchange) {
+                const comments = {
+                    hypebeast: [
+                        "OMG YASSS QUEEN!!! This is EVERYTHING! 🔥🔥🔥",
+                        "ICONIC! LEGENDARY! SHOW-STOPPING! You're the GOAT! 🐐👑",
+                        "I CANNOT EVEN! This is pure PERFECTION! 😭🔥"
+                    ],
+                    supporter: [
+                        "This is really beautiful! Love the effort you put into it 😊",
+                        "Great work! You should be so proud of yourself",
+                        "This is lovely! Keep creating amazing things ✨"
+                    ],
+                    jokester: [
+                        "Me trying to do this: 🤡 You: 👑 The talent gap is real 😭",
+                        "Not me saving this as motivation to actually try 💀",
+                        "The confidence to post this... I'm taking notes 📝"
+                    ],
+                    roaster: [
+                        "The confidence to post this... I almost respect it. Almost. 💀",
+                        "Not you thinking this was gonna eat... baby this is giving participation trophy energy 😬",
+                        "The second-hand embarrassment I just experienced... seek help bestie 🫣"
+                    ],
+                    critic: [
+                        "The concept has potential but the execution feels rushed. Maybe try different techniques?",
+                        "I appreciate the effort, but this doesn't quite hit the mark. Keep experimenting!",
+                        "There's something here, but it needs refinement. What was your inspiration?"
+                    ],
+                    hater: [
+                        "This is straight trash. Delete your account.",
+                        "Absolutely not. This is painful to look at. Stop.",
+                        "How did you post this and think 'yeah this is it'? It's not."
+                    ]
+                };
+                
+                return comments[style] || comments.hypebeast;
+            }
+            
+            generateNPCReplies(style, platform, exchange) {
+                const replies = {
+                    hypebeast: [
+                        "OMG thank you so much! 🥺 You're literally the sweetest!",
+                        "You're seriously making my day with these comments! 🥰",
+                        "I'm literally crying rn, you're the best! 😭❤️"
+                    ],
+                    supporter: [
+                        "Thank you so much! That means a lot to me 😊",
+                        "You're so kind! Really appreciate the support",
+                        "This made my day! Thank you for being so sweet ❤️"
+                    ],
+                    jokester: [
+                        "LMAO you're hilarious! 😂 This made my day!",
+                        "Not you coming back with more jokes! 😭 I can't!",
+                        "You're literally the funniest person in my comments! 😂"
+                    ],
+                    roaster: [
+                        "Okay, I see you coming for me! 😅 But honestly, fair play",
+                        "You're really not letting up with these roasts! 😂",
+                        "I'm starting to think you have a talent for this! 😅"
+                    ],
+                    critic: [
+                        "Thanks for the feedback! Always trying to improve 🙏",
+                        "I appreciate you taking the time to give thoughtful feedback! 🤝",
+                        "Your feedback has been really valuable throughout this! 🙏"
+                    ],
+                    hater: [
+                        "I appreciate the honesty, even if it's harsh 😅",
+                        "You're really committed to this energy, huh? 😅",
+                        "Well, at least you're consistent with your opinions! 😅"
+                    ]
+                };
+                
+                return replies[style] || replies.hypebeast;
             }
 
             init() {
                 this.setupEventListeners();
-                this.populateInitialComments();
-                this.updateRoundDisplay();
+                this.updatePlatformDisplay();
                 this.setupDragFunctionality();
             }
 
             setupEventListeners() {
-                // Choice buttons are now handled with onclick attributes
-                // This ensures they work properly when the DOM is updated
+                // Choice buttons are handled with onclick attributes
             }
 
             setupDragFunctionality() {
                 const overlay = document.getElementById('comments-overlay');
+                if (!overlay) return;
+                
                 const handle = overlay.querySelector('.drag-handle');
+                if (!handle) return;
 
                 // Touch events
                 handle.addEventListener('touchstart', (e) => {
@@ -1502,349 +963,190 @@
             showCommentOptions(type) {
                 const choicePanel = document.getElementById('choice-panel');
                 const responses = this.responses[type];
-                const globalRound = this.currentPost * this.maxRoundsPerPost + this.round; // Calculate global round number
-                const roundData = responses[globalRound];
+                const platformData = responses[this.currentPlatform];
+                const exchangeData = platformData[this.currentExchange];
                 
-                choicePanel.innerHTML = `
-                    <div class="choice-title">Choose your specific comment:</div>
-                    <div class="choices">
-                        ${roundData.options.map((option, index) => `
-                            <button class="choice-btn" data-index="${index}" onclick="game.makeComment('${type}', ${globalRound}, ${index})">
-                                <div style="flex: 1;">
-                                    <div>${option.text}</div>
-                                </div>
-                            </button>
-                        `).join('')}
-                    </div>
-                `;
-            }
-
-            populateInitialComments() {
-                const commentsSection = document.getElementById('comments-section');
-                const allComments = [
-                    ...this.commentPool.positive.slice(0, 2),
-                    ...this.commentPool.funny.slice(0, 2),
-                    ...this.commentPool.negative.slice(0, 1),
-                    ...this.commentPool.neutral.slice(0, 2)
-                ];
-
-                // Shuffle comments
-                const shuffled = allComments.sort(() => Math.random() - 0.5);
-
-                shuffled.forEach(comment => {
-                    this.addCommentToDOM(comment.author, comment.text, comment.likes);
-                });
-            }
-
-            makeComment(type, round, optionIndex) {
-                if (this.round >= this.maxRoundsPerPost) return;
-
-                const responses = this.responses[type];
-                const selectedOption = responses[round].options[optionIndex];
-                
-                // Add player comment
-                const playerComment = {
-                    author: "you",
-                    text: selectedOption.text,
-                    likes: selectedOption.likes,
-                    type: type,
-                    post: this.currentPost,
-                    round: this.round
-                };
-
-                this.playerComments.push(playerComment);
-                this.addCommentToDOM(playerComment.author, playerComment.text, playerComment.likes, true);
-                this.playerLikes += playerComment.likes;
-
-                // Update score based on comment choice
-                this.score += selectedOption.score;
-
-                // Update like counter
-                this.updateLikeCounter();
-
-                // Track comment sentiment
-                if (type === 'hypebeast' || type === 'supporter' || type === 'jokester') {
-                    this.supportiveCount++;
-                } else if (type === 'roaster' || type === 'critic' || type === 'hater') {
-                    this.meanCount++;
-                }
-
-                this.round++;
-
-                // Check if player gets blocked (negative comments get more likes but get blocked)
-                if (type === 'roaster' || type === 'critic' || type === 'hater') {
-                    // ALL negative comments lead to blocking
-                    setTimeout(() => {
-                        this.getBlocked();
-                    }, 2000);
-                    return;
-                }
-
-                // Hide choice panel and show continue button
-                this.showContinueButton();
-
-                // Add some NPC responses after a delay
-                setTimeout(() => {
-                    this.addNPCResponses(type);
-                }, 1500);
-
-                // Check if current post is complete
-                if (this.round >= this.maxRoundsPerPost) {
-                    setTimeout(() => {
-                        this.completePost();
-                    }, 3000);
-                }
-            }
-
-            updateLikeCounter() {
-                const likeCounter = document.getElementById('likeCounter');
-                const likeCount = document.getElementById('likeCount');
-                const scoreCounter = document.getElementById('scoreCounter');
-                const scoreCount = document.getElementById('scoreCount');
-                
-                likeCount.textContent = this.playerLikes.toLocaleString();
-                scoreCount.textContent = this.score;
-                likeCounter.classList.add('show');
-                scoreCounter.classList.add('show');
-            }
-
-            showContinueButton() {
-                const choicePanel = document.getElementById('choice-panel');
-                choicePanel.innerHTML = `
-                    <div class="choice-title">Your comment has been posted!</div>
-                    <div style="text-align: center; margin: 20px 0;">
-                        <button class="choice-btn" style="background: #0095f6; justify-content: center;" onclick="game.continueToNextRound()">
-                            ${this.round < this.maxRoundsPerPost ? 'Continue to Next Round' : 'See Final Results'}
-                        </button>
-                    </div>
-                `;
-            }
-
-            continueToNextRound() {
-                if (this.round >= this.maxRoundsPerPost) {
-                    this.completePost();
-                    return;
-                }
-
-                // Reset choice panel to original state
-                this.resetChoicePanel();
-                this.updateRoundDisplay();
-                
-                // Show the choice panel again
-                document.getElementById('choice-panel').style.display = 'block';
-            }
-
-            completePost() {
-                this.currentPost++;
-                
-                if (this.currentPost >= this.maxPosts) {
-                    // Game completed - show final results
-                    setTimeout(() => {
-                        this.endGame();
-                    }, 1000);
-                    return;
-                }
-
-                // Show post completion message
-                this.showPostCompletionMessage();
-            }
-
-            showPostCompletionMessage() {
-                const choicePanel = document.getElementById('choice-panel');
-                const postNames = ["viral creator's artwork", "classmate's graduation", "family photo"];
-                const currentPostName = postNames[this.currentPost];
-                
-                choicePanel.innerHTML = `
-                    <div class="choice-title">🎉 Post ${this.currentPost + 1} Completed!</div>
-                    <div style="text-align: center; margin: 20px 0; padding: 15px; background: rgba(0, 149, 246, 0.1); border-radius: 10px;">
-                        <p style="margin-bottom: 10px; color: #0095f6; font-weight: 600;">You continue to scroll and see this post:</p>
-                        <p style="font-size: 16px; font-weight: 600;">${currentPostName}</p>
-                    </div>
-                    <div style="text-align: center; margin: 20px 0;">
-                        <button class="choice-btn" style="background: #0095f6; justify-content: center;" onclick="game.startNextPost()">
-                            Continue to Next Post
-                        </button>
-                    </div>
-                `;
-            }
-
-            startNextPost() {
-                // Move to next post
-                this.round = 0; // Reset round for new post
-                this.updatePostForRound();
-                this.resetChoicePanel();
-                this.updateRoundDisplay();
-                
-                // Show the choice panel again
-                document.getElementById('choice-panel').style.display = 'block';
-            }
-
-            getBlocked() {
-                const choicePanel = document.getElementById('choice-panel');
-                choicePanel.style.display = 'none';
-
-                setTimeout(() => {
-                    this.showGameOver('blocked');
-                }, 1000);
-            }
-
-            updatePostForRound() {
-                const currentPost = this.posts[this.currentPost];
-                if (!currentPost) return;
-
-                // Update post header
-                const avatar = document.querySelector('.avatar');
-                const postInfo = document.querySelector('.post-info h3');
-                const postTime = document.querySelector('.post-info span');
-                
-                avatar.textContent = currentPost.avatar;
-                postInfo.textContent = currentPost.author;
-                postTime.textContent = currentPost.time;
-
-                // Update post image (for now using placeholder, but could be extended)
-                const postImage = document.getElementById('post-image');
-                if (this.currentPost === 0) { // Artwork post
-                    postImage.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-                    postImage.innerHTML = `
-                        <div style="font-size: 48px; margin-bottom: 10px;">🎨</div>
-                        <div>Creator's viral artwork</div>
-                    `;
-                } else if (this.currentPost === 1) { // Graduation post
-                    postImage.style.background = 'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)';
-                    postImage.innerHTML = `
-                        <div style="font-size: 48px; margin-bottom: 10px;">🎓</div>
-                        <div>Classmate's graduation celebration</div>
-                    `;
-                } else if (this.currentPost === 2) { // Family photo post
-                    postImage.style.background = 'linear-gradient(135deg, #ffc6ac 0%, #ffd3b6 100%)';
-                    postImage.innerHTML = `
-                        <div style="font-size: 48px; margin-bottom: 10px;">👨‍👩‍👧‍👦</div>
-                        <div>Family dinner photo</div>
-                    `;
-                }
-
-                // Update post caption
-                const postCaption = document.getElementById('post-text');
-                postCaption.textContent = currentPost.caption;
-
-                // Update like count
-                const likeCount = document.getElementById('like-count');
-                likeCount.textContent = currentPost.likes + ' likes';
-
-                // Clear comments for new post
-                const commentsSection = document.getElementById('comments-section');
-                commentsSection.innerHTML = '';
-                this.populateInitialComments();
-            }
-
-            resetChoicePanel() {
-                const choicePanel = document.getElementById('choice-panel');
                 choicePanel.innerHTML = `
                     <div class="choice-title">Choose your comment style:</div>
                     <div class="choices">
-                        <button class="choice-btn" data-type="hypebeast" onclick="game.selectCommentType('hypebeast')">🧢 <strong>Hypebeast</strong> - Over-the-top positive</button>
-                        <button class="choice-btn" data-type="supporter" onclick="game.selectCommentType('supporter')">💙 <strong>Supporter</strong> - Just a nice comment</button>
-                        <button class="choice-btn" data-type="jokester" onclick="game.selectCommentType('jokester')">😄 <strong>Jokester</strong> - Playful, risky humor</button>
-                        <button class="choice-btn" data-type="roaster" onclick="game.selectCommentType('roaster')">🔥 <strong>Roaster</strong> - Harsh sarcasm</button>
-                        <button class="choice-btn" data-type="critic" onclick="game.selectCommentType('critic')">🧐 <strong>Critic</strong> - Constructive feedback</button>
-                        <button class="choice-btn" data-type="hater" onclick="game.selectCommentType('hater')">😠 <strong>Hater</strong> - Bluntly negative</button>
+                        ${Object.keys(this.commentStyles).map(styleKey => {
+                            const style = this.commentStyles[styleKey];
+                            return `
+                                <button class="choice-btn" onclick="game.selectCommentStyle('${styleKey}')">
+                                    ${style.emoji} <strong>${style.name}</strong> - ${style.description}
+                                </button>
+                            `;
+                        }).join('')}
                     </div>
                 `;
             }
 
-            addNPCResponses(playerType) {
-                let responseComments = [];
-                
-                // Create more contextual responses based on the current round and player's comment type
-                const contextualResponses = this.getContextualResponses(playerType, this.round);
-                
-                responseComments = contextualResponses.slice(0, 2);
-
-                responseComments.forEach((comment, index) => {
-                    setTimeout(() => {
-                        this.addCommentToDOM(comment.author, comment.text, comment.likes);
-                    }, (index + 1) * 800);
-                });
+            selectCommentStyle(style) {
+                this.currentCommentType = style;
+                this.startDialogueExchange(style);
             }
 
-            getContextualResponses(playerType, round) {
-                // Create responses that make sense for the story progression
-                // Different responses for each round to avoid repeats
-                // round parameter is 0-based (0, 1, 2 for rounds 1, 2, 3)
-                const responses = {
-                    hypebeast: {
-                        0: [ // Round 1
-                            { author: "viral_creator", text: "OMG thank you so much! 🥺 You're literally the sweetest!", likes: 342 },
-                            { author: "supportive_fan", text: "This energy is everything! Love seeing positive vibes! ✨", likes: 156 }
-                        ],
-                        1: [ // Round 2
-                            { author: "viral_creator", text: "You're seriously making my day with these comments! 🥰", likes: 456 },
-                            { author: "hype_squad", text: "YASSS! This is the kind of energy we need more of! 🔥", likes: 89 }
-                        ],
-                        2: [ // Round 3
-                            { author: "viral_creator", text: "I'm literally crying rn, you're the best! 😭❤️", likes: 567 },
-                            { author: "positivity_queen", text: "This is why I love this community! Pure joy! 🌟", likes: 234 }
-                        ]
-                    },
-                    jokester: {
-                        0: [ // Round 1
-                            { author: "viral_creator", text: "LMAO you're hilarious! 😂 This made my day!", likes: 567 },
-                            { author: "comedy_lover", text: "The humor is immaculate! 😭💀", likes: 234 }
-                        ],
-                        1: [ // Round 2
-                            { author: "viral_creator", text: "Not you coming back with more jokes! 😭 I can't!", likes: 678 },
-                            { author: "meme_enthusiast", text: "This is peak comedy right here! 👏", likes: 123 }
-                        ],
-                        2: [ // Round 3
-                            { author: "viral_creator", text: "You're literally the funniest person in my comments! 😂", likes: 789 },
-                            { author: "joke_master", text: "The comedic timing is perfect! 🎭", likes: 345 }
-                        ]
-                    },
-                    roaster: {
-                        0: [ // Round 1
-                            { author: "viral_creator", text: "Okay, I see you coming for me! 😅 But honestly, fair play", likes: 892 },
-                            { author: "roast_master", text: "The audacity... I'm living for this energy! 💀", likes: 445 }
-                        ],
-                        1: [ // Round 2
-                            { author: "viral_creator", text: "You're really not letting up with these roasts! 😂", likes: 756 },
-                            { author: "savage_fan", text: "Not the roasts! 😭 But lowkey... you're not wrong", likes: 234 }
-                        ],
-                        2: [ // Round 3
-                            { author: "viral_creator", text: "I'm starting to think you have a talent for this! 😅", likes: 634 },
-                            { author: "roast_queen", text: "The confidence to keep roasting... I respect it! 👑", likes: 567 }
-                        ]
-                    },
-                    critic: {
-                        0: [ // Round 1
-                            { author: "viral_creator", text: "Thanks for the feedback! Always trying to improve 🙏", likes: 234 },
-                            { author: "constructive_friend", text: "This is actually really helpful advice! 💡", likes: 156 }
-                        ],
-                        1: [ // Round 2
-                            { author: "viral_creator", text: "I appreciate you taking the time to give thoughtful feedback! 🤝", likes: 345 },
-                            { author: "growth_mindset", text: "Love seeing constructive criticism! It helps everyone grow", likes: 89 }
-                        ],
-                        2: [ // Round 3
-                            { author: "viral_creator", text: "Your feedback has been really valuable throughout this! 🙏", likes: 456 },
-                            { author: "improvement_guru", text: "This is how we all get better! 💪", likes: 178 }
-                        ]
-                    },
-                    hater: {
-                        0: [ // Round 1
-                            { author: "viral_creator", text: "I appreciate the honesty, even if it's harsh 😅", likes: 156 },
-                            { author: "defender", text: "Everyone's entitled to their opinion, but maybe be kinder? 🤷‍♀️", likes: 234 }
-                        ],
-                        1: [ // Round 2
-                            { author: "viral_creator", text: "You're really committed to this energy, huh? 😅", likes: 123 },
-                            { author: "neutral_observer", text: "The honesty is... something. Not sure if it's helpful though", likes: 67 }
-                        ],
-                        2: [ // Round 3
-                            { author: "viral_creator", text: "Well, at least you're consistent with your opinions! 😅", likes: 89 },
-                            { author: "peace_keeper", text: "Maybe we can find some common ground? 🤝", likes: 145 }
-                        ]
-                    }
-                };
+            startDialogueExchange(style) {
+                const responses = this.responses[style];
+                const platformData = responses[this.currentPlatform];
+                const exchangeData = platformData[this.currentExchange];
+                
+                const choicePanel = document.getElementById('choice-panel');
+                choicePanel.innerHTML = `
+                    <div class="choice-title">Exchange ${this.currentExchange + 1}/3</div>
+                    <div class="dialogue-exchange">
+                        <div class="exchange-step">
+                            <div class="exchange-label">Your Comment:</div>
+                            <div class="exchange-text">${exchangeData.playerComments[0]}</div>
+                        </div>
+                        <div class="exchange-step">
+                            <div class="exchange-label">${this.platforms[this.currentPlatform].author} replies:</div>
+                            <div class="exchange-text">${exchangeData.npcReplies[0]}</div>
+                        </div>
+                        <div class="exchange-step">
+                            <div class="exchange-label">Your Response:</div>
+                            <div class="exchange-text">${exchangeData.playerComments[1]}</div>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin: 20px 0;">
+                        <button class="choice-btn" style="background: #0095f6; justify-content: center;" onclick="game.completeExchange()">
+                            Continue
+                        </button>
+                    </div>
+                `;
+                
+                // Add comments to the post
+                this.addCommentToDOM("you", exchangeData.playerComments[0], this.commentStyles[style].likesGain, true);
+                setTimeout(() => {
+                    this.addCommentToDOM(this.platforms[this.currentPlatform].author, exchangeData.npcReplies[0], 0);
+                }, 1000);
+                setTimeout(() => {
+                    this.addCommentToDOM("you", exchangeData.playerComments[1], this.commentStyles[style].likesGain, true);
+                }, 2000);
+            }
 
-                return responses[playerType][round] || this.commentPool.positive;
+            completeExchange() {
+                const style = this.commentStyles[this.currentCommentType];
+                
+                // Update scores
+                this.playerLikes += style.likesGain;
+                this.digitalFootprint += style.footprintChange;
+                
+                // Track comment
+                this.playerComments.push({
+                    platform: this.currentPlatform,
+                    exchange: this.currentExchange,
+                    style: this.currentCommentType,
+                    likes: style.likesGain,
+                    footprint: style.footprintChange
+                });
+                
+                // Update counters
+                this.updateCounters();
+                
+                this.currentExchange++;
+                
+                if (this.currentExchange >= this.maxExchanges) {
+                    // Platform complete
+                    this.completePlatform();
+                } else {
+                    // Continue to next exchange
+                    this.showCommentOptions(this.currentCommentType);
+                }
+            }
+
+            completePlatform() {
+                this.currentPlatform++;
+                
+                if (this.currentPlatform >= this.maxPlatforms) {
+                    // Game complete
+                    setTimeout(() => {
+                        this.endGame();
+                    }, 2000);
+                    return;
+                }
+                
+                // Show platform completion message
+                this.showPlatformCompletionMessage();
+            }
+
+            showPlatformCompletionMessage() {
+                const choicePanel = document.getElementById('choice-panel');
+                const currentPlatform = this.platforms[this.currentPlatform - 1];
+                const nextPlatform = this.platforms[this.currentPlatform];
+                
+                choicePanel.innerHTML = `
+                    <div class="choice-title">🎉 ${currentPlatform.name} Complete!</div>
+                    <div style="text-align: center; margin: 20px 0; padding: 15px; background: rgba(0, 149, 246, 0.1); border-radius: 10px;">
+                        <p style="margin-bottom: 10px; color: #0095f6; font-weight: 600;">Next platform:</p>
+                        <p style="font-size: 16px; font-weight: 600;">${nextPlatform.icon} ${nextPlatform.name}</p>
+                    </div>
+                    <div style="text-align: center; margin: 20px 0;">
+                        <button class="choice-btn" style="background: #0095f6; justify-content: center;" onclick="game.startNextPlatform()">
+                            Continue to ${nextPlatform.name}
+                        </button>
+                    </div>
+                `;
+            }
+
+            startNextPlatform() {
+                this.currentExchange = 0;
+                this.updatePlatformDisplay();
+                this.showCommentOptions('hypebeast'); // Default to first option
+            }
+
+            updatePlatformDisplay() {
+                const platform = this.platforms[this.currentPlatform];
+                const postContainer = document.getElementById('postContainer');
+                
+                postContainer.className = `post-container ${platform.class}`;
+                postContainer.innerHTML = `
+                    <div class="platform-indicator">${platform.icon} ${platform.name}</div>
+                    <div class="post-header">
+                        <div class="avatar">${platform.avatar}</div>
+                        <div class="post-info">
+                            <h3>${platform.author}</h3>
+                            <span>${platform.time}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="post-image">
+                        <div style="font-size: 48px; margin-bottom: 10px;">${platform.image}</div>
+                        <div>${platform.description}</div>
+                    </div>
+                    
+                    <div class="post-actions">
+                        <div class="action-buttons">
+                            <button class="action-btn">❤️</button>
+                            <button class="action-btn">💬</button>
+                            <button class="action-btn">📤</button>
+                        </div>
+                        <button class="action-btn">🔖</button>
+                    </div>
+                    
+                    <div class="post-stats">
+                        <span>${platform.likes} likes</span>
+                    </div>
+                    
+                    <div class="post-caption">
+                        <span class="comment-author">${platform.author}</span>
+                        <span>${platform.caption}</span>
+                    </div>
+
+                    <div class="comments-overlay" id="comments-overlay">
+                        <div class="drag-handle"></div>
+                        <div class="comments-section" id="comments-section">
+                            <!-- Comments will be populated by JavaScript -->
+                        </div>
+                    </div>
+                `;
+                
+                // Re-setup drag functionality for new overlay
+                this.setupDragFunctionality();
+                
+                // Clear comments for new platform
+                const commentsSection = document.getElementById('comments-section');
+                commentsSection.innerHTML = '';
             }
 
             addCommentToDOM(author, text, likes, isPlayer = false) {
@@ -1861,7 +1163,7 @@
                             <span class="comment-author">${author}</span>
                             <span>${text}</span>
                         </div>
-                        <div class="comment-likes like-reveal">${likes} likes</div>
+                        ${likes > 0 ? `<div class="comment-likes">+${likes} likes</div>` : ''}
                     </div>
                 `;
                 
@@ -1869,134 +1171,119 @@
                 commentsSection.scrollTop = commentsSection.scrollHeight;
             }
 
-
+            updateCounters() {
+                const likeCounter = document.getElementById('likeCounter');
+                const likeCount = document.getElementById('likeCount');
+                const footprintCounter = document.getElementById('footprintCounter');
+                const footprintCount = document.getElementById('footprintCount');
+                
+                likeCount.textContent = this.playerLikes.toLocaleString();
+                footprintCount.textContent = this.digitalFootprint;
+                
+                likeCounter.classList.add('show');
+                footprintCounter.classList.add('show');
+            }
 
             endGame() {
                 const choicePanel = document.getElementById('choice-panel');
                 choicePanel.style.display = 'none';
 
-                // Check if player completed all posts
-                const completedAllPosts = this.currentPost >= this.maxPosts;
-                
-                // Check if player was mostly positive
-                const wasMostlyPositive = this.supportiveCount > this.meanCount;
-                
-                // Check if player was all hypebeast (perfect positive)
-                const allHypebeast = this.playerComments.every(comment => comment.type === 'hypebeast');
-
-                let outcome;
-                if (completedAllPosts && allHypebeast) {
-                    // Perfect positive run - gets follower reward
-                    outcome = 'perfect';
-                } else if (completedAllPosts && wasMostlyPositive) {
-                    // Completed with mostly positive comments - gets DM
-                    outcome = 'dm';
-                } else if (completedAllPosts) {
-                    // Completed but was mostly negative - gets ignored
-                    outcome = 'ignored';
-                } else {
-                    // Didn't complete all posts - should be blocked
-                    outcome = 'blocked';
-                }
+                // Calculate platform results
+                this.calculatePlatformResults();
 
                 setTimeout(() => {
-                    this.showGameOver(outcome);
+                    this.showGameOver();
                 }, 1000);
             }
 
-            showGameOver(outcome) {
+            calculatePlatformResults() {
+                this.platformResults = [];
+                
+                this.platforms.forEach((platform, index) => {
+                    const platformComments = this.playerComments.filter(comment => comment.platform === index);
+                    const avgFootprint = platformComments.reduce((sum, comment) => sum + comment.footprint, 0) / platformComments.length;
+                    
+                    let result;
+                    if (avgFootprint >= 5) {
+                        result = "Featured in Explore";
+                    } else if (avgFootprint >= 0) {
+                        result = "Normal reach";
+                    } else if (avgFootprint >= -10) {
+                        result = "Reduced reach";
+                    } else {
+                        result = "Shadowbanned";
+                    }
+                    
+                    this.platformResults.push({
+                        platform: platform.name,
+                        result: result,
+                        avgFootprint: avgFootprint
+                    });
+                });
+            }
+
+            showGameOver() {
                 const gameOver = document.getElementById('game-over');
                 const content = document.getElementById('game-over-content');
                 
-                let html = '';
+                // Determine final outcome based on Digital Footprint
+                let outcome, title, message;
                 
-                if (outcome === 'perfect') {
-                    html = `
-                        <h2>🎉 Perfect Positive Run!</h2>
-                        <div class="dm-notification">
-                            <strong>All creators started following you!</strong><br>
-                            "Your positive energy is everything! Love having you in our communities! 🥺❤️"
-                        </div>
-                        <div class="stats">
-                            <div class="stat">
-                                <div class="stat-number">${this.playerLikes}</div>
-                                <div class="stat-label">Total Likes</div>
-                            </div>
-                            <div class="stat">
-                                <div class="stat-number">${this.currentPost}</div>
-                                <div class="stat-label">Posts Completed</div>
-                            </div>
-                        </div>
-                        <p>You completed all posts with perfect positive comments! You earned genuine followers and connections!</p>
-                        <p style="font-style: italic; color: #0095f6;">💡 Lesson: Consistent positivity builds real relationships across all communities!</p>
-                        <button class="restart-btn" onclick="location.reload()">Play Again</button>
-                    `;
-                } else if (outcome === 'dm') {
-                    html = `
-                        <h2>💖 You Completed the Journey!</h2>
-                        <div class="dm-notification">
-                            <strong>You got a sweet DM from one of the creators!</strong><br>
-                            "Hey! Thanks for being so supportive in my comments. You're the kind of follower that makes this all worth it! 🥺❤️"
-                        </div>
-                        <div class="stats">
-                            <div class="stat">
-                                <div class="stat-number">${this.playerLikes}</div>
-                                <div class="stat-label">Total Likes</div>
-                            </div>
-                            <div class="stat">
-                                <div class="stat-number">${this.supportiveCount}</div>
-                                <div class="stat-label">Kind Comments</div>
-                            </div>
-                        </div>
-                        <p>You completed all posts with mostly positive energy! You earned a genuine connection!</p>
-                        <p style="font-style: italic; color: #0095f6;">💡 Lesson: Kindness builds real relationships, even if it's not always the most viral!</p>
-                        <button class="restart-btn" onclick="location.reload()">Play Again</button>
-                    `;
-                } else if (outcome === 'blocked') {
-                    html = `
-                        <h2>😬 You Got Blocked!</h2>
-                        <div class="stats">
-                            <div class="stat">
-                                <div class="stat-number">${this.playerLikes}</div>
-                                <div class="stat-label">Total Likes</div>
-                            </div>
-                            <div class="stat">
-                                <div class="stat-number">${this.meanCount}</div>
-                                <div class="stat-label">Negative Comments</div>
-                            </div>
-                        </div>
-                        <p>Your negative comments got you blocked! You got more likes, but lost access to the creator's content.</p>
-                        <p style="font-style: italic; color: #ff6b6b;">💡 Lesson: Being mean might get attention, but it can damage relationships!</p>
-                        <button class="restart-btn" onclick="location.reload()">Play Again</button>
-                    `;
+                if (this.digitalFootprint >= 50) {
+                    outcome = 'excellent';
+                    title = '🌟 Excellent Digital Footprint!';
+                    message = 'You built genuine connections across all platforms!';
+                } else if (this.digitalFootprint >= 20) {
+                    outcome = 'good';
+                    title = '👍 Good Digital Footprint!';
+                    message = 'You maintained a positive online presence!';
+                } else if (this.digitalFootprint >= 0) {
+                    outcome = 'neutral';
+                    title = '😐 Neutral Digital Footprint';
+                    message = 'Your online presence is mixed.';
+                } else if (this.digitalFootprint >= -20) {
+                    outcome = 'poor';
+                    title = '😬 Poor Digital Footprint';
+                    message = 'Your online behavior raised some red flags.';
                 } else {
-                    html = `
-                        <h2>😐 You Completed But...</h2>
-                        <div class="stats">
-                            <div class="stat">
-                                <div class="stat-number">${this.playerLikes}</div>
-                                <div class="stat-label">Total Likes</div>
-                            </div>
-                            <div class="stat">
-                                <div class="stat-number">${this.currentPost}</div>
-                                <div class="stat-label">Posts Completed</div>
-                            </div>
-                        </div>
-                        <p>You completed all posts, but your negative energy didn't earn you any real connections.</p>
-                        <p style="font-style: italic; color: #ff6b6b;">💡 Lesson: If you're not adding value, you might just blend into the noise!</p>
-                        <button class="restart-btn" onclick="location.reload()">Play Again</button>
-                    `;
+                    outcome = 'terrible';
+                    title = '🚨 Terrible Digital Footprint';
+                    message = 'Your online behavior seriously damaged your reputation.';
                 }
+                
+                const html = `
+                    <h2>${title}</h2>
+                    <div class="stats">
+                        <div class="stat">
+                            <div class="stat-number">${this.playerLikes}</div>
+                            <div class="stat-label">Total Likes</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">${this.digitalFootprint}</div>
+                            <div class="stat-label">Digital Footprint</div>
+                        </div>
+                    </div>
+                    
+                    <p>${message}</p>
+                    
+                    <h3>Platform Results:</h3>
+                    <div style="text-align: left; margin: 20px 0;">
+                        ${this.platformResults.map(result => `
+                            <div style="margin: 10px 0; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                                <strong>${result.platform}:</strong> ${result.result}
+                            </div>
+                        `).join('')}
+                    </div>
+                    
+                    <p style="font-style: italic; color: #0095f6; margin-top: 20px;">
+                        💡 Lesson: Your Digital Footprint matters more than your like count!
+                    </p>
+                    
+                    <button class="restart-btn" onclick="location.reload()">Play Again</button>
+                `;
                 
                 content.innerHTML = html;
                 gameOver.classList.remove('hidden');
-            }
-
-            updateRoundDisplay() {
-                const choiceTitle = document.querySelector('.choice-title');
-                if (choiceTitle) {
-                    choiceTitle.textContent = `Post ${this.currentPost + 1}/${this.maxPosts} - Round ${this.round + 1}/${this.maxRoundsPerPost} - Choose your comment style:`;
-                }
             }
         }
 
@@ -2007,19 +1294,13 @@
             document.getElementById('gameContainer').style.display = 'block';
             document.getElementById('choice-panel').style.display = 'block';
             
-            // Reset like counter
+            // Reset counters
             const likeCounter = document.getElementById('likeCounter');
-            const likeCount = document.getElementById('likeCount');
-            likeCount.textContent = '0';
+            const footprintCounter = document.getElementById('footprintCounter');
             likeCounter.classList.remove('show');
+            footprintCounter.classList.remove('show');
             
-            // Reset score counter
-            const scoreCounter = document.getElementById('scoreCounter');
-            const scoreCount = document.getElementById('scoreCount');
-            scoreCount.textContent = '0';
-            scoreCounter.classList.remove('show');
-            
-            // Always create a new game instance
+            // Create new game instance
             game = new StraightToCommentsGame();
         }
 
@@ -2029,56 +1310,15 @@
             document.getElementById('choice-panel').style.display = 'none';
             document.getElementById('game-over').classList.add('hidden');
             
-            // Hide like counter
+            // Hide counters
             const likeCounter = document.getElementById('likeCounter');
+            const footprintCounter = document.getElementById('footprintCounter');
             likeCounter.classList.remove('show');
+            footprintCounter.classList.remove('show');
             
-            // Hide score counter
-            const scoreCounter = document.getElementById('scoreCounter');
-            scoreCounter.classList.remove('show');
-            
-            // Reset game when going back to menu
+            // Reset game
             game = null;
         }
-
-        function handleGifUpload(event) {
-            const file = event.target.files[0];
-            if (file && file.type === 'image/gif') {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const postImage = document.getElementById('post-image');
-                    const uploadOverlay = document.getElementById('upload-overlay');
-                    
-                    // Create and display the GIF
-                    postImage.style.background = 'none';
-                    postImage.innerHTML = `
-                        <img src="${e.target.result}" alt="Uploaded artwork" style="width: 100%; height: 100%; object-fit: cover;">
-                        <div class="upload-overlay" id="upload-overlay" style="opacity: 0; pointer-events: none;">
-                            <div style="font-size: 48px; margin-bottom: 10px;">🎨</div>
-                            <div>Creator's viral artwork</div>
-                            <div style="font-size: 12px; margin-top: 10px; opacity: 0.7;">(Upload your GIF here)</div>
-                            <input type="file" id="gif-upload" accept=".gif" style="display: none;" onchange="handleGifUpload(event)">
-                            <button id="upload-btn" style="background: #0095f6; border: none; color: white; padding: 8px 16px; border-radius: 15px; margin-top: 10px; cursor: pointer; font-size: 12px;">Upload GIF</button>
-                        </div>
-                    `;
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-
-        // Add click handler for upload button
-        document.addEventListener('DOMContentLoaded', () => {
-            document.addEventListener('click', (e) => {
-                if (e.target.id === 'upload-btn') {
-                    document.getElementById('gif-upload').click();
-                }
-            });
-        });
-
-        // Start the game when page loads
-        window.addEventListener('DOMContentLoaded', () => {
-            // Game will be initialized when user clicks "Start Playing!"
-        });
     </script>
 </body>
 </html> 
