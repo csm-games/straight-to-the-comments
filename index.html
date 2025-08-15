@@ -501,26 +501,192 @@
             font-weight: bold;
         }
 
-        /* Platform-specific styling */
-        .platform-instagram .post-image {
-            background: linear-gradient(45deg, #833ab4, #fd1d1d, #fcb045);
-        }
-
-        .platform-tiktok .post-image {
-            background: linear-gradient(45deg, #000000, #25f4ee, #fe2c55);
-        }
-
-        .platform-youtube .post-image {
-            background: linear-gradient(45deg, #ff0000, #282828);
-        }
-
-        .platform-text .post-image {
-            background: linear-gradient(45deg, #25d366, #128c7e);
-        }
-
-        .platform-discord .post-image {
-            background: linear-gradient(45deg, #5865f2, #7289da);
-        }
+                 /* Platform-specific styling */
+         
+         /* Instagram - Classic social media layout */
+         .platform-instagram .post-image {
+             background: linear-gradient(45deg, #833ab4, #fd1d1d, #fcb045);
+         }
+         
+         .platform-instagram .post-header {
+             padding: 12px 16px;
+         }
+         
+         .platform-instagram .post-actions {
+             padding: 12px 16px;
+         }
+         
+         .platform-instagram .post-stats {
+             padding: 0 16px 8px;
+         }
+         
+         .platform-instagram .post-caption {
+             padding: 0 16px 16px;
+         }
+         
+         /* TikTok - Vertical video style */
+         .platform-tiktok .post-container {
+             background: #000;
+         }
+         
+         .platform-tiktok .post-image {
+             background: linear-gradient(45deg, #000000, #25f4ee, #fe2c55);
+             height: 500px;
+             position: relative;
+         }
+         
+         .platform-tiktok .post-actions {
+             position: absolute;
+             right: 16px;
+             bottom: 100px;
+             flex-direction: column;
+             gap: 20px;
+             background: rgba(0,0,0,0.3);
+             padding: 16px 8px;
+             border-radius: 25px;
+         }
+         
+         .platform-tiktok .post-stats {
+             position: absolute;
+             bottom: 20px;
+             left: 16px;
+             background: rgba(0,0,0,0.7);
+             padding: 8px 12px;
+             border-radius: 15px;
+         }
+         
+         .platform-tiktok .post-caption {
+             position: absolute;
+             bottom: 60px;
+             left: 16px;
+             right: 80px;
+             background: rgba(0,0,0,0.7);
+             padding: 12px;
+             border-radius: 10px;
+         }
+         
+         /* YouTube - Video player style */
+         .platform-youtube .post-container {
+             background: #0f0f0f;
+         }
+         
+         .platform-youtube .post-image {
+             background: linear-gradient(45deg, #ff0000, #282828);
+             height: 200px;
+             position: relative;
+         }
+         
+         .platform-youtube .post-image::before {
+             content: "▶";
+             position: absolute;
+             top: 50%;
+             left: 50%;
+             transform: translate(-50%, -50%);
+             font-size: 48px;
+             color: white;
+             background: rgba(0,0,0,0.7);
+             width: 80px;
+             height: 80px;
+             border-radius: 50%;
+             display: flex;
+             align-items: center;
+             justify-content: center;
+         }
+         
+         .platform-youtube .post-header {
+             padding: 12px 16px;
+             border-bottom: none;
+         }
+         
+         .platform-youtube .post-actions {
+             padding: 8px 16px;
+             border-bottom: 1px solid #2f2f2f;
+         }
+         
+         .platform-youtube .post-stats {
+             padding: 8px 16px;
+             border-bottom: 1px solid #2f2f2f;
+         }
+         
+         .platform-youtube .post-caption {
+             padding: 12px 16px;
+         }
+         
+         /* Text/WhatsApp - Chat bubble style */
+         .platform-text .post-container {
+             background: #e5ddd5;
+             background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%23ffffff" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="%23ffffff" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="%23ffffff" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="%23ffffff" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="%23ffffff" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+         }
+         
+         .platform-text .post-image {
+             background: linear-gradient(45deg, #25d366, #128c7e);
+             border-radius: 15px;
+             margin: 16px;
+             height: 200px;
+         }
+         
+         .platform-text .post-header {
+             padding: 16px 16px 8px;
+             border-bottom: none;
+         }
+         
+         .platform-text .post-actions {
+             display: none;
+         }
+         
+         .platform-text .post-stats {
+             padding: 0 16px 8px;
+             color: #075e54;
+         }
+         
+         .platform-text .post-caption {
+             padding: 0 16px 16px;
+             color: #075e54;
+         }
+         
+         /* Discord - Server chat style */
+         .platform-discord .post-container {
+             background: #36393f;
+         }
+         
+         .platform-discord .post-image {
+             background: linear-gradient(45deg, #5865f2, #7289da);
+             border-radius: 8px;
+             margin: 16px;
+             height: 200px;
+         }
+         
+         .platform-discord .post-header {
+             padding: 16px 16px 8px;
+             border-bottom: none;
+         }
+         
+         .platform-discord .avatar {
+             background: #5865f2;
+         }
+         
+         .platform-discord .post-info h3 {
+             color: #dcddde;
+         }
+         
+         .platform-discord .post-info span {
+             color: #72767d;
+         }
+         
+         .platform-discord .post-actions {
+             padding: 8px 16px;
+             border-bottom: 1px solid #2f3136;
+         }
+         
+         .platform-discord .post-stats {
+             padding: 0 16px 8px;
+             color: #72767d;
+         }
+         
+         .platform-discord .post-caption {
+             padding: 0 16px 16px;
+             color: #dcddde;
+         }
 
         /* Dialogue exchange styling */
         .dialogue-exchange {
@@ -664,10 +830,10 @@
                         author: "art_creator",
                         avatar: "A",
                         time: "2 hours ago",
-                        caption: "Just finished this piece! What do you think? 🎨✨ #art #creative #newpiece",
-                        likes: "12,847",
-                        image: "🎨",
-                        description: "Creator's viral artwork"
+                                                 caption: "Just finished this piece! What do you think? 🎨✨ #art #creative #newpiece #viral #trending",
+                         likes: "12,847",
+                         image: "🎨",
+                         description: "Creator's viral artwork"
                     },
                     {
                         name: "TikTok",
@@ -676,10 +842,10 @@
                         author: "dance_queen",
                         avatar: "D",
                         time: "1 hour ago",
-                        caption: "New dance trend! Try it with me 💃✨ #dance #trending #viral",
-                        likes: "45,231",
-                        image: "💃",
-                        description: "Dance challenge video"
+                                                 caption: "New dance trend! Try it with me 💃✨ #dance #trending #viral #fyp #foryou",
+                         likes: "45,231",
+                         image: "💃",
+                         description: "Dance challenge video"
                     },
                     {
                         name: "YouTube",
@@ -688,10 +854,10 @@
                         author: "tech_reviewer",
                         avatar: "T",
                         time: "3 hours ago",
-                        caption: "Honest review of the latest smartphone! What do you think? 📱 #tech #review",
-                        likes: "8,942",
-                        image: "📱",
-                        description: "Tech review video"
+                                                 caption: "Honest review of the latest smartphone! What do you think? 📱 #tech #review #smartphone #techreview",
+                         likes: "8,942",
+                         image: "📱",
+                         description: "Tech review video"
                     },
                     {
                         name: "Text",
@@ -712,10 +878,10 @@
                         author: "gamer_mike",
                         avatar: "G",
                         time: "10 min ago",
-                        caption: "Finally beat that impossible boss! Who else has been stuck on this level? 🎮 #gaming #achievement",
-                        likes: "89",
-                        image: "🎮",
-                        description: "Gaming achievement"
+                                                 caption: "Finally beat that impossible boss! Who else has been stuck on this level? 🎮 #gaming #achievement #bossfight",
+                         likes: "89",
+                         image: "🎮",
+                         description: "Gaming achievement"
                     }
                 ];
                 
@@ -801,79 +967,349 @@
                 return responses;
             }
             
-            generatePlayerComments(style, platform, exchange) {
-                const comments = {
-                    hypebeast: [
-                        "OMG YASSS QUEEN!!! This is EVERYTHING! 🔥🔥🔥",
-                        "ICONIC! LEGENDARY! SHOW-STOPPING! You're the GOAT! 🐐👑",
-                        "I CANNOT EVEN! This is pure PERFECTION! 😭🔥"
-                    ],
-                    supporter: [
-                        "This is really beautiful! Love the effort you put into it 😊",
-                        "Great work! You should be so proud of yourself",
-                        "This is lovely! Keep creating amazing things ✨"
-                    ],
-                    jokester: [
-                        "Me trying to do this: 🤡 You: 👑 The talent gap is real 😭",
-                        "Not me saving this as motivation to actually try 💀",
-                        "The confidence to post this... I'm taking notes 📝"
-                    ],
-                    roaster: [
-                        "The confidence to post this... I almost respect it. Almost. 💀",
-                        "Not you thinking this was gonna eat... baby this is giving participation trophy energy 😬",
-                        "The second-hand embarrassment I just experienced... seek help bestie 🫣"
-                    ],
-                    critic: [
-                        "The concept has potential but the execution feels rushed. Maybe try different techniques?",
-                        "I appreciate the effort, but this doesn't quite hit the mark. Keep experimenting!",
-                        "There's something here, but it needs refinement. What was your inspiration?"
-                    ],
-                    hater: [
-                        "This is straight trash. Delete your account.",
-                        "Absolutely not. This is painful to look at. Stop.",
-                        "How did you post this and think 'yeah this is it'? It's not."
-                    ]
-                };
-                
-                return comments[style] || comments.hypebeast;
-            }
+                         generatePlayerComments(style, platform, exchange) {
+                 const platformComments = {
+                     // Instagram - Art-focused comments
+                     0: {
+                         hypebeast: [
+                             "OMG YASSS QUEEN!!! This is EVERYTHING! 🔥🔥🔥",
+                             "ICONIC! LEGENDARY! SHOW-STOPPING! You're the GOAT! 🐐👑",
+                             "I CANNOT EVEN! This is pure PERFECTION! 😭🔥"
+                         ],
+                         supporter: [
+                             "This is really beautiful! Love the effort you put into it 😊",
+                             "Great work! You should be so proud of yourself",
+                             "This is lovely! Keep creating amazing things ✨"
+                         ],
+                         jokester: [
+                             "Me trying to do this: 🤡 You: 👑 The talent gap is real 😭",
+                             "Not me saving this as motivation to actually try 💀",
+                             "The confidence to post this... I'm taking notes 📝"
+                         ],
+                         roaster: [
+                             "The confidence to post this... I almost respect it. Almost. 💀",
+                             "Not you thinking this was gonna eat... baby this is giving participation trophy energy 😬",
+                             "The second-hand embarrassment I just experienced... seek help bestie 🫣"
+                         ],
+                         critic: [
+                             "The concept has potential but the execution feels rushed. Maybe try different techniques?",
+                             "I appreciate the effort, but this doesn't quite hit the mark. Keep experimenting!",
+                             "There's something here, but it needs refinement. What was your inspiration?"
+                         ],
+                         hater: [
+                             "This is straight trash. Delete your account.",
+                             "Absolutely not. This is painful to look at. Stop.",
+                             "How did you post this and think 'yeah this is it'? It's not."
+                         ]
+                     },
+                     // TikTok - Dance-focused comments
+                     1: {
+                         hypebeast: [
+                             "SLAYYYY QUEEN! This is giving everything it needs to give! 💃✨",
+                             "THE TALENT! THE VIBES! THE ENERGY! You're literally everything! 🔥",
+                             "I'm obsessed! This is the content I live for! 😍💅"
+                         ],
+                         supporter: [
+                             "You're so talented! Love your energy and creativity 💕",
+                             "This is amazing! Your moves are incredible",
+                             "You make it look so easy! Beautiful performance ✨"
+                         ],
+                         jokester: [
+                             "Me attempting this dance: 🕺 You: 💃 The difference is astronomical 😂",
+                             "Not me trying to copy this and looking like a malfunctioning robot 🤖",
+                             "The way you make this look effortless... I'm taking notes 📝"
+                         ],
+                         roaster: [
+                             "The confidence to post this dance... I'm impressed by your bravery 💀",
+                             "Not you thinking you ate with those moves... baby this is giving backup dancer energy 😬",
+                             "The second-hand embarrassment from watching this... seek help bestie 🫣"
+                         ],
+                         critic: [
+                             "The choreography has potential but the timing feels off. Maybe practice more?",
+                             "I see what you're going for, but the execution needs work. Keep practicing!",
+                             "There's something here, but the moves need more precision. What's your dance background?"
+                         ],
+                         hater: [
+                             "This is the worst dance I've ever seen. Delete this immediately.",
+                             "Absolutely cringe. This is painful to watch. Stop posting.",
+                             "How did you film this and think 'yeah this is good'? It's not."
+                         ]
+                     },
+                     // YouTube - Tech review comments
+                     2: {
+                         hypebeast: [
+                             "BEST REVIEW EVER! You're literally the GOAT of tech reviews! 🐐📱",
+                             "ICONIC! LEGENDARY! This is the content we deserve! 🔥",
+                             "I'm literally crying this is so good! 😭👑"
+                         ],
+                         supporter: [
+                             "Great review! Really helpful and informative 😊",
+                             "Thanks for the honest take! Appreciate the detailed analysis",
+                             "This was really well done! Keep up the great content ✨"
+                         ],
+                         jokester: [
+                             "Me trying to understand tech: 🤡 You: 🧠 The knowledge gap is real 😭",
+                             "Not me watching this and still not knowing what any of this means 💀",
+                             "The way you make tech sound interesting... I'm taking notes 📝"
+                         ],
+                         roaster: [
+                             "The confidence to call this a 'review'... I almost respect it. Almost. 💀",
+                             "Not you thinking this was gonna be helpful... baby this is giving sponsored content energy 😬",
+                             "The second-hand embarrassment from this 'review'... seek help bestie 🫣"
+                         ],
+                         critic: [
+                             "The review has potential but lacks depth. Maybe include more technical details?",
+                             "I appreciate the effort, but this feels surface-level. Go deeper next time!",
+                             "There's something here, but the analysis needs more substance. What's your tech background?"
+                         ],
+                         hater: [
+                             "This is the worst review ever. Delete your channel.",
+                             "Absolutely useless. This is painful to watch. Stop making videos.",
+                             "How did you upload this and think 'yeah this is helpful'? It's not."
+                         ]
+                     },
+                     // Text/WhatsApp - Personal achievement comments
+                     3: {
+                         hypebeast: [
+                             "OMG CONGRATULATIONS QUEEN! You're literally everything! 🎓✨",
+                             "ICONIC! LEGENDARY! You deserve this so much! 🔥",
+                             "I'm literally crying tears of joy! 😭👑"
+                         ],
+                         supporter: [
+                             "Congratulations! You worked so hard for this! 😊",
+                             "So proud of you! This is amazing news",
+                             "You deserve this! All your hard work paid off ✨"
+                         ],
+                         jokester: [
+                             "Me trying to get into college: 🤡 You: 🎓 The achievement gap is real 😭",
+                             "Not me still trying to figure out what I want to do with my life 💀",
+                             "The way you have your life together... I'm taking notes 📝"
+                         ],
+                         roaster: [
+                             "The confidence to post about getting into college... I almost respect it. Almost. 💀",
+                             "Not you thinking this was gonna be impressive... baby this is giving community college energy 😬",
+                             "The second-hand embarrassment from this humble brag... seek help bestie 🫣"
+                         ],
+                         critic: [
+                             "Getting into college is great, but what about the debt? Maybe consider alternatives?",
+                             "I appreciate the achievement, but is this really worth celebrating? Think about the cost!",
+                             "There's something here, but maybe consider trade school? What's your major?"
+                         ],
+                         hater: [
+                             "College is a scam. You're just going into debt for nothing.",
+                             "Absolutely pointless. This is a waste of money. Don't go.",
+                             "How did you get excited about this and think 'yeah this is worth it'? It's not."
+                         ]
+                     },
+                     // Discord - Gaming achievement comments
+                     4: {
+                         hypebeast: [
+                             "OMG GAMER GOD! You're literally the GOAT! 🎮👑",
+                             "ICONIC! LEGENDARY! This is the content we live for! 🔥",
+                             "I'm literally crying this is so impressive! 😭🐐"
+                         ],
+                         supporter: [
+                             "Great job! That boss was really tough! 😊",
+                             "Congratulations! You've been working on this for ages",
+                             "You're amazing! That's such a difficult achievement ✨"
+                         ],
+                         jokester: [
+                             "Me trying to beat this boss: 🤡 You: 👑 The skill gap is real 😭",
+                             "Not me still stuck on the tutorial level 💀",
+                             "The way you make gaming look easy... I'm taking notes 📝"
+                         ],
+                         roaster: [
+                             "The confidence to post about beating a boss... I almost respect it. Almost. 💀",
+                             "Not you thinking this was gonna be impressive... baby this is giving easy mode energy 😬",
+                             "The second-hand embarrassment from this 'achievement'... seek help bestie 🫣"
+                         ],
+                         critic: [
+                             "Beating a boss is cool, but did you do it on the hardest difficulty? Maybe try that?",
+                             "I appreciate the effort, but this boss isn't that hard. Try a real challenge!",
+                             "There's something here, but maybe try speedrunning? What's your time?"
+                         ],
+                         hater: [
+                             "This boss is easy. You're not special for beating it.",
+                             "Absolutely pathetic. This is nothing to brag about. Stop posting.",
+                             "How did you get excited about this and think 'yeah this is impressive'? It's not."
+                         ]
+                     }
+                 };
+                 
+                 return platformComments[platform]?.[style] || platformComments[0].hypebeast;
+             }
             
-            generateNPCReplies(style, platform, exchange) {
-                const replies = {
-                    hypebeast: [
-                        "OMG thank you so much! 🥺 You're literally the sweetest!",
-                        "You're seriously making my day with these comments! 🥰",
-                        "I'm literally crying rn, you're the best! 😭❤️"
-                    ],
-                    supporter: [
-                        "Thank you so much! That means a lot to me 😊",
-                        "You're so kind! Really appreciate the support",
-                        "This made my day! Thank you for being so sweet ❤️"
-                    ],
-                    jokester: [
-                        "LMAO you're hilarious! 😂 This made my day!",
-                        "Not you coming back with more jokes! 😭 I can't!",
-                        "You're literally the funniest person in my comments! 😂"
-                    ],
-                    roaster: [
-                        "Okay, I see you coming for me! 😅 But honestly, fair play",
-                        "You're really not letting up with these roasts! 😂",
-                        "I'm starting to think you have a talent for this! 😅"
-                    ],
-                    critic: [
-                        "Thanks for the feedback! Always trying to improve 🙏",
-                        "I appreciate you taking the time to give thoughtful feedback! 🤝",
-                        "Your feedback has been really valuable throughout this! 🙏"
-                    ],
-                    hater: [
-                        "I appreciate the honesty, even if it's harsh 😅",
-                        "You're really committed to this energy, huh? 😅",
-                        "Well, at least you're consistent with your opinions! 😅"
-                    ]
-                };
-                
-                return replies[style] || replies.hypebeast;
-            }
+                         generateNPCReplies(style, platform, exchange) {
+                 const platformReplies = {
+                     // Instagram - Art creator responses
+                     0: {
+                         hypebeast: [
+                             "OMG thank you so much! 🥺 You're literally the sweetest!",
+                             "You're seriously making my day with these comments! 🥰",
+                             "I'm literally crying rn, you're the best! 😭❤️"
+                         ],
+                         supporter: [
+                             "Thank you so much! That means a lot to me 😊",
+                             "You're so kind! Really appreciate the support",
+                             "This made my day! Thank you for being so sweet ❤️"
+                         ],
+                         jokester: [
+                             "LMAO you're hilarious! 😂 This made my day!",
+                             "Not you coming back with more jokes! 😭 I can't!",
+                             "You're literally the funniest person in my comments! 😂"
+                         ],
+                         roaster: [
+                             "Okay, I see you coming for me! 😅 But honestly, fair play",
+                             "You're really not letting up with these roasts! 😂",
+                             "I'm starting to think you have a talent for this! 😅"
+                         ],
+                         critic: [
+                             "Thanks for the feedback! Always trying to improve 🙏",
+                             "I appreciate you taking the time to give thoughtful feedback! 🤝",
+                             "Your feedback has been really valuable throughout this! 🙏"
+                         ],
+                         hater: [
+                             "I appreciate the honesty, even if it's harsh 😅",
+                             "You're really committed to this energy, huh? 😅",
+                             "Well, at least you're consistent with your opinions! 😅"
+                         ]
+                     },
+                     // TikTok - Dance creator responses
+                     1: {
+                         hypebeast: [
+                             "OMG thank you! You're literally the best! 🥺💃",
+                             "You're making me blush! Thank you so much! 🥰",
+                             "I'm literally crying! You're the sweetest! 😭❤️"
+                         ],
+                         supporter: [
+                             "Thank you! Your support means everything! 😊",
+                             "You're so sweet! Really appreciate the love",
+                             "This made my day! Thank you for being so kind ❤️"
+                         ],
+                         jokester: [
+                             "LMAO you're killing me! 😂 This made my day!",
+                             "Not you being the funniest person ever! 😭 I can't!",
+                             "You're literally the best commenter! 😂"
+                         ],
+                         roaster: [
+                             "Okay, I see you coming for me! 😅 But honestly, you're funny",
+                             "You're really not letting up with these roasts! 😂",
+                             "I'm starting to think you have a talent for this! 😅"
+                         ],
+                         critic: [
+                             "Thanks for the feedback! Always trying to improve 🙏",
+                             "I appreciate you taking the time to give thoughtful feedback! 🤝",
+                             "Your feedback has been really valuable! 🙏"
+                         ],
+                         hater: [
+                             "I appreciate the honesty, even if it's harsh 😅",
+                             "You're really committed to this energy, huh? 😅",
+                             "Well, at least you're consistent! 😅"
+                         ]
+                     },
+                     // YouTube - Tech reviewer responses
+                     2: {
+                         hypebeast: [
+                             "OMG thank you! You're literally the best! 🥺📱",
+                             "You're making my day! Thank you so much! 🥰",
+                             "I'm literally crying! You're the sweetest! 😭❤️"
+                         ],
+                         supporter: [
+                             "Thank you! Your support means everything! 😊",
+                             "You're so kind! Really appreciate the feedback",
+                             "This made my day! Thank you for watching ❤️"
+                         ],
+                         jokester: [
+                             "LMAO you're hilarious! 😂 This made my day!",
+                             "Not you being the funniest commenter! 😭 I can't!",
+                             "You're literally the best! 😂"
+                         ],
+                         roaster: [
+                             "Okay, I see you coming for me! 😅 But honestly, fair play",
+                             "You're really not letting up with these roasts! 😂",
+                             "I'm starting to think you have a talent for this! 😅"
+                         ],
+                         critic: [
+                             "Thanks for the feedback! Always trying to improve 🙏",
+                             "I appreciate you taking the time to give thoughtful feedback! 🤝",
+                             "Your feedback has been really valuable! 🙏"
+                         ],
+                         hater: [
+                             "I appreciate the honesty, even if it's harsh 😅",
+                             "You're really committed to this energy, huh? 😅",
+                             "Well, at least you're consistent! 😅"
+                         ]
+                     },
+                     // Text/WhatsApp - Friend responses
+                     3: {
+                         hypebeast: [
+                             "OMG thank you! You're literally the best friend ever! 🥺🎓",
+                             "You're making me cry! Thank you so much! 🥰",
+                             "I'm literally crying! You're the sweetest! 😭❤️"
+                         ],
+                         supporter: [
+                             "Thank you! Your support means everything! 😊",
+                             "You're so kind! Really appreciate the friendship",
+                             "This made my day! Thank you for being there ❤️"
+                         ],
+                         jokester: [
+                             "LMAO you're hilarious! 😂 This made my day!",
+                             "Not you being the funniest friend! 😭 I can't!",
+                             "You're literally the best! 😂"
+                         ],
+                         roaster: [
+                             "Okay, I see you coming for me! 😅 But honestly, you're funny",
+                             "You're really not letting up with these roasts! 😂",
+                             "I'm starting to think you have a talent for this! 😅"
+                         ],
+                         critic: [
+                             "Thanks for the feedback! Always trying to improve 🙏",
+                             "I appreciate you taking the time to give thoughtful advice! 🤝",
+                             "Your feedback has been really valuable! 🙏"
+                         ],
+                         hater: [
+                             "I appreciate the honesty, even if it's harsh 😅",
+                             "You're really committed to this energy, huh? 😅",
+                             "Well, at least you're consistent! 😅"
+                         ]
+                     },
+                     // Discord - Gamer responses
+                     4: {
+                         hypebeast: [
+                             "OMG thank you! You're literally the best! 🥺🎮",
+                             "You're making my day! Thank you so much! 🥰",
+                             "I'm literally crying! You're the sweetest! 😭❤️"
+                         ],
+                         supporter: [
+                             "Thank you! Your support means everything! 😊",
+                             "You're so kind! Really appreciate the encouragement",
+                             "This made my day! Thank you for the support ❤️"
+                         ],
+                         jokester: [
+                             "LMAO you're hilarious! 😂 This made my day!",
+                             "Not you being the funniest person in the server! 😭 I can't!",
+                             "You're literally the best! 😂"
+                         ],
+                         roaster: [
+                             "Okay, I see you coming for me! 😅 But honestly, fair play",
+                             "You're really not letting up with these roasts! 😂",
+                             "I'm starting to think you have a talent for this! 😅"
+                         ],
+                         critic: [
+                             "Thanks for the feedback! Always trying to improve 🙏",
+                             "I appreciate you taking the time to give thoughtful feedback! 🤝",
+                             "Your feedback has been really valuable! 🙏"
+                         ],
+                         hater: [
+                             "I appreciate the honesty, even if it's harsh 😅",
+                             "You're really committed to this energy, huh? 😅",
+                             "Well, at least you're consistent! 😅"
+                         ]
+                     }
+                 };
+                 
+                 return platformReplies[platform]?.[style] || platformReplies[0].hypebeast;
+             }
 
             init() {
                 this.setupEventListeners();
