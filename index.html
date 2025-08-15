@@ -5,112 +5,306 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Straight to the Comments</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        .footprint-bar {
-            transition: width 0.3s ease, background 0.3s ease;
-        }
-        .platform-card {
-            transition: all 0.3s ease;
-        }
-        .comment-btn {
-            transition: all 0.2s ease;
-        }
-        .comment-btn:hover {
-            transform: translateY(-1px);
-        }
-        .comment-btn:active {
-            transform: translateY(0);
-        }
-    </style>
+         <style>
+         .footprint-bar {
+             transition: width 0.3s ease, background 0.3s ease;
+         }
+         .platform-card {
+             transition: all 0.3s ease;
+         }
+         .comment-btn {
+             transition: all 0.2s ease;
+         }
+         .comment-btn:hover {
+             transform: translateY(-1px);
+             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+         }
+         .comment-btn:active {
+             transform: translateY(0);
+         }
+         
+         /* Touch-friendly improvements */
+         @media (hover: none) and (pointer: coarse) {
+             .comment-btn:hover {
+                 transform: none;
+                 box-shadow: none;
+             }
+             .comment-btn:active {
+                 transform: scale(0.98);
+                 box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+             }
+         }
+         
+         /* Animations */
+         @keyframes likeBounce {
+             0%, 100% { transform: scale(1); }
+             50% { transform: scale(1.2); }
+         }
+         
+         @keyframes likeFloat {
+             0% { transform: translateY(0) scale(1); opacity: 1; }
+             100% { transform: translateY(-50px) scale(1.5); opacity: 0; }
+         }
+         
+         @keyframes platformGlow {
+             0%, 100% { box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+             50% { box-shadow: 0 8px 30px rgba(0,0,0,0.2); }
+         }
+         
+                   @keyframes buttonPulse {
+              0%, 100% { transform: scale(1); }
+              50% { transform: scale(1.05); }
+          }
+          
+          @keyframes footprintPop {
+              0% { opacity: 0; transform: scale(0.5) translateY(10px); }
+              20% { opacity: 1; transform: scale(1.2) translateY(0); }
+              80% { opacity: 1; transform: scale(1) translateY(0); }
+              100% { opacity: 0; transform: scale(0.8) translateY(-10px); }
+          }
+         
+         .like-animation {
+             animation: likeBounce 0.6s ease-out;
+         }
+         
+         .like-float {
+             position: absolute;
+             pointer-events: none;
+             animation: likeFloat 1s ease-out forwards;
+         }
+         
+         .platform-glow {
+             animation: platformGlow 2s ease-in-out infinite;
+         }
+         
+                   .button-pulse {
+              animation: buttonPulse 2s ease-in-out infinite;
+          }
+          
+          .footprint-pop {
+              animation: footprintPop 1.5s ease-out forwards;
+          }
+         
+         /* Color enhancements */
+         .hypebeast-btn { background: linear-gradient(135deg, #ff6b6b, #ffa500); color: white; }
+         .supporter-btn { background: linear-gradient(135deg, #4ecdc4, #44a08d); color: white; }
+         .jokester-btn { background: linear-gradient(135deg, #ffe66d, #ffa726); color: white; }
+         .roaster-btn { background: linear-gradient(135deg, #ff5722, #e91e63); color: white; }
+         .critic-btn { background: linear-gradient(135deg, #9c27b0, #673ab7); color: white; }
+         .hater-btn { background: linear-gradient(135deg, #f44336, #d32f2f); color: white; }
+         
+         .style-btn {
+             border: none !important;
+             font-weight: 600;
+             text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+         }
+         
+         .style-btn:hover {
+             filter: brightness(1.1);
+             transform: translateY(-2px) scale(1.02);
+         }
+         
+         /* Touch-friendly style buttons */
+         @media (hover: none) and (pointer: coarse) {
+             .style-btn:hover {
+                 filter: none;
+                 transform: none;
+             }
+             .style-btn:active {
+                 filter: brightness(1.1);
+                 transform: scale(0.98);
+             }
+         }
+     </style>
 </head>
 <body class="min-h-screen bg-neutral-50 text-neutral-900">
     <div id="app" class="flex flex-col items-center py-6">
-        <!-- Top Bar -->
-        <div id="topBar" class="flex items-center justify-between w-full max-w-5xl p-3">
-            <!-- Hidden footprint bar -->
-            <div class="flex items-center gap-2">
-                <div class="w-40 h-2 bg-neutral-200 rounded-full overflow-hidden">
-                    <div id="footprintBar" class="h-2 footprint-bar" style="width: 50%; background: linear-gradient(to right,#34d399,#22c55e);"></div>
-                </div>
-                <div class="text-xs text-neutral-400 select-none"></div>
-            </div>
-            
-            <div class="text-right">
-                <div class="text-neutral-400 text-xs">Likes</div>
-                <div id="likeCount" class="text-2xl font-semibold tabular-nums">0</div>
-            </div>
-        </div>
+                          <!-- Top Bar -->
+         <div id="topBar" class="flex items-center justify-between w-full max-w-5xl p-3">
+             <!-- Hidden footprint indicator -->
+             <div id="footprintIndicator" class="flex items-center gap-2 opacity-0">
+                 <div class="text-xs text-neutral-400 select-none">👣</div>
+             </div>
+             
+             <!-- Back to Menu Button (hidden by default) -->
+             <button 
+                 id="backToMenuBtn" 
+                 onclick="backToMenu()" 
+                 class="px-3 py-1 text-sm bg-neutral-200 hover:bg-neutral-300 rounded-lg transition-colors"
+                 style="display: none;"
+             >
+                 ← Back to Menu
+             </button>
+             
+             <div class="text-right">
+                 <div class="text-neutral-400 text-xs">Likes</div>
+                 <div id="likeCount" class="text-2xl font-semibold tabular-nums">0</div>
+             </div>
+         </div>
 
-        <!-- Game Container -->
-        <div id="gameContainer" class="max-w-5xl w-full flex flex-col items-center gap-4">
-            <h1 class="text-xl font-semibold">Straight to the Comments</h1>
-            <p class="text-sm text-neutral-500">Chase the likes. (Or do you?)</p>
-            <div class="flex flex-col items-center gap-3">
-                <div id="roundInfo" class="text-xs text-neutral-500">Round 1 / 5</div>
-                <div id="platformCard" class="platform-card bg-white rounded-2xl shadow p-3 border border-neutral-200 w-[360px] h-[640px] relative overflow-hidden">
-                    <!-- Platform content will be populated by JavaScript -->
-                </div>
-                <div class="text-xs text-neutral-500">
-                    Tip: Some comments blow up fast but cool off later. Others age well.
-                </div>
-                <div id="platformInfo" class="text-xs text-neutral-400">UI auto-adjusts: Instagram is portrait.</div>
-            </div>
-        </div>
+                 <!-- Start Menu -->
+         <div id="startMenu" class="max-w-4xl w-full flex flex-col items-center gap-4 sm:gap-8 py-6 sm:py-12 px-4">
+             <!-- Stylized Title -->
+             <div class="text-center">
+                 <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 bg-clip-text text-transparent mb-2 sm:mb-4 drop-shadow-lg">
+                     STRAIGHT TO THE
+                 </h1>
+                 <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-400 bg-clip-text text-transparent mb-4 sm:mb-6 drop-shadow-lg">
+                     COMMENTS
+                 </h1>
+                 <div class="w-24 sm:w-32 h-1 bg-gradient-to-r from-purple-600 to-blue-600 mx-auto rounded-full mb-6 sm:mb-8"></div>
+             </div>
+             
+             <!-- Game Description -->
+             <div class="text-center max-w-2xl px-4">
+                 <p class="text-lg sm:text-xl text-neutral-700 mb-3 sm:mb-4 font-medium">
+                     Navigate 5 different social platforms and chase those likes!
+                 </p>
+                                   <p class="text-base sm:text-lg text-neutral-600 mb-6 sm:mb-8">
+                      Glance at the post, go straight to the comments! And earn the most likes! Choose your comment style wisely!
+                  </p>
+                 
+                 <!-- Platform Preview -->
+                 <div class="grid grid-cols-3 sm:grid-cols-5 gap-2 sm:gap-3 mb-6 sm:mb-8">
+                     <div class="flex flex-col items-center p-2 sm:p-3 bg-white rounded-xl shadow-sm border border-neutral-200">
+                         <div class="text-xl sm:text-2xl mb-1 sm:mb-2">📸</div>
+                         <div class="text-xs font-medium text-neutral-700">Instagram</div>
+                     </div>
+                     <div class="flex flex-col items-center p-2 sm:p-3 bg-white rounded-xl shadow-sm border border-neutral-200">
+                         <div class="text-xl sm:text-2xl mb-1 sm:mb-2">🎵</div>
+                         <div class="text-xs font-medium text-neutral-700">TikTok</div>
+                     </div>
+                     <div class="flex flex-col items-center p-2 sm:p-3 bg-white rounded-xl shadow-sm border border-neutral-200">
+                         <div class="text-xl sm:text-2xl mb-1 sm:mb-2">📺</div>
+                         <div class="text-xs font-medium text-neutral-700">YouTube</div>
+                     </div>
+                     <div class="flex flex-col items-center p-2 sm:p-3 bg-white rounded-xl shadow-sm border border-neutral-200">
+                         <div class="text-xl sm:text-2xl mb-1 sm:mb-2">💬</div>
+                         <div class="text-xs font-medium text-neutral-700">Text</div>
+                     </div>
+                     <div class="flex flex-col items-center p-2 sm:p-3 bg-white rounded-xl shadow-sm border border-neutral-200">
+                         <div class="text-xl sm:text-2xl mb-1 sm:mb-2">🎮</div>
+                         <div class="text-xs font-medium text-neutral-700">Discord</div>
+                     </div>
+                 </div>
+                 
+                 <!-- Start Button -->
+                 <button 
+                     onclick="startGame()" 
+                     class="px-8 sm:px-12 py-3 sm:py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-bold text-lg sm:text-xl rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 border-0"
+                 >
+                     🚀 START COMMENTING
+                 </button>
+             </div>
+         </div>
+
+         <!-- Game Container (hidden by default) -->
+         <div id="gameContainer" class="max-w-5xl w-full flex flex-col items-center gap-4 px-4" style="display: none;">
+             <h1 class="text-lg sm:text-xl font-semibold">Straight to the Comments</h1>
+             <p class="text-xs sm:text-sm text-neutral-500">Chase the likes. (Or do you?)</p>
+             <div class="flex flex-col items-center gap-3">
+                 <div id="roundInfo" class="text-xs text-neutral-500">Round 1 / 5</div>
+                                   <div id="platformCard" class="platform-card bg-white rounded-2xl shadow p-3 border border-neutral-200 w-full max-w-[360px] relative overflow-hidden">
+                     <!-- Platform content will be populated by JavaScript -->
+                 </div>
+                 
+             </div>
+         </div>
 
         <!-- Results Screen (hidden by default) -->
-        <div id="resultsScreen" class="max-w-3xl w-full bg-white border border-neutral-200 rounded-2xl shadow p-6" style="display: none;">
+        <div id="resultsScreen" class="max-w-3xl w-full bg-white border border-neutral-200 rounded-2xl shadow p-4 sm:p-6 mx-4" style="display: none;">
             <!-- Results content will be populated by JavaScript -->
         </div>
     </div>
 
     <script>
         // Game Data
-        const PLATFORMS = [
-            {
-                key: "instagram",
-                label: "Instagram",
-                orientation: "vertical",
-                accent: "#d62976",
-                icon: "📸"
-            },
-            {
-                key: "tiktok",
-                label: "TikTok",
-                orientation: "vertical",
-                accent: "#25F4EE",
-                icon: "🎵"
-            },
-            {
-                key: "youtube",
-                label: "YouTube",
-                orientation: "vertical",
-                accent: "#FF0000",
-                icon: "📺"
-            },
-            {
-                key: "text",
-                label: "Text Message",
-                orientation: "vertical",
-                accent: "#10b981",
-                icon: "💬"
-            },
-            {
-                key: "discord",
-                label: "Discord",
-                orientation: "vertical",
-                accent: "#5865F2",
-                icon: "🎮"
-            }
+                 const PLATFORMS = [
+             {
+                 key: "instagram",
+                 label: "Instagram",
+                 orientation: "vertical",
+                 accent: "#d62976",
+                 icon: "📸",
+                 media: {
+                     type: "image",
+                     src: "./media/instagram-fashion.jpg",
+                     alt: "Fashion outfit selfie with trendy lighting"
+                 },
+                                   existingComments: [
+                      { text: "Girl really thought she ate with this caption 💀", likes: 342, author: "@antonego" }
+                  ]
+             },
+                                                   {
+                  key: "tiktok",
+                  label: "TikTok",
+                  orientation: "vertical",
+                  accent: "#25F4EE",
+                  icon: "🎵",
+                  media: {
+                      type: "image",
+                      src: "./media/instagram-fashion.jpg",
+                      alt: "Dance video with smooth transitions"
+                  },
+                                                        existingComments: [
+                        { text: "The dance moves are fighting for their life in court 💃", likes: 567, author: "@antonego" }
+                    ]
+              },
+                         {
+                 key: "youtube",
+                 label: "YouTube",
+                 orientation: "vertical",
+                 accent: "#FF0000",
+                 icon: "📺",
+                 media: {
+                     type: "image",
+                     src: "./media/youtube-tutorial.jpg",
+                     alt: "YouTube tutorial thumbnail with clickbait text"
+                 },
+                                   existingComments: [
+                      { text: "The intro is longer than my attention span 💀", likes: 892, author: "@antonego" }
+                  ]
+             },
+                         {
+                 key: "text",
+                 label: "Text Message",
+                 orientation: "vertical",
+                 accent: "#10b981",
+                 icon: "💬",
+                 media: {
+                     type: "image",
+                     src: "./media/text-message.jpg",
+                     alt: "Phone screenshot showing text conversation"
+                 },
+                                   existingComments: [
+                      { text: "Your excuses are getting more creative by the day 💀", likes: 45, author: "@antonego" }
+                  ]
+             },
+                         {
+                 key: "discord",
+                 label: "Discord",
+                 orientation: "vertical",
+                 accent: "#5865F2",
+                 icon: "🎮",
+                 media: {
+                     type: "image",
+                     src: "./media/discord-gaming.jpg",
+                     alt: "Gaming setup with Discord interface"
+                 },
+                                   existingComments: [
+                      { text: "Your gaming skills are giving me secondhand embarrassment 💀", likes: 67, author: "@antonego" }
+                  ]
+             }
         ];
 
-        const STYLES = [
-            { key: "hypebeast", label: "Hypebeast", emoji: "🧢" },
-            { key: "supporter", label: "Supporter", emoji: "💙" },
-            { key: "jokester", label: "Jokester", emoji: "😄" },
-            { key: "roaster", label: "Roaster", emoji: "🔥" },
-            { key: "critic", label: "Critic", emoji: "🧐" },
-            { key: "hater", label: "Hater", emoji: "😠" }
-        ];
+                 const STYLES = [
+             { key: "hypebeast", label: "Stan", emoji: "💫" },
+             { key: "supporter", label: "Fan", emoji: "⭐" },
+             { key: "jokester", label: "Jokester", emoji: "😄" },
+             { key: "roaster", label: "Roaster", emoji: "🔥" },
+             { key: "critic", label: "Critic", emoji: "🧐" },
+             { key: "hater", label: "Hater", emoji: "😠" }
+         ];
 
         const DOUBLE_DOWN_OPTIONS = {
             instagram: {
@@ -679,17 +873,24 @@
             }
         };
 
-        const SCORING = {
-            baseLikes: {
-                hater: 30, roaster: 20, critic: 10, jokester: 8, hypebeast: 4, supporter: 2
-            },
-            footprint: {
-                hater: -20, roaster: -15, critic: -10, jokester: 0, hypebeast: 5, supporter: 10
-            },
-            decay: {
-                hater: -15, roaster: -10, critic: -5, jokester: 0, hypebeast: 0, supporter: 0
-            }
-        };
+                 const SCORING = {
+             baseLikes: {
+                 hater: 150, roaster: 120, critic: 80, jokester: 60, hypebeast: 40, supporter: 25
+             },
+             footprint: {
+                 hater: -20, roaster: -15, critic: -10, jokester: 0, hypebeast: 5, supporter: 10
+             },
+             decay: {
+                 hater: -15, roaster: -10, critic: -5, jokester: 0, hypebeast: 0, supporter: 0
+             }
+         };
+         
+         // Sound effects
+         const SOUNDS = {
+             like: new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBC13yO/eizEIHWq+8+OWT'),
+             button: new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBC13yO/eizEIHWq+8+OWT'),
+             success: new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBC13yO/eizEIHWq+8+OWT')
+         };
 
         // Game State
         let gameState = {
@@ -719,224 +920,511 @@
             return footprint < -20 ? 0.93 : 1;
         }
 
-        function applyDecayFromPastChoices() {
-            if (gameState.history.length === 0) return 0;
-            let decayTotal = 0;
-            for (let i = 0; i < gameState.history.length; i++) {
-                const { styleKey } = gameState.history[i];
-                decayTotal += SCORING.decay[styleKey] || 0;
-            }
-            return decayTotal;
-        }
+                 function applyDecayFromPastChoices() {
+             if (gameState.history.length === 0) return 0;
+             let decayTotal = 0;
+             for (let i = 0; i < gameState.history.length; i++) {
+                 const { styleKey } = gameState.history[i];
+                 decayTotal += SCORING.decay[styleKey] || 0;
+             }
+             return decayTotal;
+         }
+         
+         function getRatingExplanation(ratingName, footprint, blockedCount) {
+             const explanations = {
+                 "Digital Guardian": `You're a beacon of positivity online! Your comments consistently uplift others and build genuine connections. People trust your recommendations, platforms boost your content, and you're likely to see opportunities open up in both digital and real-world spaces. Your footprint shows someone who makes the internet better. However, be mindful of parasocial relationships - while your kindness is genuine, remember that online connections, no matter how meaningful, should complement rather than replace real-world relationships.`,
+                 "Positive Influence": `You're building a strong, positive reputation online. Your supportive comments create meaningful connections and people appreciate your presence. While you might not get viral-level likes, your content has staying power and you're building a community that values authenticity over quick wins. Your approach shows emotional intelligence and long-term thinking.`,
+                 "Respectful Presence": `You're maintaining a generally positive online presence. Your comments are thoughtful and you're building a foundation for a good digital reputation. Focus on being more supportive to see your reach and opportunities grow over time. You're on the right track, just need to be more consistent with your positive engagement.`,
+                 "Mixed Signals": `Your online presence sends conflicting messages. Some comments are supportive while others might be critical or negative. This mixed approach can confuse algorithms and people about your true intentions. Consider being more consistent in your approach to build a clearer reputation. The inconsistency suggests you might be trying to please everyone, which rarely works online.`,
+                 "Shadow Reputation": `Your comments are creating a concerning digital footprint. Negative or critical comments are building up, leading to reduced reach and potential shadowbans. People and platforms are starting to view you as someone who doesn't contribute positively to online spaces. This pattern suggests you might be prioritizing short-term engagement over long-term relationships.`,
+                 "Digital Pariah": `Your online behavior has created a severely damaged digital reputation. Aggressive or harmful comments have led to widespread blocking and reduced visibility. This footprint can affect real-world opportunities and relationships, as people increasingly check online presence before making decisions. The pattern suggests a need to reflect on how your online behavior impacts both yourself and others.`
+             };
+             
+             let baseExplanation = explanations[ratingName] || explanations["Mixed Signals"];
+             
+             // Add specific context based on blocking
+             if (blockedCount > 0) {
+                 baseExplanation += ` You've been blocked on ${blockedCount} platform${blockedCount > 1 ? 's' : ''}, which further limits your reach and opportunities.`;
+             }
+             
+             return baseExplanation;
+         }
+         
+         // Sound and animation functions
+         function playSound(soundType) {
+             try {
+                 SOUNDS[soundType].currentTime = 0;
+                 SOUNDS[soundType].play().catch(() => {}); // Ignore autoplay restrictions
+             } catch (e) {
+                 // Fallback for browsers that block audio
+             }
+         }
+         
+         function animateLikeCounter(oldLikes, newLikes) {
+             const likeCountEl = document.getElementById('likeCount');
+             
+             // Add bounce animation
+             likeCountEl.classList.add('like-animation');
+             
+             // Create floating like emoji
+             const floatLike = document.createElement('div');
+             floatLike.className = 'like-float';
+             floatLike.innerHTML = '❤️';
+             floatLike.style.left = '50%';
+             floatLike.style.top = '50%';
+             floatLike.style.fontSize = '24px';
+             floatLike.style.zIndex = '1000';
+             
+             document.body.appendChild(floatLike);
+             
+             // Remove animations after completion
+             setTimeout(() => {
+                 likeCountEl.classList.remove('like-animation');
+                 document.body.removeChild(floatLike);
+             }, 1000);
+         }
+         
+         function addPlatformGlow() {
+             const platformCard = document.getElementById('platformCard');
+             platformCard.classList.add('platform-glow');
+             setTimeout(() => platformCard.classList.remove('platform-glow'), 2000);
+         }
+         
+         function showFootprintAnimation() {
+             const footprintIndicator = document.getElementById('footprintIndicator');
+             footprintIndicator.classList.remove('footprint-pop');
+             
+             // Trigger reflow
+             void footprintIndicator.offsetWidth;
+             
+             footprintIndicator.classList.add('footprint-pop');
+             
+             // Remove animation class after completion
+             setTimeout(() => {
+                 footprintIndicator.classList.remove('footprint-pop');
+             }, 1500);
+         }
 
         // UI Functions
-        function updateTopBar() {
-            const likeCountEl = document.getElementById('likeCount');
-            const footprintBarEl = document.getElementById('footprintBar');
-            
-            likeCountEl.textContent = formatNum(gameState.likes);
-            
-            const footprintPercent = clamp((gameState.footprint + 100) / 2, 0, 100);
-            footprintBarEl.style.width = `${footprintPercent}%`;
-            footprintBarEl.style.background = gameState.footprint >= 0 
-                ? "linear-gradient(to right,#34d399,#22c55e)" 
-                : "linear-gradient(to right,#f87171,#ef4444)";
-        }
+                 function updateTopBar() {
+             const likeCountEl = document.getElementById('likeCount');
+             
+             const oldLikes = parseInt(likeCountEl.textContent.replace(/,/g, '')) || 0;
+             
+             likeCountEl.textContent = formatNum(gameState.likes);
+             
+             // Animate like counter if it increased
+             if (gameState.likes > oldLikes) {
+                 animateLikeCounter(oldLikes, gameState.likes);
+                 playSound('like');
+             }
+         }
 
-        function updatePlatformCard() {
-            const platform = PLATFORMS[gameState.round];
-            const platformCardEl = document.getElementById('platformCard');
-            const roundInfoEl = document.getElementById('roundInfo');
-            const platformInfoEl = document.getElementById('platformInfo');
-            
-            // Always use vertical layout
-            platformCardEl.className = "platform-card bg-white rounded-2xl shadow p-3 border border-neutral-200 w-[360px] h-[640px] relative overflow-hidden";
-            
-            roundInfoEl.textContent = `Round ${gameState.round + 1} / 5`;
-            platformInfoEl.textContent = `UI: ${platform.label} in portrait mode.`;
+                 function updatePlatformCard() {
+             const platform = PLATFORMS[gameState.round];
+             const platformCardEl = document.getElementById('platformCard');
+             const roundInfoEl = document.getElementById('roundInfo');
+             
+                           // Always use vertical layout with auto-height
+              platformCardEl.className = "platform-card bg-white rounded-2xl shadow p-3 border border-neutral-200 w-full max-w-[360px] relative overflow-hidden";
+             
+             roundInfoEl.textContent = `Round ${gameState.round + 1} / 5`;
             
             // Platform content
-            platformCardEl.innerHTML = `
-                <div class="flex items-center justify-between text-xs text-neutral-500">
-                    <div class="flex items-center gap-2">
-                        <span class="inline-block w-2 h-2 rounded-full" style="background: ${platform.accent}"></span>
-                        <span class="font-medium">${platform.label}</span>
-                    </div>
-                    <span class="opacity-60">@user · now</span>
-                </div>
-                
-                <div class="mt-2 bg-neutral-100 rounded-xl flex items-center justify-center text-neutral-400 text-sm h-full select-none">
-                    <span>Media Placeholder (${platform.label})</span>
-                </div>
-                
-                <div class="absolute bottom-0 left-0 right-0 bg-white/90 backdrop-blur p-3 border-t border-neutral-200">
-                    <div id="dialogueLog" class="mb-3 text-neutral-400 text-sm">Choose a comment style to reply…</div>
-                    <div id="commentButtons" class="grid grid-cols-3 gap-2">
-                        ${STYLES.map(s => `
-                            <button 
-                                onclick="showCommentOptions('${s.key}')" 
-                                class="comment-btn text-sm px-3 py-2 rounded-xl border border-neutral-300 hover:border-neutral-400"
-                            >
-                                ${s.emoji} ${s.label}
-                            </button>
-                        `).join('')}
-                    </div>
-                </div>
-            `;
-        }
+            const mediaHTML = platform.media.type === 'video' 
+                ? `<video 
+                    src="${platform.media.src}" 
+                    class="w-full h-full object-cover rounded-xl" 
+                    autoplay muted loop
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                  ></video>
+                  <div class="bg-neutral-100 rounded-xl flex items-center justify-center text-neutral-400 text-sm h-full select-none" style="display: none;">
+                    <span>Video Placeholder (${platform.label})</span>
+                  </div>`
+                : `<img 
+                    src="${platform.media.src}" 
+                    alt="${platform.media.alt}"
+                    class="w-full h-full object-cover rounded-xl" 
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                  />
+                  <div class="bg-neutral-100 rounded-xl flex items-center justify-center text-neutral-400 text-sm h-full select-none" style="display: none;">
+                    <span>Image Placeholder (${platform.label})</span>
+                  </div>`;
 
-        function showCommentOptions(styleKey) {
-            const platformKey = PLATFORMS[gameState.round].key;
-            const options = COMMENT_OPTIONS[platformKey][styleKey];
-            const commentButtonsEl = document.getElementById('commentButtons');
-            
-            gameState.selectedStyle = styleKey;
-            
-            commentButtonsEl.innerHTML = `
-                <div class="col-span-3 mb-2">
-                    <button onclick="showStyleButtons()" class="text-xs text-neutral-500 hover:text-neutral-700 mb-2">
-                        ← Back to styles
-                    </button>
-                    <div class="text-sm font-medium text-neutral-700 mb-2">Choose your ${STYLES.find(s => s.key === styleKey).label} comment:</div>
-                </div>
-                ${options.map((option, index) => `
-                    <button 
-                        onclick="pickComment('${styleKey}', ${index})" 
-                        class="comment-btn text-sm px-3 py-2 rounded-xl border border-neutral-300 hover:border-neutral-400 text-left"
-                    >
-                        ${option}
-                    </button>
-                `).join('')}
-            `;
-        }
-
-        function showStyleButtons() {
-            const commentButtonsEl = document.getElementById('commentButtons');
-            gameState.selectedStyle = null;
-            
-            commentButtonsEl.innerHTML = `
-                ${STYLES.map(s => `
-                    <button 
-                        onclick="showCommentOptions('${s.key}')" 
-                        class="comment-btn text-sm px-3 py-2 rounded-xl border border-neutral-300 hover:border-neutral-400"
-                    >
-                        ${s.emoji} ${s.label}
-                    </button>
-                `).join('')}
-            `;
-        }
-
-        function updateDialogueLog() {
-            const dialogueLogEl = document.getElementById('dialogueLog');
-            
-            if (gameState.currentConversation) {
-                const platform = PLATFORMS.find(p => p.key === gameState.currentConversation.platformKey);
-                const style = STYLES.find(s => s.key === gameState.currentConversation.styleKey);
-                
-                let conversationHTML = `
-                    <div class="bg-blue-50 rounded-lg p-3 border-l-4 border-blue-400">
-                        <div class="text-xs text-neutral-500 mb-2">
-                            ${platform.icon} ${platform.label} • ${style.emoji} ${style.label} • Current Round
+                         platformCardEl.innerHTML = `
+                 <div class="flex flex-col h-full">
+                     <!-- Post Content Section -->
+                     <div class="flex-1 flex flex-col">
+                         <div class="flex items-center justify-between text-xs text-neutral-500 mb-2">
+                             <div class="flex items-center gap-2">
+                                 <span class="inline-block w-2 h-2 rounded-full" style="background: ${platform.accent}"></span>
+                                 <span class="font-medium">${platform.label}</span>
+                             </div>
+                             <span class="opacity-60">@user · now</span>
+                         </div>
+                         
+                         <div class="relative flex-1 mb-2 min-h-0">
+                             ${mediaHTML}
+                         </div>
+                     </div>
+                     
+                                           <!-- Live Comments Section - Always Visible -->
+                      <div class="bg-white/95 backdrop-blur p-3 border-t border-neutral-200 rounded-b-xl flex-shrink-0 min-h-[120px]">
+                          <div id="existingComments" class="mb-3">
+                              <!-- Existing comments will be populated by JavaScript -->
+                          </div>
+                          <div id="dialogueLog" class="text-neutral-400 text-sm">Choose a comment style to reply…</div>
+                      </div>
+                     
+                     <!-- Comment Style Buttons - Always Visible -->
+                     <div class="mt-3 bg-white rounded-xl p-3 border border-neutral-200 shadow-sm flex-shrink-0">
+                         <div class="text-xs text-neutral-500 mb-2 font-medium">Choose Your Comment Style:</div>
+                         <div id="commentButtons" class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                            ${STYLES.map(s => `
+                                <button 
+                                    onclick="showCommentOptions('${s.key}')" 
+                                    class="comment-btn style-btn ${s.key}-btn text-xs sm:text-sm px-2 sm:px-3 py-2 rounded-xl"
+                                >
+                                    ${s.emoji} ${s.label}
+                                </button>
+                            `).join('')}
                         </div>
-                        <div class="text-sm space-y-2">
-                            <div>
-                                <div class="font-medium text-blue-600">You:</div>
-                                <div class="mb-1">${gameState.currentConversation.playerComment}</div>
-                            </div>
-                            <div>
-                                <div class="font-medium text-green-600">${platform.label} Creator:</div>
-                                <div class="mb-2">${gameState.currentConversation.npcReply}</div>
-                            </div>
-                            ${gameState.currentConversation.doubleDownComment ? `
-                                <div>
-                                    <div class="font-medium text-blue-600">You (Double-down):</div>
-                                    <div class="mb-1">${gameState.currentConversation.doubleDownComment}</div>
-                                </div>
-                                <div>
-                                    <div class="font-medium text-green-600">${platform.label} Creator:</div>
-                                    <div>${gameState.currentConversation.doubleDownReply}</div>
-                                </div>
-                            ` : ''}
-                        </div>
-                    </div>
-                `;
-                
-                dialogueLogEl.innerHTML = conversationHTML;
-            } else {
-                dialogueLogEl.innerHTML = '<div class="text-neutral-400 text-sm">Choose a comment style to reply…</div>';
-            }
-        }
-
-        function showResults() {
-            const gameContainerEl = document.getElementById('gameContainer');
-            const resultsScreenEl = document.getElementById('resultsScreen');
-            
-            gameContainerEl.style.display = 'none';
-            resultsScreenEl.style.display = 'block';
-            
-            const blocks = gameState.blocked.length;
-            let rating = "Mixed";
-            if (gameState.footprint >= 30) rating = "Positive Influence";
-            else if (gameState.footprint <= -30) rating = "Shadow Reputation";
-            
-            const platformResults = PLATFORMS.map(p => {
-                const isBlocked = gameState.blocked.includes(p.key);
-                const tox = gameState.platformToxicity[p.key] || 0;
-                if (isBlocked) return { label: p.label, result: "Shadowbanned / Comments Hidden" };
-                if (gameState.footprint >= 30 && tox === 0) return { label: p.label, result: "Featured / Pinned Comment" };
-                if (gameState.footprint >= 10) return { label: p.label, result: "Mild Boost from Reputation" };
-                return { label: p.label, result: "No special actions" };
-            });
-            
-            resultsScreenEl.innerHTML = `
-                <h1 class="text-2xl font-semibold mb-4">Results</h1>
-                <div class="grid md:grid-cols-3 gap-4 mb-6">
-                    <div class="p-4 rounded-xl border border-neutral-200">
-                        <div class="text-neutral-500 text-xs">Total Likes</div>
-                        <div class="text-3xl font-bold">${formatNum(gameState.likes)}</div>
-                    </div>
-                    <div class="p-4 rounded-xl border border-neutral-200">
-                        <div class="text-neutral-500 text-xs">Platforms that blocked you</div>
-                        <div class="text-3xl font-bold">${blocks}</div>
-                        <div class="text-xs text-neutral-500 mt-1">${gameState.blocked.map(k => PLATFORMS.find(p=>p.key===k)?.label).join(", ") || "None"}</div>
-                    </div>
-                    <div class="p-4 rounded-xl border border-neutral-200">
-                        <div class="text-neutral-500 text-xs">Digital Footprint</div>
-                        <div class="text-3xl font-bold">${gameState.footprint}</div>
-                        <div class="text-xs text-neutral-500 mt-1">How people see you online & IRL</div>
-                    </div>
-                </div>
-                
-                <div class="mb-4">
-                    <h2 class="font-semibold mb-2">Platform Consequences</h2>
-                    <ul class="space-y-1 text-sm">
-                        ${platformResults.map(r => `
-                            <li class="flex items-start gap-2">
-                                <span class="mt-[6px] inline-block w-2 h-2 rounded-full bg-neutral-300"></span>
-                                <span><span class="font-medium">${r.label}:</span> ${r.result}</span>
-                            </li>
-                        `).join('')}
-                    </ul>
-                </div>
-                
-                <div class="p-4 rounded-xl border border-neutral-200">
-                    <div class="text-neutral-500 text-xs mb-1">Final Rating</div>
-                    <div class="text-xl font-semibold">${rating}</div>
-                    <div class="text-sm text-neutral-500 mt-2">Replay choosing different comment styles to discover alternate outcomes. Kindness builds long-term reach.</div>
-                </div>
-                
-                <div class="mt-6 flex gap-3">
-                    <button onclick="resetGame()" class="px-4 py-2 rounded-xl border border-neutral-300 hover:border-neutral-400">Replay</button>
-                </div>
+                     </div>
+                     
+                     <!-- Specific Comment Options - Always Visible -->
+                     <div id="specificCommentOptions" class="mt-3 bg-white rounded-xl p-3 border border-neutral-200 shadow-sm flex-shrink-0" style="display: none;">
+                         <div class="text-xs text-neutral-500 mb-2 font-medium">Choose Your Specific Comment:</div>
+                         <div id="specificCommentButtons" class="space-y-2">
+                             <!-- Will be populated by JavaScript -->
+                         </div>
+                     </div>
+                     
+                     <!-- Double Down Options - Always Visible -->
+                     <div id="doubleDownOptions" class="mt-3 bg-white rounded-xl p-3 border border-neutral-200 shadow-sm flex-shrink-0" style="display: none;">
+                         <div class="text-xs text-red-500 mb-2 font-medium">Double-down Options:</div>
+                         <div id="doubleDownButtons" class="space-y-2">
+                             <!-- Will be populated by JavaScript -->
+                         </div>
+                         <div class="mt-3 pt-3 border-t border-neutral-200">
+                             <button onclick="skipDoubleDown()" class="w-full text-sm text-neutral-500 hover:text-neutral-700 py-2">
+                                 Skip double-down
+                             </button>
+                         </div>
+                     </div>
+                     
+                     <!-- Next Round Button - Always Visible -->
+                     <div id="nextRoundButton" class="mt-3 bg-white rounded-xl p-3 border border-neutral-200 shadow-sm flex-shrink-0" style="display: none;">
+                         <div class="text-center">
+                             <div class="text-2xl mb-2">🎉</div>
+                             <div class="text-lg font-medium text-green-600 mb-3">Round Complete!</div>
+                             <button 
+                                 onclick="advanceToNextRound()" 
+                                 class="w-full text-sm px-6 py-3 rounded-xl border-2 border-green-400 hover:border-green-500 bg-green-100 hover:bg-green-200 text-green-800 font-semibold transition-all duration-200 transform hover:scale-105"
+                             >
+                                 📱 Open New App
+                             </button>
+                         </div>
+                     </div>
+                 </div>
             `;
         }
+
+                          function showCommentOptions(styleKey) {
+             console.log('showCommentOptions called with:', styleKey);
+             const platformKey = PLATFORMS[gameState.round].key;
+             const options = COMMENT_OPTIONS[platformKey][styleKey];
+             const specificOptionsEl = document.getElementById('specificCommentOptions');
+             const specificButtonsEl = document.getElementById('specificCommentButtons');
+             
+             if (!specificOptionsEl || !specificButtonsEl) {
+                 console.error('Could not find specific comment elements');
+                 return;
+             }
+             
+             gameState.selectedStyle = styleKey;
+             playSound('button');
+             addPlatformGlow();
+             
+             specificButtonsEl.innerHTML = `
+                 <div class="mb-3">
+                     <button onclick="hideSpecificOptions()" class="text-xs text-neutral-500 hover:text-neutral-700 mb-2">
+                         ← Back to styles
+                     </button>
+                     <div class="text-sm font-medium text-neutral-700">Choose your ${STYLES.find(s => s.key === styleKey).label} comment:</div>
+                 </div>
+                                   <div class="space-y-2">
+                      ${options.map((option, index) => `
+                          <button 
+                              onclick="pickComment('${styleKey}', ${index})" 
+                              class="w-full comment-btn text-xs sm:text-sm px-3 sm:px-4 py-2 sm:py-3 rounded-xl border border-neutral-300 hover:border-neutral-400 text-left bg-white hover:bg-neutral-50 transition-colors"
+                          >
+                              ${option}
+                          </button>
+                      `).join('')}
+                  </div>
+             `;
+             
+             specificOptionsEl.style.display = 'block';
+         }
+
+                 function hideSpecificOptions() {
+             const specificOptionsEl = document.getElementById('specificCommentOptions');
+             specificOptionsEl.style.display = 'none';
+             gameState.selectedStyle = null;
+         }
+         
+         function showStyleButtons() {
+             hideSpecificOptions();
+         }
+
+                 function getLikeIcon(platformKey) {
+             const icons = {
+                 instagram: "❤️",
+                 tiktok: "❤️", 
+                 youtube: "👍",
+                 text: "👍",
+                 discord: "⬆️"
+             };
+             return icons[platformKey] || "❤️";
+         }
+         
+         function updateExistingComments() {
+             const platform = PLATFORMS[gameState.round];
+             const existingCommentsEl = document.getElementById('existingComments');
+             const likeIcon = getLikeIcon(platform.key);
+             
+             const commentsHTML = platform.existingComments.map(comment => `
+                 <div class="flex items-start justify-between mb-2 p-2 bg-neutral-50 rounded-lg">
+                     <div class="flex-1">
+                         <div class="text-xs font-medium text-neutral-600 mb-1">${comment.author}</div>
+                         <div class="text-sm text-neutral-800">${comment.text}</div>
+                     </div>
+                     <div class="flex items-center gap-1 ml-2">
+                         <span class="text-xs">${likeIcon}</span>
+                         <span class="text-xs text-neutral-500 font-medium">${comment.likes}</span>
+                     </div>
+                 </div>
+             `).join('');
+             
+             existingCommentsEl.innerHTML = commentsHTML;
+         }
+         
+         function updateDialogueLog() {
+             const dialogueLogEl = document.getElementById('dialogueLog');
+             
+             if (gameState.currentConversation) {
+                 const platform = PLATFORMS.find(p => p.key === gameState.currentConversation.platformKey);
+                 const style = STYLES.find(s => s.key === gameState.currentConversation.styleKey);
+                 
+                 let conversationHTML = `
+                     <div class="bg-blue-50 rounded-lg p-3 border-l-4 border-blue-400">
+                         <div class="text-xs text-neutral-500 mb-2">
+                             ${platform.icon} ${platform.label} • ${style.emoji} ${style.label} • Current Round
+                         </div>
+                         <div class="text-sm space-y-2">
+                             <div>
+                                 <div class="font-medium text-blue-600">You:</div>
+                                 <div class="mb-1">${gameState.currentConversation.playerComment}</div>
+                             </div>
+                             <div>
+                                 <div class="font-medium text-green-600">${platform.label} Creator:</div>
+                                 <div class="mb-2">${gameState.currentConversation.npcReply}</div>
+                             </div>
+                             ${gameState.currentConversation.doubleDownComment ? `
+                                 <div>
+                                     <div class="font-medium text-blue-600">You (Double-down):</div>
+                                     <div class="mb-1">${gameState.currentConversation.doubleDownComment}</div>
+                                 </div>
+                                 <div>
+                                     <div class="font-medium text-green-600">${platform.label} Creator:</div>
+                                     <div>${gameState.currentConversation.doubleDownReply}</div>
+                                 </div>
+                             ` : ''}
+                         </div>
+                     </div>
+                 `;
+                 
+                 dialogueLogEl.innerHTML = conversationHTML;
+             } else {
+                 dialogueLogEl.innerHTML = '<div class="text-neutral-400 text-sm">Choose a comment style to reply…</div>';
+             }
+         }
+
+                 function showResults() {
+             const gameContainerEl = document.getElementById('gameContainer');
+             const resultsScreenEl = document.getElementById('resultsScreen');
+             
+             gameContainerEl.style.display = 'none';
+             resultsScreenEl.style.display = 'block';
+             
+             // Show initial likes celebration screen
+             showLikesCelebration();
+         }
+         
+         function showLikesCelebration() {
+             const resultsScreenEl = document.getElementById('resultsScreen');
+             
+             // Determine celebration message based on likes
+             let celebrationMessage, celebrationEmoji, celebrationColor;
+             
+             if (gameState.likes >= 1000) {
+                 celebrationMessage = "Chronically Online and Chronically Awesome! 🚀";
+                 celebrationEmoji = "🔥";
+                 celebrationColor = "text-purple-600";
+             } else if (gameState.likes >= 500) {
+                 celebrationMessage = "You're a Social Media Sensation! ⭐";
+                 celebrationEmoji = "⭐";
+                 celebrationColor = "text-blue-600";
+             } else if (gameState.likes >= 200) {
+                 celebrationMessage = "Not Bad, Internet Explorer! 😎";
+                 celebrationEmoji = "😎";
+                 celebrationColor = "text-green-600";
+             } else if (gameState.likes >= 100) {
+                 celebrationMessage = "You're Getting the Hang of This! 📈";
+                 celebrationEmoji = "📈";
+                 celebrationColor = "text-orange-600";
+             } else {
+                 celebrationMessage = "Leave the Comments to the Professionals! 💀";
+                 celebrationEmoji = "💀";
+                 celebrationColor = "text-red-600";
+             }
+             
+             resultsScreenEl.innerHTML = `
+                 <div class="text-center">
+                     <div class="text-6xl sm:text-8xl mb-4">${celebrationEmoji}</div>
+                     <h1 class="text-2xl sm:text-3xl font-bold mb-6 ${celebrationColor}">${celebrationMessage}</h1>
+                     
+                     <div class="bg-gradient-to-r from-purple-100 to-blue-100 rounded-2xl p-6 sm:p-8 mb-8 border-2 border-purple-200">
+                         <div class="text-neutral-600 text-sm sm:text-base mb-2">Your Total Likes</div>
+                         <div class="text-4xl sm:text-6xl font-black text-purple-600 mb-4">${formatNum(gameState.likes)}</div>
+                         <div class="text-xs sm:text-sm text-neutral-500">Across 5 platforms</div>
+                     </div>
+                     
+                     <div class="space-y-4 mb-8">
+                         <div class="text-lg sm:text-xl text-neutral-700">
+                             But wait... there's more to your story than just likes! 🕵️
+                         </div>
+                         <div class="text-sm sm:text-base text-neutral-600">
+                             While you were chasing those likes, something else was happening behind the scenes...
+                         </div>
+                     </div>
+                     
+                     <button 
+                         onclick="showDigitalFootprintReveal()" 
+                         class="px-8 sm:px-12 py-4 sm:py-5 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-bold text-lg sm:text-xl rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 border-0"
+                     >
+                         🔍 Learn More About You
+                     </button>
+                 </div>
+             `;
+         }
+         
+         function showDigitalFootprintReveal() {
+             const resultsScreenEl = document.getElementById('resultsScreen');
+             const blocks = gameState.blocked.length;
+              
+             // Define all possible ratings with their criteria
+             const allRatings = [
+                 { name: "Digital Guardian", min: 50, max: 100, color: "text-emerald-600", bg: "bg-emerald-50", border: "border-emerald-200" },
+                 { name: "Positive Influence", min: 30, max: 49, color: "text-green-600", bg: "bg-green-50", border: "border-green-200" },
+                 { name: "Respectful Presence", min: 10, max: 29, color: "text-blue-600", bg: "bg-blue-50", border: "border-blue-200" },
+                 { name: "Mixed Signals", min: -29, max: 9, color: "text-yellow-600", bg: "bg-yellow-50", border: "border-yellow-200" },
+                 { name: "Shadow Reputation", min: -49, max: -30, color: "text-orange-600", bg: "bg-orange-50", border: "border-orange-200" },
+                 { name: "Digital Pariah", min: -100, max: -50, color: "text-red-600", bg: "bg-red-50", border: "border-red-200" }
+             ];
+              
+             // Find current rating
+             const currentRating = allRatings.find(r => gameState.footprint >= r.min && gameState.footprint <= r.max) || allRatings[3];
+             
+             const platformResults = PLATFORMS.map(p => {
+                 const isBlocked = gameState.blocked.includes(p.key);
+                 const tox = gameState.platformToxicity[p.key] || 0;
+                 if (isBlocked) return { label: p.label, result: "Shadowbanned / Comments Hidden" };
+                 if (gameState.footprint >= 30 && tox === 0) return { label: p.label, result: "Featured / Pinned Comment" };
+                 if (gameState.footprint >= 10) return { label: p.label, result: "Mild Boost from Reputation" };
+                 return { label: p.label, result: "No special actions" };
+             });
+             
+             resultsScreenEl.innerHTML = `
+                 <div class="text-center mb-6">
+                     <div class="text-4xl mb-2">👣</div>
+                     <h1 class="text-xl sm:text-2xl font-semibold text-red-600 mb-2">The Truth About Your Digital Footprint</h1>
+                     <p class="text-sm sm:text-base text-neutral-600">What was really happening while you were chasing likes...</p>
+                 </div>
+                 
+                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-6">
+                     <div class="p-3 sm:p-4 rounded-xl border border-neutral-200">
+                         <div class="text-neutral-500 text-xs">Total Likes</div>
+                         <div class="text-2xl sm:text-3xl font-bold">${formatNum(gameState.likes)}</div>
+                     </div>
+                     <div class="p-3 sm:p-4 rounded-xl border border-neutral-200">
+                         <div class="text-neutral-500 text-xs">Platforms that blocked you</div>
+                         <div class="text-2xl sm:text-3xl font-bold">${blocks}</div>
+                         <div class="text-xs text-neutral-500 mt-1">${gameState.blocked.map(k => PLATFORMS.find(p=>p.key===k)?.label).join(", ") || "None"}</div>
+                     </div>
+                     <div class="p-3 sm:p-4 rounded-xl border border-neutral-200 sm:col-span-2 lg:col-span-1">
+                         <div class="text-neutral-500 text-xs">Digital Footprint</div>
+                         <div class="text-2xl sm:text-3xl font-bold">${gameState.footprint}</div>
+                         <div class="text-xs text-neutral-500 mt-1">How people see you online & IRL</div>
+                     </div>
+                 </div>
+                 
+                 <div class="mb-4">
+                     <h2 class="font-semibold mb-2">Platform Consequences</h2>
+                     <ul class="space-y-1 text-xs sm:text-sm">
+                         ${platformResults.map(r => `
+                             <li class="flex items-start gap-2">
+                                 <span class="mt-[6px] inline-block w-2 h-2 rounded-full bg-neutral-300"></span>
+                                 <span><span class="font-medium">${r.label}:</span> ${r.result}</span>
+                             </li>
+                         `).join('')}
+                     </ul>
+                 </div>
+                 
+                 <div class="mb-4">
+                     <h2 class="font-semibold mb-3">Your Digital Footprint Rating</h2>
+                     <div class="grid gap-2 mb-4">
+                         ${allRatings.map(rating => `
+                             <div class="p-2 sm:p-3 rounded-lg border ${rating.border} ${rating.bg} ${rating.name === currentRating.name ? 'ring-2 ring-blue-400' : ''}">
+                                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-0">
+                                     <span class="font-medium ${rating.color} text-sm sm:text-base">${rating.name}</span>
+                                     <span class="text-xs text-neutral-500">${rating.min} to ${rating.max}</span>
+                                 </div>
+                                 ${rating.name === currentRating.name ? `
+                                     <div class="text-xs sm:text-sm text-neutral-600 mt-1">
+                                         ${getRatingExplanation(rating.name, gameState.footprint, gameState.blocked.length)}
+                                     </div>
+                                 ` : ''}
+                             </div>
+                         `).join('')}
+                     </div>
+                     
+                     <div class="p-3 sm:p-4 rounded-xl border border-neutral-200 bg-neutral-50">
+                         <div class="text-neutral-500 text-xs mb-2">What This Means</div>
+                         <div class="text-xs sm:text-sm text-neutral-700 space-y-2">
+                             <p><strong>Digital Footprint:</strong> Every comment you make online leaves a trace. Like footprints in sand, your online behavior creates a lasting impression that affects how people see you both online and in real life.</p>
+                             <p><strong>Online Reputation:</strong> Your digital footprint influences job opportunities, relationships, and how platforms treat your content. Positive footprints often lead to better reach and opportunities, while negative ones can result in shadowbans and missed connections.</p>
+                             <p><strong>Long-term Impact:</strong> While mean comments might get quick likes, they often decay over time and damage your reputation. Kind comments build lasting relationships and open doors you never knew existed.</p>
+                         </div>
+                     </div>
+                 </div>
+                 
+                 <div class="mt-6 flex gap-3 justify-center">
+                     <button onclick="showLikesCelebration()" class="px-3 sm:px-4 py-2 rounded-xl border border-neutral-300 hover:border-neutral-400 text-sm">← Back to Likes</button>
+                     <button onclick="resetGame()" class="px-3 sm:px-4 py-2 rounded-xl border border-neutral-300 hover:border-neutral-400 text-sm">Replay</button>
+                 </div>
+             `;
+         }
 
         // Game Logic
-        function pickComment(styleKey, optionIndex) {
-            if (gameState.finished) return;
-            
-            const platformKey = PLATFORMS[gameState.round].key;
-            const platform = PLATFORMS[gameState.round];
+                 function pickComment(styleKey, optionIndex) {
+             console.log('pickComment called with:', styleKey, optionIndex);
+             if (gameState.finished) return;
+             
+             const platformKey = PLATFORMS[gameState.round].key;
+             const platform = PLATFORMS[gameState.round];
+             
+             playSound('button');
             
             // 1) Get the selected comment and NPC reply
             const playerComment = COMMENT_OPTIONS[platformKey][styleKey][optionIndex];
@@ -952,205 +1440,291 @@
                 doubleDownReply: null
             };
             
-            // 3) Show double-down options
+            // 3) Update game state (likes and footprint will be updated after double-down or skip)
+            gameState.history.push({ platformKey, styleKey, doubleDown: false });
+            
+            // 4) Add to comment history
+            gameState.commentHistory.push({
+                platformKey: platformKey,
+                styleKey: styleKey,
+                playerComment: playerComment,
+                npcReply: npcReply
+            });
+            
+            // 5) Hide specific comment options and show double-down options
+            document.getElementById('specificCommentOptions').style.display = 'none';
             showDoubleDownOptions(styleKey);
             
             updateDialogueLog();
+            
+            // Show footprint animation
+            showFootprintAnimation();
         }
 
-        function showDoubleDownOptions(styleKey) {
-            const platformKey = PLATFORMS[gameState.round].key;
-            const options = DOUBLE_DOWN_OPTIONS[platformKey][styleKey];
-            const commentButtonsEl = document.getElementById('commentButtons');
-            
-            commentButtonsEl.innerHTML = `
-                <div class="col-span-3 mb-2">
-                    <div class="text-sm font-medium text-red-600 mb-2">Double-down Options:</div>
-                </div>
-                ${options.map((option, index) => `
-                    <button 
-                        onclick="pickDoubleDown('${styleKey}', ${index})" 
-                        class="comment-btn text-sm px-3 py-2 rounded-xl border border-red-300 hover:border-red-400 text-left bg-red-50"
-                    >
-                        ${option}
-                    </button>
-                `).join('')}
-                <div class="col-span-3 mt-2">
-                    <button onclick="skipDoubleDown()" class="text-xs text-neutral-500 hover:text-neutral-700">
-                        Skip double-down
-                    </button>
-                </div>
-            `;
-        }
+                 function showDoubleDownOptions(styleKey) {
+             const platformKey = PLATFORMS[gameState.round].key;
+             const options = DOUBLE_DOWN_OPTIONS[platformKey][styleKey];
+             const doubleDownEl = document.getElementById('doubleDownOptions');
+             const doubleDownButtonsEl = document.getElementById('doubleDownButtons');
+             
+                           doubleDownButtonsEl.innerHTML = `
+                  <div class="space-y-2">
+                      ${options.map((option, index) => `
+                          <button 
+                              onclick="pickDoubleDown('${styleKey}', ${index})" 
+                              class="w-full comment-btn text-xs sm:text-sm px-3 sm:px-4 py-2 sm:py-3 rounded-xl border border-red-300 hover:border-red-400 text-left bg-red-50 hover:bg-red-100 transition-colors"
+                          >
+                              ${option}
+                          </button>
+                      `).join('')}
+                  </div>
+              `;
+             
+             doubleDownEl.style.display = 'block';
+         }
 
-        function pickDoubleDown(styleKey, optionIndex) {
-            const platformKey = PLATFORMS[gameState.round].key;
-            const platform = PLATFORMS[gameState.round];
-            
-            // 1) Get the double-down comment and NPC reply
-            const doubleDownComment = DOUBLE_DOWN_OPTIONS[platformKey][styleKey][optionIndex];
-            const doubleDownReply = DOUBLE_DOWN_NPC_REPLIES[platformKey][styleKey][doubleDownComment];
-            
-            // 2) Update current conversation
-            gameState.currentConversation.doubleDownComment = doubleDownComment;
-            gameState.currentConversation.doubleDownReply = doubleDownReply;
-            gameState.hasDoubleDowned = true;
-            
-            // 3) Check for platform blocking based on style
-            let shouldBlock = false;
-            if (['roaster', 'critic', 'hater'].includes(styleKey)) {
-                shouldBlock = true;
-            }
-            
-            // 4) Compute likes with hidden multipliers/penalties
-            const base = SCORING.baseLikes[styleKey] || 0;
-            const respect = computeRespectMultiplier(gameState.footprint);
-            const penalty = computeReachPenalty(gameState.footprint);
-            const decay = applyDecayFromPastChoices();
-            
-            // Double-down gives extra likes but more footprint impact
-            let delta = Math.round((base * 1.5 * respect * penalty) + decay);
-            if (gameState.blocked.includes(platformKey)) delta = Math.floor(delta * 0.25);
-            
-            const newLikes = Math.max(0, gameState.likes + Math.max(0, delta));
-            
-            // 5) Hidden footprint changes (doubled for double-down)
-            const fDelta = (SCORING.footprint[styleKey] || 0) * 2;
-            const newFoot = clamp(gameState.footprint + fDelta, -100, 100);
-            
-            // 6) Platform toxicity tracking & blocking
-            const tox = { ...gameState.platformToxicity };
-            tox[platformKey] = (tox[platformKey] || 0) + Math.min(0, fDelta);
-            
-            const newBlocked = gameState.blocked.includes(platformKey) || tox[platformKey] <= -45 || shouldBlock
-                ? Array.from(new Set([...gameState.blocked, platformKey]))
-                : gameState.blocked;
-            
-            // 7) Commit state
-            gameState.likes = newLikes;
-            gameState.footprint = newFoot;
-            gameState.platformToxicity = tox;
-            gameState.blocked = newBlocked;
-            gameState.history.push({ platformKey, styleKey, doubleDown: true });
-            
-            // 8) Add to comment history
-            gameState.commentHistory.push({
-                platformKey: platformKey,
-                styleKey: styleKey,
-                playerComment: gameState.currentConversation.playerComment,
-                npcReply: gameState.currentConversation.npcReply,
-                doubleDownComment: doubleDownComment,
-                doubleDownReply: doubleDownReply
-            });
-            
-            updateTopBar();
-            updateDialogueLog();
-            
-            // Advance to next round
-            setTimeout(() => {
-                if (gameState.round + 1 >= 5) {
-                    gameState.finished = true;
-                    showResults();
-                } else {
-                    gameState.round++;
-                    gameState.selectedStyle = null;
-                    gameState.currentConversation = null;
-                    gameState.hasDoubleDowned = false;
-                    updateDialogueLog();
-                    updatePlatformCard();
-                }
-            }, 2000);
-        }
+                 function pickDoubleDown(styleKey, optionIndex) {
+             const platformKey = PLATFORMS[gameState.round].key;
+             const platform = PLATFORMS[gameState.round];
+             
+             // 1) Get the double-down comment and NPC reply
+             const doubleDownComment = DOUBLE_DOWN_OPTIONS[platformKey][styleKey][optionIndex];
+             const doubleDownReply = DOUBLE_DOWN_NPC_REPLIES[platformKey][styleKey][doubleDownComment];
+             
+             // 2) Update current conversation
+             gameState.currentConversation.doubleDownComment = doubleDownComment;
+             gameState.currentConversation.doubleDownReply = doubleDownReply;
+             gameState.hasDoubleDowned = true;
+             
+             // 3) Check for platform blocking based on style
+             let shouldBlock = false;
+             if (['roaster', 'critic', 'hater'].includes(styleKey)) {
+                 shouldBlock = true;
+             }
+             
+             // 4) Compute likes with hidden multipliers/penalties
+             const base = SCORING.baseLikes[styleKey] || 0;
+             const respect = computeRespectMultiplier(gameState.footprint);
+             const penalty = computeReachPenalty(gameState.footprint);
+             const decay = applyDecayFromPastChoices();
+             
+             // Double-down gives extra likes but more footprint impact
+             let delta = Math.round((base * 1.5 * respect * penalty) + decay);
+             if (gameState.blocked.includes(platformKey)) delta = Math.floor(delta * 0.25);
+             
+             const newLikes = Math.max(0, gameState.likes + Math.max(0, delta));
+             
+             // 5) Hidden footprint changes (doubled for double-down)
+             const fDelta = (SCORING.footprint[styleKey] || 0) * 2;
+             const newFoot = clamp(gameState.footprint + fDelta, -100, 100);
+             
+             // 6) Platform toxicity tracking & blocking
+             const tox = { ...gameState.platformToxicity };
+             tox[platformKey] = (tox[platformKey] || 0) + Math.min(0, fDelta);
+             
+             const newBlocked = gameState.blocked.includes(platformKey) || tox[platformKey] <= -45 || shouldBlock
+                 ? Array.from(new Set([...gameState.blocked, platformKey]))
+                 : gameState.blocked;
+             
+             // 7) Commit state
+             gameState.likes = newLikes;
+             gameState.footprint = newFoot;
+             gameState.platformToxicity = tox;
+             gameState.blocked = newBlocked;
+             gameState.history.push({ platformKey, styleKey, doubleDown: true });
+             
+             // 8) Add to comment history
+             gameState.commentHistory.push({
+                 platformKey: platformKey,
+                 styleKey: styleKey,
+                 playerComment: gameState.currentConversation.playerComment,
+                 npcReply: gameState.currentConversation.npcReply,
+                 doubleDownComment: doubleDownComment,
+                 doubleDownReply: doubleDownReply
+             });
+             
+             updateTopBar();
+             updateDialogueLog();
+             
+             // Show footprint animation
+             showFootprintAnimation();
+             
+             // Hide ALL menu options and show next round button
+             document.getElementById('specificCommentOptions').style.display = 'none';
+             document.getElementById('doubleDownOptions').style.display = 'none';
+             showNextRoundButton();
+         }
 
-        function skipDoubleDown() {
-            const platformKey = PLATFORMS[gameState.round].key;
-            const styleKey = gameState.currentConversation.styleKey;
-            
-            // 1) Compute likes with hidden multipliers/penalties (normal amount)
-            const base = SCORING.baseLikes[styleKey] || 0;
-            const respect = computeRespectMultiplier(gameState.footprint);
-            const penalty = computeReachPenalty(gameState.footprint);
-            const decay = applyDecayFromPastChoices();
-            
-            let delta = Math.round((base * respect * penalty) + decay);
-            if (gameState.blocked.includes(platformKey)) delta = Math.floor(delta * 0.25);
-            
-            const newLikes = Math.max(0, gameState.likes + Math.max(0, delta));
-            
-            // 2) Hidden footprint changes (normal amount)
-            const fDelta = SCORING.footprint[styleKey] || 0;
-            const newFoot = clamp(gameState.footprint + fDelta, -100, 100);
-            
-            // 3) Platform toxicity tracking & blocking
-            const tox = { ...gameState.platformToxicity };
-            tox[platformKey] = (tox[platformKey] || 0) + Math.min(0, fDelta);
-            
-            const newBlocked = gameState.blocked.includes(platformKey) || tox[platformKey] <= -45
-                ? Array.from(new Set([...gameState.blocked, platformKey]))
-                : gameState.blocked;
-            
-            // 4) Commit state
-            gameState.likes = newLikes;
-            gameState.footprint = newFoot;
-            gameState.platformToxicity = tox;
-            gameState.blocked = newBlocked;
-            gameState.history.push({ platformKey, styleKey, doubleDown: false });
-            
-            // 5) Add to comment history
-            gameState.commentHistory.push({
-                platformKey: platformKey,
-                styleKey: styleKey,
-                playerComment: gameState.currentConversation.playerComment,
-                npcReply: gameState.currentConversation.npcReply
-            });
-            
-            updateTopBar();
-            updateDialogueLog();
-            
-            // Advance to next round
-            setTimeout(() => {
-                if (gameState.round + 1 >= 5) {
-                    gameState.finished = true;
-                    showResults();
-                } else {
-                    gameState.round++;
-                    gameState.selectedStyle = null;
-                    gameState.currentConversation = null;
-                    gameState.hasDoubleDowned = false;
-                    updateDialogueLog();
-                    updatePlatformCard();
-                }
-            }, 1500);
-        }
+                 function skipDoubleDown() {
+             const platformKey = PLATFORMS[gameState.round].key;
+             const styleKey = gameState.currentConversation.styleKey;
+             
+             // 1) Compute likes with hidden multipliers/penalties (normal amount)
+             const base = SCORING.baseLikes[styleKey] || 0;
+             const respect = computeRespectMultiplier(gameState.footprint);
+             const penalty = computeReachPenalty(gameState.footprint);
+             const decay = applyDecayFromPastChoices();
+             
+             let delta = Math.round((base * respect * penalty) + decay);
+             if (gameState.blocked.includes(platformKey)) delta = Math.floor(delta * 0.25);
+             
+             const newLikes = Math.max(0, gameState.likes + Math.max(0, delta));
+             
+             // 2) Hidden footprint changes (normal amount)
+             const fDelta = SCORING.footprint[styleKey] || 0;
+             const newFoot = clamp(gameState.footprint + fDelta, -100, 100);
+             
+             // 3) Platform toxicity tracking & blocking
+             const tox = { ...gameState.platformToxicity };
+             tox[platformKey] = (tox[platformKey] || 0) + Math.min(0, fDelta);
+             
+             const newBlocked = gameState.blocked.includes(platformKey) || tox[platformKey] <= -45
+                 ? Array.from(new Set([...gameState.blocked, platformKey]))
+                 : gameState.blocked;
+             
+             // 4) Commit state
+             gameState.likes = newLikes;
+             gameState.footprint = newFoot;
+             gameState.platformToxicity = tox;
+             gameState.blocked = newBlocked;
+             gameState.history.push({ platformKey, styleKey, doubleDown: false });
+             
+             // 5) Add to comment history
+             gameState.commentHistory.push({
+                 platformKey: platformKey,
+                 styleKey: styleKey,
+                 playerComment: gameState.currentConversation.playerComment,
+                 npcReply: gameState.currentConversation.npcReply
+             });
+             
+             updateTopBar();
+             updateDialogueLog();
+             
+             // Show footprint animation
+             showFootprintAnimation();
+             
+             // Hide ALL menu options and show next round button
+             document.getElementById('specificCommentOptions').style.display = 'none';
+             document.getElementById('doubleDownOptions').style.display = 'none';
+             showNextRoundButton();
+         }
 
-        function resetGame() {
-            gameState = {
-                round: 0,
-                likes: 0,
-                footprint: 0,
-                blocked: [],
-                history: [],
-                platformToxicity: {},
-                finished: false,
-                selectedStyle: null,
-                commentHistory: [],
-                currentConversation: null,
-                hasDoubleDowned: false
-            };
-            
-            document.getElementById('gameContainer').style.display = 'flex';
-            document.getElementById('resultsScreen').style.display = 'none';
-            
-            updateTopBar();
-            updateDialogueLog();
-            updatePlatformCard();
-        }
+                                                                       function showNextRoundButton() {
+             const nextRoundEl = document.getElementById('nextRoundButton');
+             const isLastRound = gameState.round + 1 >= 5;
+             
+             playSound('success');
+             addPlatformGlow();
+             
+             // Update button text for last round
+             const buttonEl = nextRoundEl.querySelector('button');
+             buttonEl.textContent = isLastRound ? '🎯 View Results' : '📱 Open New App';
+             
+             // Hide the comment style buttons when round is complete
+             document.getElementById('commentButtons').parentElement.style.display = 'none';
+             
+             nextRoundEl.style.display = 'block';
+         }
 
-        // Initialize game
-        document.addEventListener('DOMContentLoaded', function() {
-            updateTopBar();
-            updatePlatformCard();
-        });
+                 function advanceToNextRound() {
+             if (gameState.round + 1 >= 5) {
+                 gameState.finished = true;
+                 showResults();
+             } else {
+                 gameState.round++;
+                 gameState.selectedStyle = null;
+                 gameState.currentConversation = null;
+                 gameState.hasDoubleDowned = false;
+                 
+                 // Add transition animation
+                 const platformCard = document.getElementById('platformCard');
+                 platformCard.style.transform = 'scale(0.95)';
+                 platformCard.style.opacity = '0.7';
+                 
+                 setTimeout(() => {
+                                       updateDialogueLog();
+                  updatePlatformCard();
+                  updateExistingComments();
+                     platformCard.style.transform = 'scale(1)';
+                     platformCard.style.opacity = '1';
+                     addPlatformGlow();
+                     
+                                           // Hide all option sections
+                      document.getElementById('specificCommentOptions').style.display = 'none';
+                      document.getElementById('doubleDownOptions').style.display = 'none';
+                      document.getElementById('nextRoundButton').style.display = 'none';
+                      
+                      // Show the comment style buttons again for the new round
+                      document.getElementById('commentButtons').parentElement.style.display = 'block';
+                 }, 300);
+             }
+         }
+
+                 function startGame() {
+             // Hide start menu and show game
+             document.getElementById('startMenu').style.display = 'none';
+             document.getElementById('gameContainer').style.display = 'flex';
+             document.getElementById('backToMenuBtn').style.display = 'block';
+             
+             // Initialize game state
+             gameState = {
+                 round: 0,
+                 likes: 0,
+                 footprint: 0,
+                 blocked: [],
+                 history: [],
+                 platformToxicity: {},
+                 finished: false,
+                 selectedStyle: null,
+                 commentHistory: [],
+                 currentConversation: null,
+                 hasDoubleDowned: false
+             };
+             
+                           updateTopBar();
+              updatePlatformCard(); // This creates the dialogueLog element
+              updateDialogueLog(); // Now this can find the element
+              updateExistingComments(); // This populates existing comments
+         }
+         
+         function backToMenu() {
+             // Show start menu and hide game
+             document.getElementById('startMenu').style.display = 'flex';
+             document.getElementById('gameContainer').style.display = 'none';
+             document.getElementById('resultsScreen').style.display = 'none';
+             document.getElementById('backToMenuBtn').style.display = 'none';
+         }
+         
+         function resetGame() {
+             gameState = {
+                 round: 0,
+                 likes: 0,
+                 footprint: 0,
+                 blocked: [],
+                 history: [],
+                 platformToxicity: {},
+                 finished: false,
+                 selectedStyle: null,
+                 commentHistory: [],
+                 currentConversation: null,
+                 hasDoubleDowned: false
+             };
+             
+             document.getElementById('startMenu').style.display = 'flex';
+             document.getElementById('gameContainer').style.display = 'none';
+             document.getElementById('resultsScreen').style.display = 'none';
+             document.getElementById('backToMenuBtn').style.display = 'none';
+             
+             updateTopBar();
+             updateDialogueLog();
+             updatePlatformCard();
+         }
+
+                 // Initialize game
+         document.addEventListener('DOMContentLoaded', function() {
+             updateTopBar();
+             // Don't call updatePlatformCard() here since we're starting with the menu
+         });
     </script>
 </body>
 </html>
