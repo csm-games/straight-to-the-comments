@@ -83,7 +83,7 @@
             {
                 key: "youtube",
                 label: "YouTube",
-                orientation: "horizontal",
+                orientation: "vertical",
                 accent: "#FF0000",
                 icon: "📺"
             },
@@ -97,7 +97,7 @@
             {
                 key: "discord",
                 label: "Discord",
-                orientation: "horizontal",
+                orientation: "vertical",
                 accent: "#5865F2",
                 icon: "🎮"
             }
@@ -749,15 +749,11 @@
             const roundInfoEl = document.getElementById('roundInfo');
             const platformInfoEl = document.getElementById('platformInfo');
             
-            // Update card dimensions based on orientation
-            if (platform.orientation === "horizontal") {
-                platformCardEl.className = "platform-card bg-white rounded-2xl shadow p-3 border border-neutral-200 w-[720px] h-[405px] relative overflow-hidden";
-            } else {
-                platformCardEl.className = "platform-card bg-white rounded-2xl shadow p-3 border border-neutral-200 w-[360px] h-[640px] relative overflow-hidden";
-            }
+            // Always use vertical layout
+            platformCardEl.className = "platform-card bg-white rounded-2xl shadow p-3 border border-neutral-200 w-[360px] h-[640px] relative overflow-hidden";
             
             roundInfoEl.textContent = `Round ${gameState.round + 1} / 5`;
-            platformInfoEl.textContent = `UI auto-adjusts: ${platform.label} is ${platform.orientation === 'vertical' ? 'portrait' : 'landscape'}.`;
+            platformInfoEl.textContent = `UI: ${platform.label} in portrait mode.`;
             
             // Platform content
             platformCardEl.innerHTML = `
@@ -770,7 +766,7 @@
                 </div>
                 
                 <div class="mt-2 bg-neutral-100 rounded-xl flex items-center justify-center text-neutral-400 text-sm h-full select-none">
-                    <span>Media Placeholder (${platform.orientation})</span>
+                    <span>Media Placeholder (${platform.label})</span>
                 </div>
                 
                 <div class="absolute bottom-0 left-0 right-0 bg-white/90 backdrop-blur p-3 border-t border-neutral-200">
