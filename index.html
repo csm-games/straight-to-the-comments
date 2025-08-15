@@ -112,39 +112,183 @@
             { key: "hater", label: "Hater", emoji: "😠" }
         ];
 
-        const DIALOGUE = {
+        const COMMENT_OPTIONS = {
             instagram: {
                 hypebeast: [
-                    ["Fit is fire fr 🔥", "Drip check passed ✅", "Had to gas it up, looks clean."],
-                    ["Colors go crazy", "Lowkey vibes", "Palette goes hard ngl."],
-                    ["Photo hits different", "Angles on point", "Respect the shot!"]
+                    "Fit is fire fr 🔥",
+                    "Colors go crazy, lowkey vibes ✨"
                 ],
                 supporter: [
-                    ["Proud of you!", "That's sweet to see.", "Keep going — you got this."],
-                    ["You worked hard on this", "We notice it", "Keep shining."],
-                    ["Such a wholesome post", "Needed this today", "Sending good energy."]
+                    "Proud of you! Keep going — you got this 💪",
+                    "You worked hard on this, we notice it 👏"
                 ],
                 jokester: [
-                    ["Bro said 'new phone who dis' pose", "Lmao true", "Okay model status unlocked 😂"],
-                    ["That shadow got main character energy", "Cameo of the year", "Shadow's the real star."],
-                    ["Camera ate and left no crumbs", "Plate clean fr", "Chef's kiss 📸"]
+                    "Bro said 'new phone who dis' pose 😂",
+                    "That shadow got main character energy 🎭"
                 ],
                 roaster: [
-                    ["Bro dressed like a traffic cone", "Orange supremacy", "Relax I'm playin'… kinda."],
-                    ["Caption trying too hard", "Corn meter rising", "Tell me I'm wrong."],
-                    ["That filter 2017 core", "Time traveler vibes", "Welcome back, I guess."]
+                    "Bro dressed like a traffic cone 🚦",
+                    "Caption trying too hard, corn meter rising 🌽"
                 ],
                 critic: [
-                    ["Lighting's harsh tbh", "Yeah bit overexposed", "Maybe try golden hour next time"],
-                    ["Crop feels tight", "Headroom zero", "Rule of thirds could help"],
-                    ["Edit's heavy", "Skin looks plasticky", "Dial back the smoothing"]
+                    "Lighting's harsh tbh, maybe try golden hour next time 📸",
+                    "Crop feels tight, rule of thirds could help 📐"
                 ],
                 hater: [
-                    ["Delete this 💀", "Why post this tho", "Do it for the unblock button"],
-                    ["Cringe alert", "Muting fr", "Touch grass challenge"],
-                    ["Unfollow speedrun", "World record", "No offense but offense"]
+                    "Delete this 💀",
+                    "Cringe alert, muting fr 🚨"
                 ]
             },
+            tiktok: {
+                hypebeast: [
+                    "Beat goes crazy, looping this 🔥",
+                    "Transitions smooth, chef mode editing 👨‍🍳"
+                ],
+                supporter: [
+                    "Keep posting! We love consistent creators 💕",
+                    "Thanks for the laugh, wholesome vibes 😊"
+                ],
+                jokester: [
+                    "This my Roman Empire now 🏛️",
+                    "POV: you're the main quest 🎮"
+                ],
+                roaster: [
+                    "Transition jump scare, I'm suing my FYP 😱",
+                    "Audio fighting for its life, mic said nope 🎤"
+                ],
+                critic: [
+                    "Cut 2 drags, pacing fixes everything ✂️",
+                    "Color grade off, try warmer midtones 🎨"
+                ],
+                hater: [
+                    "Not funny lol, pack it up 📦",
+                    "Who asked, touch grass DLC 🌱"
+                ]
+            },
+            youtube: {
+                hypebeast: [
+                    "Intro slaps, subs incoming 🎵",
+                    "Thumbnail clean, title wins 🏆"
+                ],
+                supporter: [
+                    "This helped a lot, bookmarked 📚",
+                    "You put effort, appreciated 🙏"
+                ],
+                jokester: [
+                    "That mic said ASMR not tutorial 🎤",
+                    "Editor deserves a raise, oh wait it's you 💰"
+                ],
+                roaster: [
+                    "Timestamps where, lost in the void 🕳️",
+                    "Intro too long, skip speedrun ⏭️"
+                ],
+                critic: [
+                    "Audio peaks, limiter needed 🔊",
+                    "B-roll repeats, need variety 🎬"
+                ],
+                hater: [
+                    "Worst video today, delete channel 🗑️",
+                    "Skill issue, unsubbed 👎"
+                ]
+            },
+            text: {
+                hypebeast: [
+                    "W idea, let's run it 🚀",
+                    "Proud of u, lowkey inspiring ✨"
+                ],
+                supporter: [
+                    "That sounded tough, here for you 🤗",
+                    "Nice move, respect the honesty 💯"
+                ],
+                jokester: [
+                    "I'll bring the snacks, you bring the chaos 🍿",
+                    "Plot twist energy, season 3 arc 📺"
+                ],
+                roaster: [
+                    "Bro you always late, L clock ⏰",
+                    "Excuse speedrun PB, world champ 🏅"
+                ],
+                critic: [
+                    "That text could land wrong, try softer 🤔",
+                    "Timing bad, they're busy, send later 📱"
+                ],
+                hater: [
+                    "Nobody cares, cry about it 😭",
+                    "Embarrassing take, delulu 🤡"
+                ]
+            },
+            discord: {
+                hypebeast: [
+                    "GG team, clean comms 🎮",
+                    "Art share goes hard, pinned? 🎨"
+                ],
+                supporter: [
+                    "Welcome new folks, glad you're here 👋",
+                    "Mod team cooked, thanks y'all 👨‍💼"
+                ],
+                jokester: [
+                    "Ping @everyone speedrun, mods typing… ⚡",
+                    "Cat tax or ban, rules are rules 🐱"
+                ],
+                roaster: [
+                    "You camped spawn, peak cringe 🏕️",
+                    "Fanart traced? Looks sus 🕵️"
+                ],
+                critic: [
+                    "Thread drift, back on topic? 🧵",
+                    "Overposting, slow mode pls 🐌"
+                ],
+                hater: [
+                    "Mods asleep, chaos time 😈",
+                    "Server lame, leaving 👋"
+                ]
+            }
+        };
+
+        const NPC_REPLIES = {
+            instagram: {
+                hypebeast: ["OMG thank you so much! 🥺 You're literally the sweetest!", "You're making my day with these comments! 🥰"],
+                supporter: ["Thank you so much! That means a lot to me 😊", "You're so kind! Really appreciate the support"],
+                jokester: ["LMAO you're hilarious! 😂 This made my day!", "Not you coming back with more jokes! 😭 I can't!"],
+                roaster: ["Okay, I see you coming for me! 😅 But honestly, fair play", "You're really not letting up with these roasts! 😂"],
+                critic: ["Thanks for the feedback! Always trying to improve 🙏", "I appreciate you taking the time to give thoughtful feedback! 🤝"],
+                hater: ["I appreciate the honesty, even if it's harsh 😅", "You're really committed to this energy, huh? 😅"]
+            },
+            tiktok: {
+                hypebeast: ["OMG thank you! You're literally the best! 🥺💃", "You're making me blush! Thank you so much! 🥰"],
+                supporter: ["Thank you! Your support means everything! 😊", "You're so sweet! Really appreciate the love"],
+                jokester: ["LMAO you're killing me! 😂 This made my day!", "Not you being the funniest person ever! 😭 I can't!"],
+                roaster: ["Okay, I see you coming for me! 😅 But honestly, you're funny", "You're really not letting up with these roasts! 😂"],
+                critic: ["Thanks for the feedback! Always trying to improve 🙏", "I appreciate you taking the time to give thoughtful feedback! 🤝"],
+                hater: ["I appreciate the honesty, even if it's harsh 😅", "You're really committed to this energy, huh? 😅"]
+            },
+            youtube: {
+                hypebeast: ["OMG thank you! You're literally the best! 🥺📱", "You're making my day! Thank you so much! 🥰"],
+                supporter: ["Thank you! Your support means everything! 😊", "You're so kind! Really appreciate the feedback"],
+                jokester: ["LMAO you're hilarious! 😂 This made my day!", "Not you being the funniest commenter! 😭 I can't!"],
+                roaster: ["Okay, I see you coming for me! 😅 But honestly, fair play", "You're really not letting up with these roasts! 😂"],
+                critic: ["Thanks for the feedback! Always trying to improve 🙏", "I appreciate you taking the time to give thoughtful feedback! 🤝"],
+                hater: ["I appreciate the honesty, even if it's harsh 😅", "You're really committed to this energy, huh? 😅"]
+            },
+            text: {
+                hypebeast: ["OMG thank you! You're literally the best friend ever! 🥺🎓", "You're making me cry! Thank you so much! 🥰"],
+                supporter: ["Thank you! Your support means everything! 😊", "You're so kind! Really appreciate the friendship"],
+                jokester: ["LMAO you're hilarious! 😂 This made my day!", "Not you being the funniest friend! 😭 I can't!"],
+                roaster: ["Okay, I see you coming for me! 😅 But honestly, you're funny", "You're really not letting up with these roasts! 😂"],
+                critic: ["Thanks for the feedback! Always trying to improve 🙏", "I appreciate you taking the time to give thoughtful advice! 🤝"],
+                hater: ["I appreciate the honesty, even if it's harsh 😅", "You're really committed to this energy, huh? 😅"]
+            },
+            discord: {
+                hypebeast: ["OMG thank you! You're literally the best! 🥺🎮", "You're making my day! Thank you so much! 🥰"],
+                supporter: ["Thank you! Your support means everything! 😊", "You're so kind! Really appreciate the encouragement"],
+                jokester: ["LMAO you're hilarious! 😂 This made my day!", "Not you being the funniest person in the server! 😭 I can't!"],
+                roaster: ["Okay, I see you coming for me! 😅 But honestly, fair play", "You're really not letting up with these roasts! 😂"],
+                critic: ["Thanks for the feedback! Always trying to improve 🙏", "I appreciate you taking the time to give thoughtful feedback! 🤝"],
+                hater: ["I appreciate the honesty, even if it's harsh 😅", "You're really committed to this energy, huh? 😅"]
+            }
+        };
+
+        const DIALOGUE = {
             tiktok: {
                 hypebeast: [["Beat goes crazy", "Looping this", "Dance clean!"],["Transitions smooth", "Facts", "Chef mode editing"],["Camera moves 🔥", "Stabilized clean", "Teach me that pan"]],
                 supporter: [["Keep posting!", "We love consistent creators", "You're improving fast"],["Thanks for the laugh", "Wholesome", "Made my day"],["Algorithm better notice", "Manifesting FYP", "You deserve it"]],
@@ -199,7 +343,9 @@
             blocked: [],
             history: [],
             platformToxicity: {},
-            finished: false
+            finished: false,
+            selectedStyle: null,
+            commentHistory: []
         };
 
         // Helper Functions
@@ -271,10 +417,10 @@
                 
                 <div class="absolute bottom-0 left-0 right-0 bg-white/90 backdrop-blur p-3 border-t border-neutral-200">
                     <div id="dialogueLog" class="mb-3 text-neutral-400 text-sm">Choose a comment style to reply…</div>
-                    <div class="grid grid-cols-3 gap-2">
+                    <div id="commentButtons" class="grid grid-cols-3 gap-2">
                         ${STYLES.map(s => `
                             <button 
-                                onclick="pickStyle('${s.key}')" 
+                                onclick="showCommentOptions('${s.key}')" 
                                 class="comment-btn text-sm px-3 py-2 rounded-xl border border-neutral-300 hover:border-neutral-400"
                             >
                                 ${s.emoji} ${s.label}
@@ -285,19 +431,78 @@
             `;
         }
 
-        function updateDialogueLog(lines) {
+        function showCommentOptions(styleKey) {
+            const platformKey = PLATFORMS[gameState.round].key;
+            const options = COMMENT_OPTIONS[platformKey][styleKey];
+            const commentButtonsEl = document.getElementById('commentButtons');
+            
+            gameState.selectedStyle = styleKey;
+            
+            commentButtonsEl.innerHTML = `
+                <div class="col-span-3 mb-2">
+                    <button onclick="showStyleButtons()" class="text-xs text-neutral-500 hover:text-neutral-700 mb-2">
+                        ← Back to styles
+                    </button>
+                    <div class="text-sm font-medium text-neutral-700 mb-2">Choose your ${STYLES.find(s => s.key === styleKey).label} comment:</div>
+                </div>
+                ${options.map((option, index) => `
+                    <button 
+                        onclick="pickComment('${styleKey}', ${index})" 
+                        class="comment-btn text-sm px-3 py-2 rounded-xl border border-neutral-300 hover:border-neutral-400 text-left"
+                    >
+                        ${option}
+                    </button>
+                `).join('')}
+            `;
+        }
+
+        function showStyleButtons() {
+            const commentButtonsEl = document.getElementById('commentButtons');
+            gameState.selectedStyle = null;
+            
+            commentButtonsEl.innerHTML = `
+                ${STYLES.map(s => `
+                    <button 
+                        onclick="showCommentOptions('${s.key}')" 
+                        class="comment-btn text-sm px-3 py-2 rounded-xl border border-neutral-300 hover:border-neutral-400"
+                    >
+                        ${s.emoji} ${s.label}
+                    </button>
+                `).join('')}
+            `;
+        }
+
+        function updateDialogueLog() {
             const dialogueLogEl = document.getElementById('dialogueLog');
-            if (lines && lines.length > 0) {
-                dialogueLogEl.innerHTML = `
-                    <div class="space-y-1 text-sm">
-                        <div><span class="text-neutral-500">You:</span> ${lines[0]}</div>
-                        <div><span class="text-neutral-500">NPC:</span> ${lines[1]}</div>
-                        <div><span class="text-neutral-500">You:</span> ${lines[2]}</div>
+            
+            if (gameState.commentHistory.length === 0) {
+                dialogueLogEl.innerHTML = '<div class="text-neutral-400 text-sm">Choose a comment style to reply…</div>';
+                return;
+            }
+            
+            let historyHTML = '<div class="space-y-2 max-h-32 overflow-y-auto">';
+            
+            gameState.commentHistory.forEach((entry, index) => {
+                const platform = PLATFORMS.find(p => p.key === entry.platformKey);
+                const style = STYLES.find(s => s.key === entry.styleKey);
+                
+                historyHTML += `
+                    <div class="bg-neutral-50 rounded-lg p-2 border-l-2 border-neutral-300">
+                        <div class="text-xs text-neutral-500 mb-1">
+                            ${platform.icon} ${platform.label} • ${style.emoji} ${style.label}
+                        </div>
+                        <div class="text-sm">
+                            <div class="font-medium text-blue-600">You:</div>
+                            <div class="mb-1">${entry.playerComment}</div>
+                            <div class="font-medium text-green-600">${platform.label} Creator:</div>
+                            <div>${entry.npcReply}</div>
+                        </div>
                     </div>
                 `;
-            } else {
-                dialogueLogEl.textContent = "Choose a comment style to reply…";
-            }
+            });
+            
+            historyHTML += '</div>';
+            dialogueLogEl.innerHTML = historyHTML;
         }
 
         function showResults() {
@@ -365,16 +570,25 @@
         }
 
         // Game Logic
-        function pickStyle(styleKey) {
+        function pickComment(styleKey, optionIndex) {
             if (gameState.finished) return;
             
             const platformKey = PLATFORMS[gameState.round].key;
+            const platform = PLATFORMS[gameState.round];
             
-            // 1) Dialogue
-            const lines = (DIALOGUE?.[platformKey]?.[styleKey] || [["...","...","..."]])[Math.floor(Math.random()*3)];
-            updateDialogueLog(lines);
+            // 1) Get the selected comment and NPC reply
+            const playerComment = COMMENT_OPTIONS[platformKey][styleKey][optionIndex];
+            const npcReply = NPC_REPLIES[platformKey][styleKey][optionIndex];
             
-            // 2) Compute likes with hidden multipliers/penalties
+            // 2) Add to comment history
+            gameState.commentHistory.push({
+                platformKey: platformKey,
+                styleKey: styleKey,
+                playerComment: playerComment,
+                npcReply: npcReply
+            });
+            
+            // 3) Compute likes with hidden multipliers/penalties
             const base = SCORING.baseLikes[styleKey] || 0;
             const respect = computeRespectMultiplier(gameState.footprint);
             const penalty = computeReachPenalty(gameState.footprint);
@@ -385,11 +599,11 @@
             
             const newLikes = Math.max(0, gameState.likes + Math.max(0, delta));
             
-            // 3) Hidden footprint changes
+            // 4) Hidden footprint changes
             const fDelta = SCORING.footprint[styleKey] || 0;
             const newFoot = clamp(gameState.footprint + fDelta, -100, 100);
             
-            // 4) Platform toxicity tracking & blocking
+            // 5) Platform toxicity tracking & blocking
             const tox = { ...gameState.platformToxicity };
             tox[platformKey] = (tox[platformKey] || 0) + Math.min(0, fDelta);
             
@@ -397,7 +611,7 @@
                 ? Array.from(new Set([...gameState.blocked, platformKey]))
                 : gameState.blocked;
             
-            // 5) Commit state
+            // 6) Commit state
             gameState.likes = newLikes;
             gameState.footprint = newFoot;
             gameState.platformToxicity = tox;
@@ -405,6 +619,7 @@
             gameState.history.push({ platformKey, styleKey });
             
             updateTopBar();
+            updateDialogueLog();
             
             // Advance to next round
             setTimeout(() => {
@@ -413,10 +628,11 @@
                     showResults();
                 } else {
                     gameState.round++;
-                    updateDialogueLog([]);
+                    gameState.selectedStyle = null;
+                    updateDialogueLog();
                     updatePlatformCard();
                 }
-            }, 900);
+            }, 1500);
         }
 
         function resetGame() {
@@ -427,13 +643,16 @@
                 blocked: [],
                 history: [],
                 platformToxicity: {},
-                finished: false
+                finished: false,
+                selectedStyle: null,
+                commentHistory: []
             };
             
             document.getElementById('gameContainer').style.display = 'flex';
             document.getElementById('resultsScreen').style.display = 'none';
             
             updateTopBar();
+            updateDialogueLog();
             updatePlatformCard();
         }
 
