@@ -4,18 +4,444 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Straight to the Comments</title>
-    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .footprint-bar {
+            transition: width 0.3s ease, background 0.3s ease;
+        }
+        .platform-card {
+            transition: all 0.3s ease;
+        }
+        .comment-btn {
+            transition: all 0.2s ease;
+        }
+        .comment-btn:hover {
+            transform: translateY(-1px);
+        }
+        .comment-btn:active {
+            transform: translateY(0);
+        }
+    </style>
 </head>
-<body>
-    <div id="root"></div>
-    
-    <script type="text/babel" src="App.jsx"></script>
-    <script type="text/babel">
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
+<body class="min-h-screen bg-neutral-50 text-neutral-900">
+    <div id="app" class="flex flex-col items-center py-6">
+        <!-- Top Bar -->
+        <div id="topBar" class="flex items-center justify-between w-full max-w-5xl p-3">
+            <!-- Hidden footprint bar -->
+            <div class="flex items-center gap-2">
+                <div class="w-40 h-2 bg-neutral-200 rounded-full overflow-hidden">
+                    <div id="footprintBar" class="h-2 footprint-bar" style="width: 50%; background: linear-gradient(to right,#34d399,#22c55e);"></div>
+                </div>
+                <div class="text-xs text-neutral-400 select-none"></div>
+            </div>
+            
+            <div class="text-right">
+                <div class="text-neutral-400 text-xs">Likes</div>
+                <div id="likeCount" class="text-2xl font-semibold tabular-nums">0</div>
+            </div>
+        </div>
+
+        <!-- Game Container -->
+        <div id="gameContainer" class="max-w-5xl w-full flex flex-col items-center gap-4">
+            <h1 class="text-xl font-semibold">Straight to the Comments</h1>
+            <p class="text-sm text-neutral-500">Chase the likes. (Or do you?)</p>
+            <div class="flex flex-col items-center gap-3">
+                <div id="roundInfo" class="text-xs text-neutral-500">Round 1 / 5</div>
+                <div id="platformCard" class="platform-card bg-white rounded-2xl shadow p-3 border border-neutral-200 w-[360px] h-[640px] relative overflow-hidden">
+                    <!-- Platform content will be populated by JavaScript -->
+                </div>
+                <div class="text-xs text-neutral-500">
+                    Tip: Some comments blow up fast but cool off later. Others age well.
+                </div>
+                <div id="platformInfo" class="text-xs text-neutral-400">UI auto-adjusts: Instagram is portrait.</div>
+            </div>
+        </div>
+
+        <!-- Results Screen (hidden by default) -->
+        <div id="resultsScreen" class="max-w-3xl w-full bg-white border border-neutral-200 rounded-2xl shadow p-6" style="display: none;">
+            <!-- Results content will be populated by JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        // Game Data
+        const PLATFORMS = [
+            {
+                key: "instagram",
+                label: "Instagram",
+                orientation: "vertical",
+                accent: "#d62976",
+                icon: "📸"
+            },
+            {
+                key: "tiktok",
+                label: "TikTok",
+                orientation: "vertical",
+                accent: "#25F4EE",
+                icon: "🎵"
+            },
+            {
+                key: "youtube",
+                label: "YouTube",
+                orientation: "horizontal",
+                accent: "#FF0000",
+                icon: "📺"
+            },
+            {
+                key: "text",
+                label: "Text Message",
+                orientation: "vertical",
+                accent: "#10b981",
+                icon: "💬"
+            },
+            {
+                key: "discord",
+                label: "Discord",
+                orientation: "horizontal",
+                accent: "#5865F2",
+                icon: "🎮"
+            }
+        ];
+
+        const STYLES = [
+            { key: "hypebeast", label: "Hypebeast", emoji: "🧢" },
+            { key: "supporter", label: "Supporter", emoji: "💙" },
+            { key: "jokester", label: "Jokester", emoji: "😄" },
+            { key: "roaster", label: "Roaster", emoji: "🔥" },
+            { key: "critic", label: "Critic", emoji: "🧐" },
+            { key: "hater", label: "Hater", emoji: "😠" }
+        ];
+
+        const DIALOGUE = {
+            instagram: {
+                hypebeast: [
+                    ["Fit is fire fr 🔥", "Drip check passed ✅", "Had to gas it up, looks clean."],
+                    ["Colors go crazy", "Lowkey vibes", "Palette goes hard ngl."],
+                    ["Photo hits different", "Angles on point", "Respect the shot!"]
+                ],
+                supporter: [
+                    ["Proud of you!", "That's sweet to see.", "Keep going — you got this."],
+                    ["You worked hard on this", "We notice it", "Keep shining."],
+                    ["Such a wholesome post", "Needed this today", "Sending good energy."]
+                ],
+                jokester: [
+                    ["Bro said 'new phone who dis' pose", "Lmao true", "Okay model status unlocked 😂"],
+                    ["That shadow got main character energy", "Cameo of the year", "Shadow's the real star."],
+                    ["Camera ate and left no crumbs", "Plate clean fr", "Chef's kiss 📸"]
+                ],
+                roaster: [
+                    ["Bro dressed like a traffic cone", "Orange supremacy", "Relax I'm playin'… kinda."],
+                    ["Caption trying too hard", "Corn meter rising", "Tell me I'm wrong."],
+                    ["That filter 2017 core", "Time traveler vibes", "Welcome back, I guess."]
+                ],
+                critic: [
+                    ["Lighting's harsh tbh", "Yeah bit overexposed", "Maybe try golden hour next time"],
+                    ["Crop feels tight", "Headroom zero", "Rule of thirds could help"],
+                    ["Edit's heavy", "Skin looks plasticky", "Dial back the smoothing"]
+                ],
+                hater: [
+                    ["Delete this 💀", "Why post this tho", "Do it for the unblock button"],
+                    ["Cringe alert", "Muting fr", "Touch grass challenge"],
+                    ["Unfollow speedrun", "World record", "No offense but offense"]
+                ]
+            },
+            tiktok: {
+                hypebeast: [["Beat goes crazy", "Looping this", "Dance clean!"],["Transitions smooth", "Facts", "Chef mode editing"],["Camera moves 🔥", "Stabilized clean", "Teach me that pan"]],
+                supporter: [["Keep posting!", "We love consistent creators", "You're improving fast"],["Thanks for the laugh", "Wholesome", "Made my day"],["Algorithm better notice", "Manifesting FYP", "You deserve it"]],
+                jokester: [["This my Roman Empire now", "Rent free", "Certified brain worm"],["POV: you're the main quest", "Side quests crying", "100% completion vibes"],["Chef accidentally cooked", "5 Michelin memes", "Sauce unlimited"]],
+                roaster: [["Transition jump scare", "Scream 7 teaser", "I'm suing my FYP"],["Audio fighting for its life", "Mic said nope", "Speaker cooked"],["Edits outdated", "CapCut 101", "Tutorial from 2019?"]],
+                critic: [["Cut 2 drags", "Trim 0.5s", "Pacing fixes everything"],["Color grade off", "Green tint", "Try warmer midtones"],["Hook weak", "Grab in 1s", "Lead with payoff"]],
+                hater: [["Not funny lol", "0/10", "Pack it up"],["Who asked", "Nobody", "Touch grass DLC"],["Reported for boredom", "Ban comedy", "Certified sleep aid"]]
+            },
+            youtube: {
+                hypebeast: [["Intro slaps", "Subs incoming", "Certified binge"],["Thumbnail clean", "Title wins", "CTR about to rise"],["Outro classy", "Respect", "Bell tapped"]],
+                supporter: [["This helped a lot", "Bookmarked", "Thanks for explaining"],["You put effort", "Appreciated", "Keep it up"],["Kind energy", "Channel feels safe", "Subbed"]],
+                jokester: [["That mic said ASMR not tutorial", "I can hear atoms", "Whisper king"],["Editor deserves a raise", "Oh wait it's you", "Double raise"],["Cooking with chaos", "Chef unhinged", "Tastes like views"]],
+                roaster: [["Timestamps where", "Lost in the void", "Navigation who"],["Intro too long", "Skip speedrun", "Get to the point"],["Ad density insane", "Mid-roll city", "Wallet cried"]],
+                critic: [["Audio peaks", "Limiter needed", "Normalize to -14 LUFS"],["B-roll repeats", "Need variety", "Shoot alt angles"],["Script rambles", "Cut fluff", "Tighten beats"]],
+                hater: [["Worst video today", "Delete channel", "I'm serious"],["Skill issue", "Unsubbed", "Tragic"],["Imagine posting this", "Couldn't be me", "Clown shoes"]]
+            },
+            text: {
+                hypebeast: [["W idea", "Let's run it", "I'm in"],["Proud of u", "Lowkey inspiring", "You got this"],["Gold star", "Teacher mode", "A+ vibes"]],
+                supporter: [["That sounded tough", "Here for you", "Call later?"],["Nice move", "Respect the honesty", "You're growing"],["Appreciate u", "Means a lot", "Let's celebrate small wins"]],
+                jokester: [["I'll bring the snacks", "You bring the chaos", "Deal"],["Plot twist energy", "Season 3 arc", "Renewed"],["Sending memes", "Therapy lite", "Invoice pending"]],
+                roaster: [["Bro you always late", "L clock", "Try time"],["Excuse speedrun PB", "Gold split", "World champ"],["Skill diff", "Accept it", "Training arc when?"]],
+                critic: [["That text could land wrong", "Try softer", "Read once more"],["Timing bad", "They're busy", "Send later"],["Message long", "Trim 30%", "Get to point"]],
+                hater: [["Nobody cares", "Cry about it", "Mute"],["Embarrassing take", "Delulu", "Good luck"],["You're the problem", "Always were", "Bye"]]
+            },
+            discord: {
+                hypebeast: [["GG team", "Clean comms", "Let's queue"],["Art share goes hard", "Pinned?", "Respect brushwork"],["Build is cracked", "Guide pls", "Teach lobby"]],
+                supporter: [["Welcome new folks", "Glad you're here", "Ask anything"],["Mod team cooked", "Thanks y'all", "Community feels safe"],["Great callout", "Saved the run", "Clutch"]],
+                jokester: [["Ping @everyone speedrun", "Mods typing…", "jk jk"],["Cat tax or ban", "Rules are rules", "Where's the cat"],["Microwave beeps = boss fight", "We doomed", "gg ez"]],
+                roaster: [["You camped spawn", "Peak cringe", "Skill issue"],["Fanart traced?", "Looks sus", "Show layers"],["Strat outdated", "Patch notes exist", "Read next time"]],
+                critic: [["Thread drift", "Back on topic?", "Make a new channel"],["Overposting", "Slow mode pls", "Signal to noise"],["Link source", "No screenshots", "Credit artists"]],
+                hater: [["Mods asleep", "Chaos time", "Spam incoming"],["Server lame", "Leaving", "Touch grass"],["Everyone here mid", "Delete server", "Bye"]]
+            }
+        };
+
+        const SCORING = {
+            baseLikes: {
+                hater: 30, roaster: 20, critic: 10, jokester: 8, hypebeast: 4, supporter: 2
+            },
+            footprint: {
+                hater: -20, roaster: -15, critic: -10, jokester: 0, hypebeast: 5, supporter: 10
+            },
+            decay: {
+                hater: -15, roaster: -10, critic: -5, jokester: 0, hypebeast: 0, supporter: 0
+            }
+        };
+
+        // Game State
+        let gameState = {
+            round: 0,
+            likes: 0,
+            footprint: 0,
+            blocked: [],
+            history: [],
+            platformToxicity: {},
+            finished: false
+        };
+
+        // Helper Functions
+        function clamp(n, min, max) { return Math.max(min, Math.min(max, n)); }
+        function formatNum(n) { return n.toLocaleString(); }
+
+        function computeRespectMultiplier(footprint) {
+            const steps = Math.floor(footprint / 10);
+            return 1 + steps * 0.05;
+        }
+
+        function computeReachPenalty(footprint) {
+            return footprint < -20 ? 0.93 : 1;
+        }
+
+        function applyDecayFromPastChoices() {
+            if (gameState.history.length === 0) return 0;
+            let decayTotal = 0;
+            for (let i = 0; i < gameState.history.length; i++) {
+                const { styleKey } = gameState.history[i];
+                decayTotal += SCORING.decay[styleKey] || 0;
+            }
+            return decayTotal;
+        }
+
+        // UI Functions
+        function updateTopBar() {
+            const likeCountEl = document.getElementById('likeCount');
+            const footprintBarEl = document.getElementById('footprintBar');
+            
+            likeCountEl.textContent = formatNum(gameState.likes);
+            
+            const footprintPercent = clamp((gameState.footprint + 100) / 2, 0, 100);
+            footprintBarEl.style.width = `${footprintPercent}%`;
+            footprintBarEl.style.background = gameState.footprint >= 0 
+                ? "linear-gradient(to right,#34d399,#22c55e)" 
+                : "linear-gradient(to right,#f87171,#ef4444)";
+        }
+
+        function updatePlatformCard() {
+            const platform = PLATFORMS[gameState.round];
+            const platformCardEl = document.getElementById('platformCard');
+            const roundInfoEl = document.getElementById('roundInfo');
+            const platformInfoEl = document.getElementById('platformInfo');
+            
+            // Update card dimensions based on orientation
+            if (platform.orientation === "horizontal") {
+                platformCardEl.className = "platform-card bg-white rounded-2xl shadow p-3 border border-neutral-200 w-[720px] h-[405px] relative overflow-hidden";
+            } else {
+                platformCardEl.className = "platform-card bg-white rounded-2xl shadow p-3 border border-neutral-200 w-[360px] h-[640px] relative overflow-hidden";
+            }
+            
+            roundInfoEl.textContent = `Round ${gameState.round + 1} / 5`;
+            platformInfoEl.textContent = `UI auto-adjusts: ${platform.label} is ${platform.orientation === 'vertical' ? 'portrait' : 'landscape'}.`;
+            
+            // Platform content
+            platformCardEl.innerHTML = `
+                <div class="flex items-center justify-between text-xs text-neutral-500">
+                    <div class="flex items-center gap-2">
+                        <span class="inline-block w-2 h-2 rounded-full" style="background: ${platform.accent}"></span>
+                        <span class="font-medium">${platform.label}</span>
+                    </div>
+                    <span class="opacity-60">@user · now</span>
+                </div>
+                
+                <div class="mt-2 bg-neutral-100 rounded-xl flex items-center justify-center text-neutral-400 text-sm h-full select-none">
+                    <span>Media Placeholder (${platform.orientation})</span>
+                </div>
+                
+                <div class="absolute bottom-0 left-0 right-0 bg-white/90 backdrop-blur p-3 border-t border-neutral-200">
+                    <div id="dialogueLog" class="mb-3 text-neutral-400 text-sm">Choose a comment style to reply…</div>
+                    <div class="grid grid-cols-3 gap-2">
+                        ${STYLES.map(s => `
+                            <button 
+                                onclick="pickStyle('${s.key}')" 
+                                class="comment-btn text-sm px-3 py-2 rounded-xl border border-neutral-300 hover:border-neutral-400"
+                            >
+                                ${s.emoji} ${s.label}
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function updateDialogueLog(lines) {
+            const dialogueLogEl = document.getElementById('dialogueLog');
+            if (lines && lines.length > 0) {
+                dialogueLogEl.innerHTML = `
+                    <div class="space-y-1 text-sm">
+                        <div><span class="text-neutral-500">You:</span> ${lines[0]}</div>
+                        <div><span class="text-neutral-500">NPC:</span> ${lines[1]}</div>
+                        <div><span class="text-neutral-500">You:</span> ${lines[2]}</div>
+                    </div>
+                `;
+            } else {
+                dialogueLogEl.textContent = "Choose a comment style to reply…";
+            }
+        }
+
+        function showResults() {
+            const gameContainerEl = document.getElementById('gameContainer');
+            const resultsScreenEl = document.getElementById('resultsScreen');
+            
+            gameContainerEl.style.display = 'none';
+            resultsScreenEl.style.display = 'block';
+            
+            const blocks = gameState.blocked.length;
+            let rating = "Mixed";
+            if (gameState.footprint >= 30) rating = "Positive Influence";
+            else if (gameState.footprint <= -30) rating = "Shadow Reputation";
+            
+            const platformResults = PLATFORMS.map(p => {
+                const isBlocked = gameState.blocked.includes(p.key);
+                const tox = gameState.platformToxicity[p.key] || 0;
+                if (isBlocked) return { label: p.label, result: "Shadowbanned / Comments Hidden" };
+                if (gameState.footprint >= 30 && tox === 0) return { label: p.label, result: "Featured / Pinned Comment" };
+                if (gameState.footprint >= 10) return { label: p.label, result: "Mild Boost from Reputation" };
+                return { label: p.label, result: "No special actions" };
+            });
+            
+            resultsScreenEl.innerHTML = `
+                <h1 class="text-2xl font-semibold mb-4">Results</h1>
+                <div class="grid md:grid-cols-3 gap-4 mb-6">
+                    <div class="p-4 rounded-xl border border-neutral-200">
+                        <div class="text-neutral-500 text-xs">Total Likes</div>
+                        <div class="text-3xl font-bold">${formatNum(gameState.likes)}</div>
+                    </div>
+                    <div class="p-4 rounded-xl border border-neutral-200">
+                        <div class="text-neutral-500 text-xs">Platforms that blocked you</div>
+                        <div class="text-3xl font-bold">${blocks}</div>
+                        <div class="text-xs text-neutral-500 mt-1">${gameState.blocked.map(k => PLATFORMS.find(p=>p.key===k)?.label).join(", ") || "None"}</div>
+                    </div>
+                    <div class="p-4 rounded-xl border border-neutral-200">
+                        <div class="text-neutral-500 text-xs">Digital Footprint</div>
+                        <div class="text-3xl font-bold">${gameState.footprint}</div>
+                        <div class="text-xs text-neutral-500 mt-1">How people see you online & IRL</div>
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <h2 class="font-semibold mb-2">Platform Consequences</h2>
+                    <ul class="space-y-1 text-sm">
+                        ${platformResults.map(r => `
+                            <li class="flex items-start gap-2">
+                                <span class="mt-[6px] inline-block w-2 h-2 rounded-full bg-neutral-300"></span>
+                                <span><span class="font-medium">${r.label}:</span> ${r.result}</span>
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+                
+                <div class="p-4 rounded-xl border border-neutral-200">
+                    <div class="text-neutral-500 text-xs mb-1">Final Rating</div>
+                    <div class="text-xl font-semibold">${rating}</div>
+                    <div class="text-sm text-neutral-500 mt-2">Replay choosing different comment styles to discover alternate outcomes. Kindness builds long-term reach.</div>
+                </div>
+                
+                <div class="mt-6 flex gap-3">
+                    <button onclick="resetGame()" class="px-4 py-2 rounded-xl border border-neutral-300 hover:border-neutral-400">Replay</button>
+                </div>
+            `;
+        }
+
+        // Game Logic
+        function pickStyle(styleKey) {
+            if (gameState.finished) return;
+            
+            const platformKey = PLATFORMS[gameState.round].key;
+            
+            // 1) Dialogue
+            const lines = (DIALOGUE?.[platformKey]?.[styleKey] || [["...","...","..."]])[Math.floor(Math.random()*3)];
+            updateDialogueLog(lines);
+            
+            // 2) Compute likes with hidden multipliers/penalties
+            const base = SCORING.baseLikes[styleKey] || 0;
+            const respect = computeRespectMultiplier(gameState.footprint);
+            const penalty = computeReachPenalty(gameState.footprint);
+            const decay = applyDecayFromPastChoices();
+            
+            let delta = Math.round((base * respect * penalty) + decay);
+            if (gameState.blocked.includes(platformKey)) delta = Math.floor(delta * 0.25);
+            
+            const newLikes = Math.max(0, gameState.likes + Math.max(0, delta));
+            
+            // 3) Hidden footprint changes
+            const fDelta = SCORING.footprint[styleKey] || 0;
+            const newFoot = clamp(gameState.footprint + fDelta, -100, 100);
+            
+            // 4) Platform toxicity tracking & blocking
+            const tox = { ...gameState.platformToxicity };
+            tox[platformKey] = (tox[platformKey] || 0) + Math.min(0, fDelta);
+            
+            const newBlocked = gameState.blocked.includes(platformKey) || tox[platformKey] <= -45
+                ? Array.from(new Set([...gameState.blocked, platformKey]))
+                : gameState.blocked;
+            
+            // 5) Commit state
+            gameState.likes = newLikes;
+            gameState.footprint = newFoot;
+            gameState.platformToxicity = tox;
+            gameState.blocked = newBlocked;
+            gameState.history.push({ platformKey, styleKey });
+            
+            updateTopBar();
+            
+            // Advance to next round
+            setTimeout(() => {
+                if (gameState.round + 1 >= 5) {
+                    gameState.finished = true;
+                    showResults();
+                } else {
+                    gameState.round++;
+                    updateDialogueLog([]);
+                    updatePlatformCard();
+                }
+            }, 900);
+        }
+
+        function resetGame() {
+            gameState = {
+                round: 0,
+                likes: 0,
+                footprint: 0,
+                blocked: [],
+                history: [],
+                platformToxicity: {},
+                finished: false
+            };
+            
+            document.getElementById('gameContainer').style.display = 'flex';
+            document.getElementById('resultsScreen').style.display = 'none';
+            
+            updateTopBar();
+            updatePlatformCard();
+        }
+
+        // Initialize game
+        document.addEventListener('DOMContentLoaded', function() {
+            updateTopBar();
+            updatePlatformCard();
+        });
     </script>
 </body>
 </html>
