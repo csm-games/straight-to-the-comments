@@ -119,28 +119,28 @@
 </head>
 <body class="min-h-screen bg-neutral-50 text-neutral-900">
     <div id="app" class="flex flex-col items-center py-6">
-                          <!-- Top Bar -->
-         <div id="topBar" class="flex items-center justify-between w-full max-w-5xl p-3">
-             <!-- Hidden footprint indicator -->
-             <div id="footprintIndicator" class="flex items-center gap-2 opacity-0">
-                 <div class="text-xs text-neutral-400 select-none">👣</div>
-             </div>
-             
-             <!-- Back to Menu Button (hidden by default) -->
-             <button 
-                 id="backToMenuBtn" 
-                 onclick="backToMenu()" 
-                 class="px-3 py-1 text-sm bg-neutral-200 hover:bg-neutral-300 rounded-lg transition-colors"
-                 style="display: none;"
-             >
-                 ← Back to Menu
-             </button>
-             
-             <div class="text-right">
-                 <div class="text-neutral-400 text-xs">Likes</div>
-                 <div id="likeCount" class="text-2xl font-semibold tabular-nums">0</div>
-             </div>
-         </div>
+                                                     <!-- Top Bar -->
+          <div id="topBar" class="flex items-center justify-between w-full max-w-5xl p-3">
+              <!-- Back to Menu Button (hidden by default) -->
+              <button 
+                  id="backToMenuBtn" 
+                  onclick="backToMenu()" 
+                  class="px-3 py-1 text-sm bg-neutral-200 hover:bg-neutral-300 rounded-lg transition-colors"
+                  style="display: none;"
+              >
+                  ← Back to Menu
+              </button>
+              
+              <!-- Center footprint indicator (hidden by default) -->
+              <div id="footprintIndicator" class="absolute left-1/2 transform -translate-x-1/2 opacity-0">
+                  <div class="text-2xl text-neutral-400 select-none">👣</div>
+              </div>
+              
+              <div class="text-right">
+                  <div class="text-neutral-400 text-xs">Likes</div>
+                  <div id="likeCount" class="text-2xl font-semibold tabular-nums">0</div>
+              </div>
+          </div>
 
                  <!-- Start Menu -->
          <div id="startMenu" class="max-w-4xl w-full flex flex-col items-center gap-4 sm:gap-8 py-6 sm:py-12 px-4">
@@ -198,15 +198,21 @@
              </div>
          </div>
 
-         <!-- Game Container (hidden by default) -->
-         <div id="gameContainer" class="max-w-5xl w-full flex flex-col items-center gap-4 px-4" style="display: none;">
-             <h1 class="text-lg sm:text-xl font-semibold">Straight to the Comments</h1>
-             <p class="text-xs sm:text-sm text-neutral-500">Chase the likes. (Or do you?)</p>
-             <div class="flex flex-col items-center gap-3">
+                             <!-- Game Container (hidden by default) -->
+           <div id="gameContainer" class="max-w-5xl w-full flex flex-col items-center gap-4 px-4" style="display: none;">
+               <div class="flex flex-col items-center gap-3">
                  <div id="roundInfo" class="text-xs text-neutral-500">Round 1 / 5</div>
-                                   <div id="platformCard" class="platform-card bg-white rounded-2xl shadow p-3 border border-neutral-200 w-full max-w-[360px] relative overflow-hidden">
-                     <!-- Platform content will be populated by JavaScript -->
-                 </div>
+                                                                                                           <div class="flex gap-4 w-full max-w-4xl">
+                                        <!-- Post Card (Left Side) -->
+                                        <div id="platformCard" class="platform-card bg-white rounded-2xl shadow p-3 border border-neutral-200 w-full max-w-[360px] relative overflow-visible min-h-[600px]">
+                                            <!-- Platform content will be populated by JavaScript -->
+                                        </div>
+                                        
+                                        <!-- Comment Interface (Right Side) -->
+                                        <div id="commentInterface" class="bg-white rounded-2xl shadow p-3 border border-neutral-200 w-full max-w-[360px] min-h-[600px] flex flex-col" style="display: none;">
+                                            <!-- Comment interface will be populated by JavaScript -->
+                                        </div>
+                                    </div>
                  
              </div>
          </div>
@@ -990,20 +996,38 @@
              setTimeout(() => platformCard.classList.remove('platform-glow'), 2000);
          }
          
-         function showFootprintAnimation() {
-             const footprintIndicator = document.getElementById('footprintIndicator');
-             footprintIndicator.classList.remove('footprint-pop');
-             
-             // Trigger reflow
-             void footprintIndicator.offsetWidth;
-             
-             footprintIndicator.classList.add('footprint-pop');
-             
-             // Remove animation class after completion
-             setTimeout(() => {
-                 footprintIndicator.classList.remove('footprint-pop');
-             }, 1500);
-         }
+                   function showFootprintAnimation() {
+              const footprintIndicator = document.getElementById('footprintIndicator');
+              footprintIndicator.classList.remove('footprint-pop');
+              
+              // Make it visible and trigger reflow
+              footprintIndicator.style.opacity = '1';
+              void footprintIndicator.offsetWidth;
+              
+              footprintIndicator.classList.add('footprint-pop');
+              
+              // Hide it and remove animation class after completion
+              setTimeout(() => {
+                  footprintIndicator.style.opacity = '0';
+                  footprintIndicator.classList.remove('footprint-pop');
+              }, 1500);
+          }
+          
+                     function toggleCommentInterface() {
+               const commentInterfaceEl = document.getElementById('commentInterface');
+               const iconBtn = document.getElementById('commentIconBtn');
+               
+               if (commentInterfaceEl.style.display === 'none' || !commentInterfaceEl.style.display) {
+                   commentInterfaceEl.style.display = 'flex';
+                   updateCommentInterface();
+                   iconBtn.style.transform = 'scale(1.1)';
+                   iconBtn.style.backgroundColor = 'rgba(255, 255, 255, 1)';
+               } else {
+                   commentInterfaceEl.style.display = 'none';
+                   iconBtn.style.transform = 'scale(1)';
+                   iconBtn.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
+               }
+           }
 
         // UI Functions
                  function updateTopBar() {
@@ -1020,87 +1044,113 @@
              }
          }
 
-                 function updatePlatformCard() {
-             const platform = PLATFORMS[gameState.round];
-             const platformCardEl = document.getElementById('platformCard');
-             const roundInfoEl = document.getElementById('roundInfo');
+                                   function updatePlatformCard() {
+              const platform = PLATFORMS[gameState.round];
+              const platformCardEl = document.getElementById('platformCard');
+              const roundInfoEl = document.getElementById('roundInfo');
+              
+              roundInfoEl.textContent = `Round ${gameState.round + 1} / 5`;
              
-                           // Always use vertical layout with auto-height
-              platformCardEl.className = "platform-card bg-white rounded-2xl shadow p-3 border border-neutral-200 w-full max-w-[360px] relative overflow-hidden";
-             
-             roundInfoEl.textContent = `Round ${gameState.round + 1} / 5`;
-            
-            // Platform content
-            const mediaHTML = platform.media.type === 'video' 
-                ? `<video 
-                    src="${platform.media.src}" 
-                    class="w-full h-full object-cover rounded-xl" 
-                    autoplay muted loop
-                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-                  ></video>
-                  <div class="bg-neutral-100 rounded-xl flex items-center justify-center text-neutral-400 text-sm h-full select-none" style="display: none;">
-                    <span>Video Placeholder (${platform.label})</span>
-                  </div>`
-                : `<img 
-                    src="${platform.media.src}" 
-                    alt="${platform.media.alt}"
-                    class="w-full h-full object-cover rounded-xl" 
-                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-                  />
-                  <div class="bg-neutral-100 rounded-xl flex items-center justify-center text-neutral-400 text-sm h-full select-none" style="display: none;">
-                    <span>Image Placeholder (${platform.label})</span>
-                  </div>`;
+             // Platform content
+             const mediaHTML = platform.media.type === 'video' 
+                 ? `<video 
+                     src="${platform.media.src}" 
+                     class="w-full h-full object-cover rounded-xl" 
+                     autoplay muted loop
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                   ></video>
+                   <div class="bg-neutral-100 rounded-xl flex items-center justify-center text-neutral-400 text-sm h-full select-none" style="display: none;">
+                     <span>Video Placeholder (${platform.label})</span>
+                   </div>`
+                 : `<img 
+                     src="${platform.media.src}" 
+                     alt="${platform.media.alt}"
+                     class="w-full h-full object-cover rounded-xl" 
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                   />
+                   <div class="bg-neutral-100 rounded-xl flex items-center justify-center text-neutral-400 text-sm h-full select-none" style="display: none;">
+                     <span>Image Placeholder (${platform.label})</span>
+                   </div>`;
 
-                         platformCardEl.innerHTML = `
+             platformCardEl.innerHTML = `
                  <div class="flex flex-col h-full">
-                     <!-- Post Content Section -->
-                     <div class="flex-1 flex flex-col">
-                         <div class="flex items-center justify-between text-xs text-neutral-500 mb-2">
-                             <div class="flex items-center gap-2">
-                                 <span class="inline-block w-2 h-2 rounded-full" style="background: ${platform.accent}"></span>
-                                 <span class="font-medium">${platform.label}</span>
-                             </div>
-                             <span class="opacity-60">@user · now</span>
+                     <!-- Post Header -->
+                     <div class="flex items-center justify-between text-xs text-neutral-500 mb-2">
+                         <div class="flex items-center gap-2">
+                             <span class="inline-block w-2 h-2 rounded-full" style="background: ${platform.accent}"></span>
+                             <span class="font-medium">${platform.label}</span>
                          </div>
+                         <span class="opacity-60">@user · now</span>
+                     </div>
+                     
+                     <!-- Media Content -->
+                     <div class="relative flex-1 mb-2 min-h-0 max-h-[400px]">
+                         ${mediaHTML}
                          
-                         <div class="relative flex-1 mb-2 min-h-0">
-                             ${mediaHTML}
+                         <!-- Comment Icon -->
+                         <div class="absolute bottom-3 right-3">
+                             <button 
+                                 onclick="toggleCommentInterface()" 
+                                 class="w-12 h-12 bg-white/90 backdrop-blur rounded-full shadow-lg border border-neutral-200 flex items-center justify-center hover:bg-white transition-all duration-200 transform hover:scale-110"
+                                 id="commentIconBtn"
+                             >
+                                 <span class="text-xl">💬</span>
+                             </button>
                          </div>
                      </div>
                      
-                                           <!-- Live Comments Section - Always Visible -->
-                      <div class="bg-white/95 backdrop-blur p-3 border-t border-neutral-200 rounded-b-xl flex-shrink-0 min-h-[120px]">
-                          <div id="existingComments" class="mb-3">
-                              <!-- Existing comments will be populated by JavaScript -->
-                          </div>
-                          <div id="dialogueLog" class="text-neutral-400 text-sm">Choose a comment style to reply…</div>
-                      </div>
+                     <!-- Existing Comments Section -->
+                     <div class="bg-neutral-50 rounded-lg p-3">
+                         <div class="text-xs text-neutral-500 mb-2 font-medium">Comments</div>
+                         <div id="existingComments">
+                             <!-- Existing comments will be populated by JavaScript -->
+                         </div>
+                     </div>
+                 </div>
+             `;
+         }
+         
+         function updateCommentInterface() {
+             const commentInterfaceEl = document.getElementById('commentInterface');
+             
+             commentInterfaceEl.innerHTML = `
+                 <div class="flex flex-col h-full">
+                     <!-- Header -->
+                     <div class="flex items-center justify-between mb-4">
+                         <h3 class="text-lg font-semibold text-neutral-800">Comment Interface</h3>
+                         <button onclick="toggleCommentInterface()" class="text-neutral-400 hover:text-neutral-600">
+                             <span class="text-xl">✕</span>
+                         </button>
+                     </div>
                      
-                     <!-- Comment Style Buttons - Always Visible -->
-                     <div class="mt-3 bg-white rounded-xl p-3 border border-neutral-200 shadow-sm flex-shrink-0">
+                     <!-- Dialogue Log -->
+                     <div id="dialogueLog" class="mb-4 text-neutral-400 text-sm flex-1">Choose a comment style to reply…</div>
+                     
+                     <!-- Comment Style Buttons -->
+                     <div id="commentStyleSection" class="mb-4">
                          <div class="text-xs text-neutral-500 mb-2 font-medium">Choose Your Comment Style:</div>
-                         <div id="commentButtons" class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                         <div id="commentButtons" class="grid grid-cols-2 gap-2">
                             ${STYLES.map(s => `
                                 <button 
                                     onclick="showCommentOptions('${s.key}')" 
-                                    class="comment-btn style-btn ${s.key}-btn text-xs sm:text-sm px-2 sm:px-3 py-2 rounded-xl"
+                                    class="comment-btn style-btn ${s.key}-btn text-xs px-3 py-2 rounded-xl"
                                 >
                                     ${s.emoji} ${s.label}
                                 </button>
                             `).join('')}
-                        </div>
+                         </div>
                      </div>
                      
-                     <!-- Specific Comment Options - Always Visible -->
-                     <div id="specificCommentOptions" class="mt-3 bg-white rounded-xl p-3 border border-neutral-200 shadow-sm flex-shrink-0" style="display: none;">
+                     <!-- Specific Comment Options -->
+                     <div id="specificCommentOptions" class="mb-4" style="display: none;">
                          <div class="text-xs text-neutral-500 mb-2 font-medium">Choose Your Specific Comment:</div>
                          <div id="specificCommentButtons" class="space-y-2">
                              <!-- Will be populated by JavaScript -->
                          </div>
                      </div>
                      
-                     <!-- Double Down Options - Always Visible -->
-                     <div id="doubleDownOptions" class="mt-3 bg-white rounded-xl p-3 border border-neutral-200 shadow-sm flex-shrink-0" style="display: none;">
+                     <!-- Double Down Options -->
+                     <div id="doubleDownOptions" class="mb-4" style="display: none;">
                          <div class="text-xs text-red-500 mb-2 font-medium">Double-down Options:</div>
                          <div id="doubleDownButtons" class="space-y-2">
                              <!-- Will be populated by JavaScript -->
@@ -1112,22 +1162,20 @@
                          </div>
                      </div>
                      
-                     <!-- Next Round Button - Always Visible -->
-                     <div id="nextRoundButton" class="mt-3 bg-white rounded-xl p-3 border border-neutral-200 shadow-sm flex-shrink-0" style="display: none;">
-                         <div class="text-center">
-                             <div class="text-2xl mb-2">🎉</div>
-                             <div class="text-lg font-medium text-green-600 mb-3">Round Complete!</div>
-                             <button 
-                                 onclick="advanceToNextRound()" 
-                                 class="w-full text-sm px-6 py-3 rounded-xl border-2 border-green-400 hover:border-green-500 bg-green-100 hover:bg-green-200 text-green-800 font-semibold transition-all duration-200 transform hover:scale-105"
-                             >
-                                 📱 Open New App
-                             </button>
-                         </div>
+                     <!-- Next Round Button -->
+                     <div id="nextRoundButton" class="text-center" style="display: none;">
+                         <div class="text-2xl mb-2">🎉</div>
+                         <div class="text-lg font-medium text-green-600 mb-3">Round Complete!</div>
+                         <button 
+                             onclick="advanceToNextRound()" 
+                             class="w-full text-sm px-6 py-3 rounded-xl border-2 border-green-400 hover:border-green-500 bg-green-100 hover:bg-green-200 text-green-800 font-semibold transition-all duration-200 transform hover:scale-105"
+                         >
+                             📱 Open New App
+                         </button>
                      </div>
                  </div>
-            `;
-        }
+             `;
+         }
 
                           function showCommentOptions(styleKey) {
              console.log('showCommentOptions called with:', styleKey);
@@ -1621,7 +1669,13 @@
              buttonEl.textContent = isLastRound ? '🎯 View Results' : '📱 Open New App';
              
              // Hide the comment style buttons when round is complete
-             document.getElementById('commentButtons').parentElement.style.display = 'none';
+             document.getElementById('commentStyleSection').style.display = 'none';
+             
+             // Hide the comment icon when round is complete
+             const commentIconBtn = document.getElementById('commentIconBtn');
+             if (commentIconBtn) {
+                 commentIconBtn.style.display = 'none';
+             }
              
              nextRoundEl.style.display = 'block';
          }
@@ -1641,21 +1695,34 @@
                  platformCard.style.transform = 'scale(0.95)';
                  platformCard.style.opacity = '0.7';
                  
-                 setTimeout(() => {
-                                       updateDialogueLog();
-                  updatePlatformCard();
-                  updateExistingComments();
-                     platformCard.style.transform = 'scale(1)';
-                     platformCard.style.opacity = '1';
-                     addPlatformGlow();
+                                   setTimeout(() => {
+                                        updateDialogueLog();
+                   updatePlatformCard();
+                   updateCommentInterface();
+                   updateExistingComments();
+                      platformCard.style.transform = 'scale(1)';
+                      platformCard.style.opacity = '1';
+                      addPlatformGlow();
                      
                                            // Hide all option sections
                       document.getElementById('specificCommentOptions').style.display = 'none';
                       document.getElementById('doubleDownOptions').style.display = 'none';
                       document.getElementById('nextRoundButton').style.display = 'none';
                       
-                      // Show the comment style buttons again for the new round
-                      document.getElementById('commentButtons').parentElement.style.display = 'block';
+                                             // Show the comment style buttons again for the new round
+                       document.getElementById('commentStyleSection').style.display = 'block';
+                       
+                       // Show the comment icon again for the new round
+                       const commentIconBtn = document.getElementById('commentIconBtn');
+                       if (commentIconBtn) {
+                           commentIconBtn.style.display = 'flex';
+                       }
+                       
+                       // Reset comment interface state
+                       const commentInterfaceEl = document.getElementById('commentInterface');
+                       if (commentInterfaceEl) {
+                           commentInterfaceEl.style.display = 'none';
+                       }
                  }, 300);
              }
          }
@@ -1681,10 +1748,11 @@
                  hasDoubleDowned: false
              };
              
-                           updateTopBar();
-              updatePlatformCard(); // This creates the dialogueLog element
-              updateDialogueLog(); // Now this can find the element
-              updateExistingComments(); // This populates existing comments
+                                                       updateTopBar();
+               updatePlatformCard(); // This creates the dialogueLog element
+               updateCommentInterface(); // This creates the comment interface
+               updateDialogueLog(); // Now this can find the element
+               updateExistingComments(); // This populates existing comments
          }
          
          function backToMenu() {
