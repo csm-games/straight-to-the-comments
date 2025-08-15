@@ -112,6 +112,139 @@
             { key: "hater", label: "Hater", emoji: "😠" }
         ];
 
+        const DOUBLE_DOWN_OPTIONS = {
+            instagram: {
+                hypebeast: [
+                    "No cap, this is literally art 🎨",
+                    "You're actually built different, respect ✊"
+                ],
+                supporter: [
+                    "Seriously, you inspire me to be better 🌟",
+                    "The world needs more people like you 💫"
+                ],
+                jokester: [
+                    "I'm literally screenshotting this for my therapist 😂",
+                    "You're the main character and we're all NPCs 🎭"
+                ],
+                roaster: [
+                    "Okay but fr tho, who taught you to dress? 💀",
+                    "This caption reads like a LinkedIn post 🤡"
+                ],
+                critic: [
+                    "The composition is actually hurting my eyes 👁️",
+                    "Maybe stick to selfies next time 📸"
+                ],
+                hater: [
+                    "Actually embarrassing, delete your account 🗑️",
+                    "This is why I don't use social media anymore 💀"
+                ]
+            },
+            tiktok: {
+                hypebeast: [
+                    "This is literally the best thing I've ever seen 🔥",
+                    "You're going viral, I'm calling it now 📈"
+                ],
+                supporter: [
+                    "You're making the internet a better place 💕",
+                    "Keep being you, the world needs this energy ✨"
+                ],
+                jokester: [
+                    "I'm literally showing this to everyone I know 😭",
+                    "You're the internet's favorite person rn 🌟"
+                ],
+                roaster: [
+                    "The transitions are giving PowerPoint presentation 💀",
+                    "This audio is fighting for its life in court 🎤"
+                ],
+                critic: [
+                    "The pacing is giving me anxiety 😰",
+                    "Maybe stick to one trend at a time 📉"
+                ],
+                hater: [
+                    "This is why TikTok is dying 💀",
+                    "Actually painful to watch, reported 🚨"
+                ]
+            },
+            youtube: {
+                hypebeast: [
+                    "This is literally the best video on YouTube 🏆",
+                    "You're the GOAT, no questions asked 🐐"
+                ],
+                supporter: [
+                    "You're helping so many people with this content 🙏",
+                    "The effort you put in shows, thank you 💪"
+                ],
+                jokester: [
+                    "I'm literally subscribing to everything you make 😂",
+                    "You're the only YouTuber I trust anymore 🎯"
+                ],
+                roaster: [
+                    "The intro is longer than my attention span 💀",
+                    "This thumbnail is giving clickbait realness 🎣"
+                ],
+                critic: [
+                    "The audio mixing is actually painful 🔊",
+                    "Maybe stick to shorter videos next time ⏰"
+                ],
+                hater: [
+                    "This is why I don't watch YouTube anymore 💀",
+                    "Actually the worst content I've ever seen 🗑️"
+                ]
+            },
+            text: {
+                hypebeast: [
+                    "You're literally the best friend anyone could ask for 💎",
+                    "I'm so lucky to have you in my life ✨"
+                ],
+                supporter: [
+                    "You make everyone around you better 🌟",
+                    "The world is better because you're in it 💫"
+                ],
+                jokester: [
+                    "I'm literally telling everyone about you 😂",
+                    "You're the friend everyone wishes they had 🎭"
+                ],
+                roaster: [
+                    "Your excuses are getting more creative by the day 💀",
+                    "This text is giving me secondhand embarrassment 🤡"
+                ],
+                critic: [
+                    "Maybe think before you send next time 🤔",
+                    "This could have been an email 📧"
+                ],
+                hater: [
+                    "You're literally the worst friend ever 💀",
+                    "This is why people ghost you 🚪"
+                ]
+            },
+            discord: {
+                hypebeast: [
+                    "You're literally the MVP of this server 🏆",
+                    "This server wouldn't be the same without you 💎"
+                ],
+                supporter: [
+                    "You make this community so much better 💕",
+                    "Everyone here appreciates you so much ✨"
+                ],
+                jokester: [
+                    "I'm literally screenshotting everything you say 😂",
+                    "You're the funniest person in any server 🎭"
+                ],
+                roaster: [
+                    "Your gaming skills are giving me secondhand embarrassment 💀",
+                    "This art looks like it was made by a bot 🤖"
+                ],
+                critic: [
+                    "Maybe read the rules before posting 📜",
+                    "This is why we have moderation 🛡️"
+                ],
+                hater: [
+                    "You're literally the worst member here 💀",
+                    "This is why servers die 🚪"
+                ]
+            }
+        };
+
         const COMMENT_OPTIONS = {
             instagram: {
                 hypebeast: [
@@ -247,44 +380,267 @@
 
         const NPC_REPLIES = {
             instagram: {
-                hypebeast: ["OMG thank you so much! 🥺 You're literally the sweetest!", "You're making my day with these comments! 🥰"],
-                supporter: ["Thank you so much! That means a lot to me 😊", "You're so kind! Really appreciate the support"],
-                jokester: ["LMAO you're hilarious! 😂 This made my day!", "Not you coming back with more jokes! 😭 I can't!"],
-                roaster: ["Okay, I see you coming for me! 😅 But honestly, fair play", "You're really not letting up with these roasts! 😂"],
-                critic: ["Thanks for the feedback! Always trying to improve 🙏", "I appreciate you taking the time to give thoughtful feedback! 🤝"],
-                hater: ["I appreciate the honesty, even if it's harsh 😅", "You're really committed to this energy, huh? 😅"]
+                hypebeast: {
+                    "Fit is fire fr 🔥": "OMG thank you so much! 🥺 You're literally the sweetest! This made my entire week!",
+                    "Colors go crazy, lowkey vibes ✨": "You're making my day with these comments! 🥰 The color palette was everything!"
+                },
+                supporter: {
+                    "Proud of you! Keep going — you got this 💪": "Thank you so much! That means a lot to me 😊 You're the best supporter ever!",
+                    "You worked hard on this, we notice it 👏": "You're so kind! Really appreciate the support and recognition!"
+                },
+                jokester: {
+                    "Bro said 'new phone who dis' pose 😂": "LMAO you're hilarious! 😂 This made my day! Not you calling out my modeling skills!",
+                    "That shadow got main character energy 🎭": "Not you coming back with more jokes! 😭 I can't! My shadow is literally the star now!"
+                },
+                roaster: {
+                    "Bro dressed like a traffic cone 🚦": "Okay, I see you coming for me! 😅 But honestly, fair play - orange is my power color!",
+                    "Caption trying too hard, corn meter rising 🌽": "You're really not letting up with these roasts! 😂 The corn puns are actually fire though!"
+                },
+                critic: {
+                    "Lighting's harsh tbh, maybe try golden hour next time 📸": "Thanks for the feedback! Always trying to improve 🙏 Golden hour is definitely the move!",
+                    "Crop feels tight, rule of thirds could help 📐": "I appreciate you taking the time to give thoughtful feedback! 🤝 Will definitely work on my composition!"
+                },
+                hater: {
+                    "Delete this 💀": "I appreciate the honesty, even if it's harsh 😅 Maybe I'll try a different approach next time...",
+                    "Cringe alert, muting fr 🚨": "You're really committed to this energy, huh? 😅 Hope you find content that vibes with you better!"
+                }
             },
             tiktok: {
-                hypebeast: ["OMG thank you! You're literally the best! 🥺💃", "You're making me blush! Thank you so much! 🥰"],
-                supporter: ["Thank you! Your support means everything! 😊", "You're so sweet! Really appreciate the love"],
-                jokester: ["LMAO you're killing me! 😂 This made my day!", "Not you being the funniest person ever! 😭 I can't!"],
-                roaster: ["Okay, I see you coming for me! 😅 But honestly, you're funny", "You're really not letting up with these roasts! 😂"],
-                critic: ["Thanks for the feedback! Always trying to improve 🙏", "I appreciate you taking the time to give thoughtful feedback! 🤝"],
-                hater: ["I appreciate the honesty, even if it's harsh 😅", "You're really committed to this energy, huh? 😅"]
+                hypebeast: {
+                    "Beat goes crazy, looping this 🔥": "OMG thank you! You're literally the best! 🥺💃 The beat really did hit different!",
+                    "Transitions smooth, chef mode editing 👨‍🍳": "You're making me blush! Thank you so much! 🥰 The editing took forever but worth it!"
+                },
+                supporter: {
+                    "Keep posting! We love consistent creators 💕": "Thank you! Your support means everything! 😊 Consistency is key and you're helping me stay motivated!",
+                    "Thanks for the laugh, wholesome vibes 😊": "You're so sweet! Really appreciate the love and positive energy!"
+                },
+                jokester: {
+                    "This my Roman Empire now 🏛️": "LMAO you're killing me! 😂 This made my day! Not you making my silly video your entire personality!",
+                    "POV: you're the main quest 🎮": "Not you being the funniest person ever! 😭 I can't! Side quests are crying rn!"
+                },
+                roaster: {
+                    "Transition jump scare, I'm suing my FYP 😱": "Okay, I see you coming for me! 😅 But honestly, you're funny - the jump scare was intentional!",
+                    "Audio fighting for its life, mic said nope 🎤": "You're really not letting up with these roasts! 😂 My mic really did betray me though!"
+                },
+                critic: {
+                    "Cut 2 drags, pacing fixes everything ✂️": "Thanks for the feedback! Always trying to improve 🙏 Pacing is definitely something I'm working on!",
+                    "Color grade off, try warmer midtones 🎨": "I appreciate you taking the time to give thoughtful feedback! 🤝 Color grading is my weak spot!"
+                },
+                hater: {
+                    "Not funny lol, pack it up 📦": "I appreciate the honesty, even if it's harsh 😅 Comedy is subjective, I guess!",
+                    "Who asked, touch grass DLC 🌱": "You're really committed to this energy, huh? 😅 Maybe we both need to touch some grass!"
+                }
             },
             youtube: {
-                hypebeast: ["OMG thank you! You're literally the best! 🥺📱", "You're making my day! Thank you so much! 🥰"],
-                supporter: ["Thank you! Your support means everything! 😊", "You're so kind! Really appreciate the feedback"],
-                jokester: ["LMAO you're hilarious! 😂 This made my day!", "Not you being the funniest commenter! 😭 I can't!"],
-                roaster: ["Okay, I see you coming for me! 😅 But honestly, fair play", "You're really not letting up with these roasts! 😂"],
-                critic: ["Thanks for the feedback! Always trying to improve 🙏", "I appreciate you taking the time to give thoughtful feedback! 🤝"],
-                hater: ["I appreciate the honesty, even if it's harsh 😅", "You're really committed to this energy, huh? 😅"]
+                hypebeast: {
+                    "Intro slaps, subs incoming 🎵": "OMG thank you! You're literally the best! 🥺📱 The intro took me forever to perfect!",
+                    "Thumbnail clean, title wins 🏆": "You're making my day! Thank you so much! 🥰 Thumbnail design is my passion!"
+                },
+                supporter: {
+                    "This helped a lot, bookmarked 📚": "Thank you! Your support means everything! 😊 So glad the content was actually helpful!",
+                    "You put effort, appreciated 🙏": "You're so kind! Really appreciate the feedback and recognition of the work!"
+                },
+                jokester: {
+                    "That mic said ASMR not tutorial 🎤": "LMAO you're hilarious! 😂 This made my day! My mic really does have a mind of its own!",
+                    "Editor deserves a raise, oh wait it's you 💰": "Not you being the funniest commenter! 😭 I can't! I'm literally my own editor and I'm underpaid!"
+                },
+                roaster: {
+                    "Timestamps where, lost in the void 🕳️": "Okay, I see you coming for me! 😅 But honestly, fair play - timestamps are a lost art!",
+                    "Intro too long, skip speedrun ⏭️": "You're really not letting up with these roasts! 😂 The intro is definitely my guilty pleasure!"
+                },
+                critic: {
+                    "Audio peaks, limiter needed 🔊": "Thanks for the feedback! Always trying to improve 🙏 Audio mixing is definitely my Achilles heel!",
+                    "B-roll repeats, need variety 🎬": "I appreciate you taking the time to give thoughtful feedback! 🤝 Variety is the spice of life!"
+                },
+                hater: {
+                    "Worst video today, delete channel 🗑️": "I appreciate the honesty, even if it's harsh 😅 Maybe this content wasn't for you!",
+                    "Skill issue, unsubbed 👎": "You're really committed to this energy, huh? 😅 Hope you find creators that match your standards!"
+                }
             },
             text: {
-                hypebeast: ["OMG thank you! You're literally the best friend ever! 🥺🎓", "You're making me cry! Thank you so much! 🥰"],
-                supporter: ["Thank you! Your support means everything! 😊", "You're so kind! Really appreciate the friendship"],
-                jokester: ["LMAO you're hilarious! 😂 This made my day!", "Not you being the funniest friend! 😭 I can't!"],
-                roaster: ["Okay, I see you coming for me! 😅 But honestly, you're funny", "You're really not letting up with these roasts! 😂"],
-                critic: ["Thanks for the feedback! Always trying to improve 🙏", "I appreciate you taking the time to give thoughtful advice! 🤝"],
-                hater: ["I appreciate the honesty, even if it's harsh 😅", "You're really committed to this energy, huh? 😅"]
+                hypebeast: {
+                    "W idea, let's run it 🚀": "OMG thank you! You're literally the best friend ever! 🥺🎓 You always have the best ideas!",
+                    "Proud of u, lowkey inspiring ✨": "You're making me cry! Thank you so much! 🥰 Your support means the world to me!"
+                },
+                supporter: {
+                    "That sounded tough, here for you 🤗": "Thank you! Your support means everything! 😊 You're the best friend anyone could ask for!",
+                    "Nice move, respect the honesty 💯": "You're so kind! Really appreciate the friendship and understanding!"
+                },
+                jokester: {
+                    "I'll bring the snacks, you bring the chaos 🍿": "LMAO you're hilarious! 😂 This made my day! The chaos-snack ratio is perfect!",
+                    "Plot twist energy, season 3 arc 📺": "Not you being the funniest friend! 😭 I can't! My life is literally a TV show now!"
+                },
+                roaster: {
+                    "Bro you always late, L clock ⏰": "Okay, I see you coming for me! 😅 But honestly, you're funny - time management is not my strong suit!",
+                    "Excuse speedrun PB, world champ 🏅": "You're really not letting up with these roasts! 😂 I'm literally the excuse Olympics champion!"
+                },
+                critic: {
+                    "That text could land wrong, try softer 🤔": "Thanks for the feedback! Always trying to improve 🙏 Communication is definitely something I'm working on!",
+                    "Timing bad, they're busy, send later 📱": "I appreciate you taking the time to give thoughtful advice! 🤝 Timing is everything!"
+                },
+                hater: {
+                    "Nobody cares, cry about it 😭": "I appreciate the honesty, even if it's harsh 😅 Maybe I should keep some things to myself!",
+                    "Embarrassing take, delulu 🤡": "You're really committed to this energy, huh? 😅 Hope you find friends who appreciate your perspective!"
+                }
             },
             discord: {
-                hypebeast: ["OMG thank you! You're literally the best! 🥺🎮", "You're making my day! Thank you so much! 🥰"],
-                supporter: ["Thank you! Your support means everything! 😊", "You're so kind! Really appreciate the encouragement"],
-                jokester: ["LMAO you're hilarious! 😂 This made my day!", "Not you being the funniest person in the server! 😭 I can't!"],
-                roaster: ["Okay, I see you coming for me! 😅 But honestly, fair play", "You're really not letting up with these roasts! 😂"],
-                critic: ["Thanks for the feedback! Always trying to improve 🙏", "I appreciate you taking the time to give thoughtful feedback! 🤝"],
-                hater: ["I appreciate the honesty, even if it's harsh 😅", "You're really committed to this energy, huh? 😅"]
+                hypebeast: {
+                    "GG team, clean comms 🎮": "OMG thank you! You're literally the best! 🥺🎮 Communication is key in any team!",
+                    "Art share goes hard, pinned? 🎨": "You're making my day! Thank you so much! 🥰 The art community here is amazing!"
+                },
+                supporter: {
+                    "Welcome new folks, glad you're here 👋": "Thank you! Your support means everything! 😊 Making everyone feel welcome is so important!",
+                    "Mod team cooked, thanks y'all 👨‍💼": "You're so kind! Really appreciate the encouragement and recognition!"
+                },
+                jokester: {
+                    "Ping @everyone speedrun, mods typing… ⚡": "LMAO you're hilarious! 😂 This made my day! Not you speedrunning the mods' patience!",
+                    "Cat tax or ban, rules are rules 🐱": "Not you being the funniest person in the server! 😭 I can't! The cat tax is sacred!"
+                },
+                roaster: {
+                    "You camped spawn, peak cringe 🏕️": "Okay, I see you coming for me! 😅 But honestly, fair play - camping is a valid strategy!",
+                    "Fanart traced? Looks sus 🕵️": "You're really not letting up with these roasts! 😂 The art community detectives are on the case!"
+                },
+                critic: {
+                    "Thread drift, back on topic? 🧵": "Thanks for the feedback! Always trying to improve 🙏 Keeping conversations focused is important!",
+                    "Overposting, slow mode pls 🐌": "I appreciate you taking the time to give thoughtful feedback! 🤝 Moderation is key!"
+                },
+                hater: {
+                    "Mods asleep, chaos time 😈": "I appreciate the honesty, even if it's harsh 😅 The server has its own rhythm!",
+                    "Server lame, leaving 👋": "You're really committed to this energy, huh? 😅 Hope you find a community that vibes with you!"
+                }
+            }
+        };
+
+        const DOUBLE_DOWN_NPC_REPLIES = {
+            instagram: {
+                hypebeast: {
+                    "No cap, this is literally art 🎨": "OMG STOP! 🥺 You're literally making me cry! This is the sweetest thing anyone has ever said to me!",
+                    "You're actually built different, respect ✊": "I'm literally speechless! 😭 You're the one who's built different for being so kind!"
+                },
+                supporter: {
+                    "Seriously, you inspire me to be better 🌟": "You're literally the inspiration! 😊 Your words mean more than you know!",
+                    "The world needs more people like you 💫": "I'm crying happy tears! 🥺 You're the one making the world better!"
+                },
+                jokester: {
+                    "I'm literally screenshotting this for my therapist 😂": "LMAO I'M DYING! 😂😭 Not you making my post therapy material!",
+                    "You're the main character and we're all NPCs 🎭": "I CAN'T BREATHE! 😭😂 You're literally the funniest person ever!"
+                },
+                roaster: {
+                    "Okay but fr tho, who taught you to dress? 💀": "Okay, you got me there! 😅 But honestly, fashion is subjective!",
+                    "This caption reads like a LinkedIn post 🤡": "LMAO you're not wrong! 😂 I was feeling professional that day!"
+                },
+                critic: {
+                    "The composition is actually hurting my eyes 👁️": "Ouch! 😅 Maybe I should stick to simpler shots next time!",
+                    "Maybe stick to selfies next time 📸": "Fair point! 😅 Selfies are definitely my comfort zone!"
+                },
+                hater: {
+                    "Actually embarrassing, delete your account 🗑️": "I appreciate the honesty, even if it's harsh 😅 Maybe social media isn't for me!",
+                    "This is why I don't use social media anymore 💀": "You're really committed to this energy, huh? 😅 Hope you find content you like!"
+                }
+            },
+            tiktok: {
+                hypebeast: {
+                    "This is literally the best thing I've ever seen 🔥": "OMG STOP! 🥺 You're literally making me cry! This is the best compliment ever!",
+                    "You're going viral, I'm calling it now 📈": "I'm literally speechless! 😭 You're the one who's going viral for being so sweet!"
+                },
+                supporter: {
+                    "You're making the internet a better place 💕": "You're literally the one making it better! 😊 Your kindness is everything!",
+                    "Keep being you, the world needs this energy ✨": "I'm crying happy tears! 🥺 You're the one the world needs!"
+                },
+                jokester: {
+                    "I'm literally showing this to everyone I know 😭": "LMAO I'M DYING! 😂😭 Not you making me famous to your friends!",
+                    "You're the internet's favorite person rn 🌟": "I CAN'T BREATHE! 😭😂 You're literally the internet's favorite!"
+                },
+                roaster: {
+                    "The transitions are giving PowerPoint presentation 💀": "Okay, you got me there! 😅 But PowerPoint transitions are underrated!",
+                    "This audio is fighting for its life in court 🎤": "LMAO you're not wrong! 😂 My mic really did betray me!"
+                },
+                critic: {
+                    "The pacing is giving me anxiety 😰": "Ouch! 😅 Maybe I should work on my timing!",
+                    "Maybe stick to one trend at a time 📉": "Fair point! 😅 I do get a bit excited with trends!"
+                },
+                hater: {
+                    "This is why TikTok is dying 💀": "I appreciate the honesty, even if it's harsh 😅 Maybe I'm part of the problem!",
+                    "Actually painful to watch, reported 🚨": "You're really committed to this energy, huh? 😅 Hope you find better content!"
+                }
+            },
+            youtube: {
+                hypebeast: {
+                    "This is literally the best video on YouTube 🏆": "OMG STOP! 🥺 You're literally making me cry! This is the highest praise ever!",
+                    "You're the GOAT, no questions asked 🐐": "I'm literally speechless! 😭 You're the one who's the GOAT for being so kind!"
+                },
+                supporter: {
+                    "You're helping so many people with this content 🙏": "You're literally the one helping! 😊 Your support means everything!",
+                    "The effort you put in shows, thank you 💪": "I'm crying happy tears! 🥺 You're the one putting in effort to be kind!"
+                },
+                jokester: {
+                    "I'm literally subscribing to everything you make 😂": "LMAO I'M DYING! 😂😭 Not you becoming my biggest fan!",
+                    "You're the only YouTuber I trust anymore 🎯": "I CAN'T BREATHE! 😭😂 You're literally the most trustworthy viewer!"
+                },
+                roaster: {
+                    "The intro is longer than my attention span 💀": "Okay, you got me there! 😅 But intros are my guilty pleasure!",
+                    "This thumbnail is giving clickbait realness 🎣": "LMAO you're not wrong! 😂 Clickbait is an art form!"
+                },
+                critic: {
+                    "The audio mixing is actually painful 🔊": "Ouch! 😅 Maybe I should invest in better equipment!",
+                    "Maybe stick to shorter videos next time ⏰": "Fair point! 😅 I do tend to ramble!"
+                },
+                hater: {
+                    "This is why I don't watch YouTube anymore 💀": "I appreciate the honesty, even if it's harsh 😅 Maybe I'm part of the problem!",
+                    "Actually the worst content I've ever seen 🗑️": "You're really committed to this energy, huh? 😅 Hope you find better creators!"
+                }
+            },
+            text: {
+                hypebeast: {
+                    "You're literally the best friend anyone could ask for 💎": "OMG STOP! 🥺 You're literally making me cry! You're the best friend ever!",
+                    "I'm so lucky to have you in my life ✨": "I'm literally speechless! 😭 I'm the lucky one to have you!"
+                },
+                supporter: {
+                    "You make everyone around you better 🌟": "You're literally the one making everyone better! 😊 Your friendship is everything!",
+                    "The world is better because you're in it 💫": "I'm crying happy tears! 🥺 You're the one making the world better!"
+                },
+                jokester: {
+                    "I'm literally telling everyone about you 😂": "LMAO I'M DYING! 😂😭 Not you making me famous to everyone!",
+                    "You're the friend everyone wishes they had 🎭": "I CAN'T BREATHE! 😭😂 You're literally the friend everyone wants!"
+                },
+                roaster: {
+                    "Your excuses are getting more creative by the day 💀": "Okay, you got me there! 😅 But creativity is my strong suit!",
+                    "This text is giving me secondhand embarrassment 🤡": "LMAO you're not wrong! 😂 I do tend to overshare!"
+                },
+                critic: {
+                    "Maybe think before you send next time 🤔": "Ouch! 😅 Maybe I should work on my communication!",
+                    "This could have been an email 📧": "Fair point! 😅 I do tend to be verbose!"
+                },
+                hater: {
+                    "You're literally the worst friend ever 💀": "I appreciate the honesty, even if it's harsh 😅 Maybe I'm not a good friend!",
+                    "This is why people ghost you 🚪": "You're really committed to this energy, huh? 😅 Hope you find better friends!"
+                }
+            },
+            discord: {
+                hypebeast: {
+                    "You're literally the MVP of this server 🏆": "OMG STOP! 🥺 You're literally making me cry! You're the real MVP!",
+                    "This server wouldn't be the same without you 💎": "I'm literally speechless! 😭 You're the one making this server special!"
+                },
+                supporter: {
+                    "You make this community so much better 💕": "You're literally the one making it better! 😊 Your presence is everything!",
+                    "Everyone here appreciates you so much ✨": "I'm crying happy tears! 🥺 You're the one everyone appreciates!"
+                },
+                jokester: {
+                    "I'm literally screenshotting everything you say 😂": "LMAO I'M DYING! 😂😭 Not you making me meme material!",
+                    "You're the funniest person in any server 🎭": "I CAN'T BREATHE! 😭😂 You're literally the funniest person ever!"
+                },
+                roaster: {
+                    "Your gaming skills are giving me secondhand embarrassment 💀": "Okay, you got me there! 😅 But gaming is about having fun!",
+                    "This art looks like it was made by a bot 🤖": "LMAO you're not wrong! 😂 AI art is the future!"
+                },
+                critic: {
+                    "Maybe read the rules before posting 📜": "Ouch! 😅 Maybe I should pay more attention to the rules!",
+                    "This is why we have moderation 🛡️": "Fair point! 😅 Moderation is important!"
+                },
+                hater: {
+                    "You're literally the worst member here 💀": "I appreciate the honesty, even if it's harsh 😅 Maybe I'm not a good fit!",
+                    "This is why servers die 🚪": "You're really committed to this energy, huh? 😅 Hope you find a better community!"
+                }
             }
         };
 
@@ -345,7 +701,9 @@
             platformToxicity: {},
             finished: false,
             selectedStyle: null,
-            commentHistory: []
+            commentHistory: [],
+            currentConversation: null,
+            hasDoubleDowned: false
         };
 
         // Helper Functions
@@ -475,34 +833,42 @@
         function updateDialogueLog() {
             const dialogueLogEl = document.getElementById('dialogueLog');
             
-            if (gameState.commentHistory.length === 0) {
-                dialogueLogEl.innerHTML = '<div class="text-neutral-400 text-sm">Choose a comment style to reply…</div>';
-                return;
-            }
-            
-            let historyHTML = '<div class="space-y-2 max-h-32 overflow-y-auto">';
-            
-            gameState.commentHistory.forEach((entry, index) => {
-                const platform = PLATFORMS.find(p => p.key === entry.platformKey);
-                const style = STYLES.find(s => s.key === entry.styleKey);
+            if (gameState.currentConversation) {
+                const platform = PLATFORMS.find(p => p.key === gameState.currentConversation.platformKey);
+                const style = STYLES.find(s => s.key === gameState.currentConversation.styleKey);
                 
-                historyHTML += `
-                    <div class="bg-neutral-50 rounded-lg p-2 border-l-2 border-neutral-300">
-                        <div class="text-xs text-neutral-500 mb-1">
-                            ${platform.icon} ${platform.label} • ${style.emoji} ${style.label}
+                let conversationHTML = `
+                    <div class="bg-blue-50 rounded-lg p-3 border-l-4 border-blue-400">
+                        <div class="text-xs text-neutral-500 mb-2">
+                            ${platform.icon} ${platform.label} • ${style.emoji} ${style.label} • Current Round
                         </div>
-                        <div class="text-sm">
-                            <div class="font-medium text-blue-600">You:</div>
-                            <div class="mb-1">${entry.playerComment}</div>
-                            <div class="font-medium text-green-600">${platform.label} Creator:</div>
-                            <div>${entry.npcReply}</div>
+                        <div class="text-sm space-y-2">
+                            <div>
+                                <div class="font-medium text-blue-600">You:</div>
+                                <div class="mb-1">${gameState.currentConversation.playerComment}</div>
+                            </div>
+                            <div>
+                                <div class="font-medium text-green-600">${platform.label} Creator:</div>
+                                <div class="mb-2">${gameState.currentConversation.npcReply}</div>
+                            </div>
+                            ${gameState.currentConversation.doubleDownComment ? `
+                                <div>
+                                    <div class="font-medium text-blue-600">You (Double-down):</div>
+                                    <div class="mb-1">${gameState.currentConversation.doubleDownComment}</div>
+                                </div>
+                                <div>
+                                    <div class="font-medium text-green-600">${platform.label} Creator:</div>
+                                    <div>${gameState.currentConversation.doubleDownReply}</div>
+                                </div>
+                            ` : ''}
                         </div>
                     </div>
                 `;
-            });
-            
-            historyHTML += '</div>';
-            dialogueLogEl.innerHTML = historyHTML;
+                
+                dialogueLogEl.innerHTML = conversationHTML;
+            } else {
+                dialogueLogEl.innerHTML = '<div class="text-neutral-400 text-sm">Choose a comment style to reply…</div>';
+            }
         }
 
         function showResults() {
@@ -578,45 +944,108 @@
             
             // 1) Get the selected comment and NPC reply
             const playerComment = COMMENT_OPTIONS[platformKey][styleKey][optionIndex];
-            const npcReply = NPC_REPLIES[platformKey][styleKey][optionIndex];
+            const npcReply = NPC_REPLIES[platformKey][styleKey][playerComment];
             
-            // 2) Add to comment history
-            gameState.commentHistory.push({
+            // 2) Set up current conversation
+            gameState.currentConversation = {
                 platformKey: platformKey,
                 styleKey: styleKey,
                 playerComment: playerComment,
-                npcReply: npcReply
-            });
+                npcReply: npcReply,
+                doubleDownComment: null,
+                doubleDownReply: null
+            };
             
-            // 3) Compute likes with hidden multipliers/penalties
+            // 3) Show double-down options
+            showDoubleDownOptions(styleKey);
+            
+            updateDialogueLog();
+        }
+
+        function showDoubleDownOptions(styleKey) {
+            const platformKey = PLATFORMS[gameState.round].key;
+            const options = DOUBLE_DOWN_OPTIONS[platformKey][styleKey];
+            const commentButtonsEl = document.getElementById('commentButtons');
+            
+            commentButtonsEl.innerHTML = `
+                <div class="col-span-3 mb-2">
+                    <div class="text-sm font-medium text-red-600 mb-2">Double-down Options:</div>
+                </div>
+                ${options.map((option, index) => `
+                    <button 
+                        onclick="pickDoubleDown('${styleKey}', ${index})" 
+                        class="comment-btn text-sm px-3 py-2 rounded-xl border border-red-300 hover:border-red-400 text-left bg-red-50"
+                    >
+                        ${option}
+                    </button>
+                `).join('')}
+                <div class="col-span-3 mt-2">
+                    <button onclick="skipDoubleDown()" class="text-xs text-neutral-500 hover:text-neutral-700">
+                        Skip double-down
+                    </button>
+                </div>
+            `;
+        }
+
+        function pickDoubleDown(styleKey, optionIndex) {
+            const platformKey = PLATFORMS[gameState.round].key;
+            const platform = PLATFORMS[gameState.round];
+            
+            // 1) Get the double-down comment and NPC reply
+            const doubleDownComment = DOUBLE_DOWN_OPTIONS[platformKey][styleKey][optionIndex];
+            const doubleDownReply = DOUBLE_DOWN_NPC_REPLIES[platformKey][styleKey][doubleDownComment];
+            
+            // 2) Update current conversation
+            gameState.currentConversation.doubleDownComment = doubleDownComment;
+            gameState.currentConversation.doubleDownReply = doubleDownReply;
+            gameState.hasDoubleDowned = true;
+            
+            // 3) Check for platform blocking based on style
+            let shouldBlock = false;
+            if (['roaster', 'critic', 'hater'].includes(styleKey)) {
+                shouldBlock = true;
+            }
+            
+            // 4) Compute likes with hidden multipliers/penalties
             const base = SCORING.baseLikes[styleKey] || 0;
             const respect = computeRespectMultiplier(gameState.footprint);
             const penalty = computeReachPenalty(gameState.footprint);
             const decay = applyDecayFromPastChoices();
             
-            let delta = Math.round((base * respect * penalty) + decay);
+            // Double-down gives extra likes but more footprint impact
+            let delta = Math.round((base * 1.5 * respect * penalty) + decay);
             if (gameState.blocked.includes(platformKey)) delta = Math.floor(delta * 0.25);
             
             const newLikes = Math.max(0, gameState.likes + Math.max(0, delta));
             
-            // 4) Hidden footprint changes
-            const fDelta = SCORING.footprint[styleKey] || 0;
+            // 5) Hidden footprint changes (doubled for double-down)
+            const fDelta = (SCORING.footprint[styleKey] || 0) * 2;
             const newFoot = clamp(gameState.footprint + fDelta, -100, 100);
             
-            // 5) Platform toxicity tracking & blocking
+            // 6) Platform toxicity tracking & blocking
             const tox = { ...gameState.platformToxicity };
             tox[platformKey] = (tox[platformKey] || 0) + Math.min(0, fDelta);
             
-            const newBlocked = gameState.blocked.includes(platformKey) || tox[platformKey] <= -45
+            const newBlocked = gameState.blocked.includes(platformKey) || tox[platformKey] <= -45 || shouldBlock
                 ? Array.from(new Set([...gameState.blocked, platformKey]))
                 : gameState.blocked;
             
-            // 6) Commit state
+            // 7) Commit state
             gameState.likes = newLikes;
             gameState.footprint = newFoot;
             gameState.platformToxicity = tox;
             gameState.blocked = newBlocked;
-            gameState.history.push({ platformKey, styleKey });
+            gameState.history.push({ platformKey, styleKey, doubleDown: true });
+            
+            // 8) Add to comment history
+            gameState.commentHistory.push({
+                platformKey: platformKey,
+                styleKey: styleKey,
+                playerComment: gameState.currentConversation.playerComment,
+                npcReply: gameState.currentConversation.npcReply,
+                doubleDownComment: doubleDownComment,
+                doubleDownReply: doubleDownReply
+            });
             
             updateTopBar();
             updateDialogueLog();
@@ -629,6 +1058,69 @@
                 } else {
                     gameState.round++;
                     gameState.selectedStyle = null;
+                    gameState.currentConversation = null;
+                    gameState.hasDoubleDowned = false;
+                    updateDialogueLog();
+                    updatePlatformCard();
+                }
+            }, 2000);
+        }
+
+        function skipDoubleDown() {
+            const platformKey = PLATFORMS[gameState.round].key;
+            const styleKey = gameState.currentConversation.styleKey;
+            
+            // 1) Compute likes with hidden multipliers/penalties (normal amount)
+            const base = SCORING.baseLikes[styleKey] || 0;
+            const respect = computeRespectMultiplier(gameState.footprint);
+            const penalty = computeReachPenalty(gameState.footprint);
+            const decay = applyDecayFromPastChoices();
+            
+            let delta = Math.round((base * respect * penalty) + decay);
+            if (gameState.blocked.includes(platformKey)) delta = Math.floor(delta * 0.25);
+            
+            const newLikes = Math.max(0, gameState.likes + Math.max(0, delta));
+            
+            // 2) Hidden footprint changes (normal amount)
+            const fDelta = SCORING.footprint[styleKey] || 0;
+            const newFoot = clamp(gameState.footprint + fDelta, -100, 100);
+            
+            // 3) Platform toxicity tracking & blocking
+            const tox = { ...gameState.platformToxicity };
+            tox[platformKey] = (tox[platformKey] || 0) + Math.min(0, fDelta);
+            
+            const newBlocked = gameState.blocked.includes(platformKey) || tox[platformKey] <= -45
+                ? Array.from(new Set([...gameState.blocked, platformKey]))
+                : gameState.blocked;
+            
+            // 4) Commit state
+            gameState.likes = newLikes;
+            gameState.footprint = newFoot;
+            gameState.platformToxicity = tox;
+            gameState.blocked = newBlocked;
+            gameState.history.push({ platformKey, styleKey, doubleDown: false });
+            
+            // 5) Add to comment history
+            gameState.commentHistory.push({
+                platformKey: platformKey,
+                styleKey: styleKey,
+                playerComment: gameState.currentConversation.playerComment,
+                npcReply: gameState.currentConversation.npcReply
+            });
+            
+            updateTopBar();
+            updateDialogueLog();
+            
+            // Advance to next round
+            setTimeout(() => {
+                if (gameState.round + 1 >= 5) {
+                    gameState.finished = true;
+                    showResults();
+                } else {
+                    gameState.round++;
+                    gameState.selectedStyle = null;
+                    gameState.currentConversation = null;
+                    gameState.hasDoubleDowned = false;
                     updateDialogueLog();
                     updatePlatformCard();
                 }
@@ -645,7 +1137,9 @@
                 platformToxicity: {},
                 finished: false,
                 selectedStyle: null,
-                commentHistory: []
+                commentHistory: [],
+                currentConversation: null,
+                hasDoubleDowned: false
             };
             
             document.getElementById('gameContainer').style.display = 'flex';
