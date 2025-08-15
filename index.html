@@ -607,9 +607,7 @@
             <h1>💬 Straight to the Comments</h1>
             <p><strong>See how your comments stack up.</strong></p>
             
-            <p>Comment on posts across 5 different platforms. Chase likes, but watch out for what you're really building...</p>
-            
-            <p><strong>🎯 The Twist:</strong> Your Digital Footprint matters more than your like count!</p>
+            <p>Comment on posts across 5 different platforms. Chase likes and see what happens...</p>
             
             <button class="start-game-btn" onclick="startGame()">Start Commenting!</button>
         </div>
@@ -881,6 +879,7 @@
                 this.setupEventListeners();
                 this.updatePlatformDisplay();
                 this.setupDragFunctionality();
+                this.showCommentOptions('hypebeast'); // Show initial comment options
             }
 
             setupEventListeners() {
